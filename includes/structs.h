@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 15:49:43 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/28 15:49:23 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef STRUCTS_H
+#define STRUCTS_H
 
-# include "utilities.h"
-# include "mlx_utils.h"
-# include "structs.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <math.h>
-# include <mlx.h>
+#include <unistd.h>
 
-t_map	*get_map(char *path);
+typedef struct	s_type
+{
+	int		id;
+	char	*data;
+}	t_type;
+
+typedef struct	s_map
+{
+	t_type	**types;
+	char	**map;
+	int		nbtypes;
+	int		w;
+	int		h;
+}	t_map;
+
+typedef struct s_prog
+{
+	void		*mlx;
+	void		*win;
+	int			w_size;
+	t_map		*map;
+}	t_prog;
 
 #endif
