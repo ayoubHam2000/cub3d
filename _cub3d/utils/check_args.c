@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:57:42 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 18:22:21 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:36:20 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static int	check_extention(char *path)
 {
-	char *extention = ft_strrchr(path, '.');
-	if(!extention || !ft_strcmp(extention, ".cub"))
+	char	*extention;
+	
+	extention = ft_strrchr(path, '.');
+	if (!extention || !ft_strcmp(extention, ".cub"))
 	{
 		ft_error("extension not matches\n");
 		return (0);
@@ -25,7 +27,16 @@ static int	check_extention(char *path)
 
 static int	check_file(char *file)
 {
-	//TODO: swba
+	int i;
+	
+	i = open(file, O_RDONLY);
+	if (i < 0)
+	{
+		perror("file");
+		return (0);
+	}
+	else
+		close(i);
 	return (1);
 }
 
