@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 18:01:19 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:23:51 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ int	start_cub3d(char *file)
 {
 	t_prog	*prog;
 
-	prog = init_prog();
+	printf("sdf\n");
+	/*prog = init_prog();
 	if (!prog)
 		return (0);
 	if (!init_mlx(prog))
 		return (0);
-	mlx_loop(prog->mlx);
+	mlx_loop(prog->mlx);*/
 	return (1);
 }
 
