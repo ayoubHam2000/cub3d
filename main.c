@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 14:12:06 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:01:19 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,26 @@ void	*init_mlx(t_prog *prog)
 	return (prog);
 }
 
-int	main()
+int	start_cub3d(char *file)
 {
 	t_prog	*prog;
 
 	prog = init_prog();
 	if (!prog)
-		return (1);
+		return (0);
 	if (!init_mlx(prog))
-		return (1);
+		return (0);
 	mlx_loop(prog->mlx);
-	return (0);
+	return (1);
+}
+
+int	main(int ac, char **av)
+{
+	if (check_arg(ac, av))
+	{
+		if (start_cub3d(av[1]))
+			return (0);
+		return (1);
+	}
+	return (1);
 }

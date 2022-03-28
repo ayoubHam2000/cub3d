@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"utilities.h": "c"
+		"utilities.h": "c",
+		"cub3d.h": "c"
 	}
 }
