@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/03/28 14:26:35 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/03/28 18:09:56 by mbel-bas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ UTIL_FILES = \
 	utils/queue_c/q_init.c 
 
 MainFiles = \
+	_cub3d/utils/check_args.c
 
 
 FILES = \
