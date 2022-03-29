@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:46:28 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 16:55:34 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:10:21 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,37 +206,57 @@ t_type	**get_types(int	fd)
 	return (res);
 }
 
+int	get_longest_line_len(char **map)
+{
+	int	i;
+	int	max;
+	
+	max = 0;
+	i = 0;
+	while (map[i])
+	{
+		if (max < ft_strlen(map[i]))
+			max = ft_strlen(map[i]);
+		i++;
+	}
+	return (max);
+}
+
 char	**get_map_data(int fd)
 {
 	t_queue	*queue;
-	char *line;
+	char	*line;
+	char	**res;
+	int		i;
 	
 	queue = q_init();
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[0] != 0 || line[1] != '\n')
+		if (!((!line[0]) || (line[0] == '\n' && !line[1])))
 			q_enqueue(queue, line);
 		line = get_next_line(fd);
 	}
+	res = malloc(sizeof(char *) * (queue->len + 1));
+	i = 0;
+	line = q_dequeue(queue);
+	while (line)
+	{
+		res[i++] = line;
+		line = q_dequeue(queue);
+	}
+	res[i] = NULL;
+	return (res);
 }
 
 t_map	*get_map(char *file)
 {
 	int		fd;
-	char	*line;
 	t_map	*map;
 
 	map = ft_malloc(sizeof(t_map));
-	map->map = NULL;
-	map->types = NULL;
 	fd = open(file, O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
-	{
-		line =
-		line = get_next_line(fd);
-	}
+	
 	close(fd);
 	return (map);
 }
