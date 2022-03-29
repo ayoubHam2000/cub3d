@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:11 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 14:18:32 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/28 20:34:05 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include "ft_malloc.h"
 # include "queue.h"
-
-# define ERR_MALLOC "ERR_MALLOC"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_atoi(const char *str);
@@ -35,8 +35,7 @@ int		ft_error(const char *str);
 void	ft_error_exit(const char *str);
 int		ft_strcmp(char *str1, char *str2);
 
+char	*get_next_line(int fd);
 char	**msk_split(char const *s, int (*f)(char c));
-void	*ft_malloc(size_t size);
-void	free_all(void);
 
 #endif

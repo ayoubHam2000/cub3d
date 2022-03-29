@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 11:33:47 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 14:19:12 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:36:09 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error_exit(const char *str)
 {
-	free_all();
+	free_all(NULL);
 	write(2, str, ft_strlen(str));
 	exit(1);
 }

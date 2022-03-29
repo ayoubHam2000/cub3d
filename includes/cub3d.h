@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 18:31:09 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/28 19:02:06 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <fcntl.h>
 
 t_map	*get_map(char *path);
-int	    check_arg(int ac, char **av);
+int		check_arg(int ac, char **av);
+void	*init_mlx(t_prog *prog);
+t_prog	*init_prog(void);
 
 #endif

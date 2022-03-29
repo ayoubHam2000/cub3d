@@ -1,45 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   ft_malloc.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 14:31:49 by mbel-bas         ###   ########.fr       */
+/*   Created: 2022/03/28 19:03:58 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/29 13:55:01 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-#define STRUCTS_H
+#ifndef FT_MALLOC_H
+# define FT_MALLOC_H
 
-#include <unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-# define NO 0
-# define SO 1
-# define WE 2
-# define EA 3
-# define F 4
-# define C 5
+# define ERR_MALLOC "MALLOC ERROR: not enough memory\n"
 
-typedef struct	s_type
+typedef struct s_add_node
 {
-	int		id;
-	char	*data;
-}	t_type;
+	void				*p;
+	struct s_add_node	*next;
+}	t_add_node;
 
-typedef struct	s_map
-{
-	t_type	**types;
-	char	**map;
-}	t_map;
-
-typedef struct s_prog
-{
-	void		*mlx;
-	void		*win;
-	int			w_size;
-	t_map		*map;
-}	t_prog;
+void		malloc_error(void);
+t_add_node	*add_address(void *new, int get);
+void		*s_malloc(size_t size);
+void		*ft_malloc(size_t size);
+void		ft_addrs_exclude(void *p);
+void		*free_all(void *p);
 
 #endif

@@ -6,20 +6,11 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 14:02:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 14:12:58 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:05:09 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utilities.h"
-
-/*
-* Allocates (with ft_malloc(3)) and returns an array
-	of strings obtained by splitting ’s’ using the
-	character ’c’ as a delimiter. The array must be
-	ended by a NULL pointer.
-* return : The array of new strings resulting from the split.
-	NULL if the allocation fails.
-*/
 
 static size_t	nb_place(char const *s, char c)
 {
@@ -68,9 +59,7 @@ static int	fill_table(char const *s, char c, char **tab)
 		if (*s == 0)
 			break ;
 		count = part_len(s, c);
-		*tab = ft_malloc(part_len(s, c) + 1);
-		if (!(*tab))
-			return (0);
+		*tab = s_malloc(part_len(s, c) + 1);
 		ft_strlcpy(*tab, s, count + 1);
 		s = s + count;
 		tab++;
@@ -88,8 +77,8 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	count = nb_place(s, c);
-	tab = ft_malloc(sizeof(char *) * (count + 1));
-	if (!tab || !fill_table(s, c, tab))
+	tab = s_malloc(sizeof(char *) * (count + 1));
+	if (!fill_table(s, c, tab))
 		return (NULL);
 	return (tab);
 }
