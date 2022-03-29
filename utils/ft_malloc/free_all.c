@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:55:11 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 13:10:06 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:54:51 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-void	free_all(void *p)
+void	*free_all(void *p)
 {
 	t_add_node	*node;
 	t_add_node	*tmp;
@@ -29,4 +29,5 @@ void	free_all(void *p)
 		node = tmp;
 	}
 	add_address(NULL, 2);
+	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:03:58 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 13:02:46 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:55:01 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ t_add_node	*add_address(void *new, int get);
 void		*s_malloc(size_t size);
 void		*ft_malloc(size_t size);
 void		ft_addrs_exclude(void *p);
-void		free_all(void *p);
+void		*free_all(void *p);
 
 #endif

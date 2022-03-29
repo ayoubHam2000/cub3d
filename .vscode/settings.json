@@ -5,6 +5,7 @@
 		"ft_malloc.h": "c",
 		"structs.h": "c",
 		"mlx_utils.h": "c",
-		"queue.h": "c"
+		"queue.h": "c",
+		"cstring": "c"
 	}
 }

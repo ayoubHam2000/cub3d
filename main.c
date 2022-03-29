@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 13:03:13 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 14:08:34 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,19 @@ int	start_cub3d(char *file)
 	return (1);
 }
 
-void	print_add();
+
+
 
 int	main(int ac, char **av)
 {
+	char	*line;
+	int		fd;
+
+	fd = open(av[1], O_RDONLY);
+	while ((line = get_next_line(fd)))
+	{
+		printf("-%d-", ft_strlen(line));
+	}
 	/*if (check_arg(ac, av))
 	{
 		if (start_cub3d(av[1]))

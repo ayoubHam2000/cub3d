@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/03/29 13:09:10 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/03/29 13:33:33 by mbel-bas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ FILES = \
 	main.c
 
 #-Wall -Wextra -Werror
-CFLAGS = -Wall -Wextra -Werror -g -I includes/
+CFLAGS = -g -I includes/
 FLAGS = -lmlx -framework opengl -framework Appkit
 # -fsanitize=address
 DEPFLAGS = -MMD -MF $(@:.o=.d)

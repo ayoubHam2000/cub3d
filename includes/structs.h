@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 15:49:23 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 14:31:49 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #define STRUCTS_H
 
 #include <unistd.h>
+
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+# define F 4
+# define C 5
 
 typedef struct	s_type
 {
@@ -25,9 +32,6 @@ typedef struct	s_map
 {
 	t_type	**types;
 	char	**map;
-	int		nbtypes;
-	int		w;
-	int		h;
 }	t_map;
 
 typedef struct s_prog
