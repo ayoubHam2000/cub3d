@@ -6,11 +6,33 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:46:28 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 21:42:33 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:16:39 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	remove_spaces(char **str)
+{
+	int	count;
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		count = 0;
+		while (str[i][j])
+		{
+			if (str[i][j] != ' ')
+				str[i][count++] = str[i][j];
+			j++;
+		}
+		str[count] = '\0';
+		i++;
+	}
+}
 
 int		check_surrounded_by_one(char **map)
 {
@@ -38,7 +60,7 @@ int		check_surrounded_by_one(char **map)
 	return (1);
 }
 
-static int is_in_charset(char c)
+static int is_in_charset(char c, int *p)
 {
 	const char	set[] = "01NSEW";
 	char		*s;
@@ -52,6 +74,10 @@ static int is_in_charset(char c)
 	}
 	if (!s)
 		return (0);
+	if (*s == 'NSEW')
+		(*p)++;
+	if (*p >= 2)
+		return (0);
 	return (1);
 }
 
@@ -59,14 +85,16 @@ int		check_map(char **map)
 {
 	int	i;
 	int j;
+	int	p;
 	
 	i = 0;
+	p = 0;
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (!is_in_charset(map[i][j]))
+			if (!is_in_charset(map[i][j], &p))
 				return (0);
 			j++;
 		}
