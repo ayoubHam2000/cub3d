@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:53:12 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/10 14:42:04 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:37:32 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include "ft_malloc.h"
 
 typedef struct s_node	t_node;
 struct s_node

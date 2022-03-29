@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   q_enqueue.c                                        :+:      :+:    :+:   */
+/*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 16:25:43 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 13:07:04 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/03/03 14:20:39 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/29 13:10:27 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "queue.h"
+#include "ft_malloc.h"
 
-int	q_enqueue(t_queue *queue, void *p)
+void	*s_malloc(size_t size)
 {
-	t_node	*new;
+	void	*p;
 
-	new = s_malloc(sizeof(t_node));
-	new->p = p;
-	new->next = NULL;
-	if (!queue->first)
-	{
-		queue->first = new;
-		queue->last = new;
-	}
-	else
-	{
-		queue->last->next = new;
-		queue->last = new;
-	}
-	queue->len++;
-	return (1);
+	p = malloc(size);
+	if (!p)
+		malloc_error();
+	add_address(p, 0);
+	return (p);
+}
+
+void	*ft_malloc(size_t size)
+{
+	void	*p;
+
+	p = malloc(size);
+	if (!p)
+		malloc_error();
+	return (p);
 }
