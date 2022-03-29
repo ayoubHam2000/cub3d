@@ -6,6 +6,8 @@
 		"structs.h": "c",
 		"mlx_utils.h": "c",
 		"queue.h": "c",
-		"cstring": "c"
+		"cstring": "c",
+		"unistd.h": "c",
+		"get_next_line.h": "c"
 	}
 }

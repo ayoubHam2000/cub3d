@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*   on_key_up.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 19:01:18 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:22:19 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/02/08 15:35:59 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/29 22:33:11 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	*init_mlx(t_prog *prog)
+int	on_key_up(int keycode, t_prog *prog)
 {
-	prog->mlx = mlx_init();
-	prog->win = mlx_new_window(prog->mlx, prog->w_size, prog->w_size, WIN_TITLE);
-	if (!prog->mlx || !prog->win)
-		return (NULL);
-	prog->img.img = NULL;
-	prog->img.addr = NULL;
-	prog->map = NULL;
-	return (prog);
+	if (keycode == KEY_ESC)
+		return (exit_cube3d(prog));
+	return (0);
 }

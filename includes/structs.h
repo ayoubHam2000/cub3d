@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 14:31:49 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:18:53 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,16 @@ typedef struct	s_map
 {
 	t_type	**types;
 	char	**map;
+	int		w_max;
 }	t_map;
+
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
 
 typedef struct s_prog
 {
@@ -40,6 +49,7 @@ typedef struct s_prog
 	void		*win;
 	int			w_size;
 	t_map		*map;
+	t_data		img;
 }	t_prog;
 
 #endif

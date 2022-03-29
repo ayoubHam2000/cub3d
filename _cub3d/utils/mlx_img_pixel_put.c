@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*   mlx_img_pixel_put.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 19:01:18 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:22:19 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/03/29 22:17:45 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/29 22:26:43 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	*init_mlx(t_prog *prog)
+void	mlx_img_pixel_put(t_prog *prog, int x, int y, int color)
 {
-	prog->mlx = mlx_init();
-	prog->win = mlx_new_window(prog->mlx, prog->w_size, prog->w_size, WIN_TITLE);
-	if (!prog->mlx || !prog->win)
-		return (NULL);
-	prog->img.img = NULL;
-	prog->img.addr = NULL;
-	prog->map = NULL;
-	return (prog);
+	char	*dst;
+
+	//y = prog->w_size - y;
+	if (y >= prog->w_size || x >= prog->w_size)
+		return ;
+	dst = prog->img.addr + (y * prog->img.line_length \
+		+ x * (prog->img.bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

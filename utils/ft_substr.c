@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 11:08:12 by yhakkach          #+#    #+#             */
-/*   Updated: 2022/03/29 13:06:09 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 21:54:48 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_substr(char const *s1, unsigned int start, size_t len)
 	{
 		if (i >= start && j < len)
 		{
-		new[j++] = s1[i];
+			new[j++] = s1[i];
 		}
 		i++;
 	}
