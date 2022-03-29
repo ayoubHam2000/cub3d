@@ -1,6 +1,10 @@
 {
 	"files.associations": {
 		"utilities.h": "c",
-		"cub3d.h": "c"
+		"cub3d.h": "c",
+		"ft_malloc.h": "c",
+		"structs.h": "c",
+		"mlx_utils.h": "c",
+		"queue.h": "c"
 	}
 }

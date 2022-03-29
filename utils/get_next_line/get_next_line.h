@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   q_enqueue.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 16:25:43 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 13:07:04 by aben-ham         ###   ########.fr       */
+/*   Created: 2021/11/26 18:02:17 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/28 18:49:02 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "queue.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFFER_SIZE 10
 
-int	q_enqueue(t_queue *queue, void *p)
-{
-	t_node	*new;
+# include <unistd.h>
+# include <stdlib.h>
 
-	new = s_malloc(sizeof(t_node));
-	new->p = p;
-	new->next = NULL;
-	if (!queue->first)
-	{
-		queue->first = new;
-		queue->last = new;
-	}
-	else
-	{
-		queue->last->next = new;
-		queue->last = new;
-	}
-	queue->len++;
-	return (1);
-}
+char	*mline(char *line, char *str);
+char	*get_next_line(int fd);
+
+#endif

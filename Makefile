@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+         #
+#    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/03/28 18:09:56 by mbel-bas         ###   ########.fr        #
+#    Updated: 2022/03/29 13:09:10 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,15 +26,24 @@ UTIL_FILES = \
 	utils/ft_strrchr.c \
 	utils/ft_error.c \
 	utils/ft_error_exit.c \
-	utils/ft_malloc.c \
 	utils/ft_strcmp.c \
+	utils/ft_malloc/add_address.c \
+	utils/ft_malloc/free_all.c \
+	utils/ft_malloc/ft_addrs_exclude.c \
+	utils/ft_malloc/malloc.c \
+	utils/ft_malloc/malloc_error.c \
 	utils/queue_c/q_clear.c \
 	utils/queue_c/q_dequeue.c \
 	utils/queue_c/q_enqueue.c \
+	utils/get_next_line/get_next_line_utils.c \
+	utils/get_next_line/get_next_line.c \
 	utils/queue_c/q_init.c 
 
 MainFiles = \
-	_cub3d/utils/check_args.c
+	_cub3d/map/get_map.c \
+	_cub3d/utils/check_args.c \
+	_cub3d/utils/init_mlx.c \
+	_cub3d/utils/init_prog.c
 
 
 FILES = \
@@ -43,7 +52,7 @@ FILES = \
 	main.c
 
 #-Wall -Wextra -Werror
-CFLAGS = -g -I includes/
+CFLAGS = -Wall -Wextra -Werror -g -I includes/
 FLAGS = -lmlx -framework opengl -framework Appkit
 # -fsanitize=address
 DEPFLAGS = -MMD -MF $(@:.o=.d)

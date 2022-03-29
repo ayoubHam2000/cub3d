@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 11:08:12 by yhakkach          #+#    #+#             */
-/*   Updated: 2022/03/28 14:13:03 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:06:09 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ char	*ft_substr(char const *s1, unsigned int start, size_t len)
 		return (NULL);
 	i = ft_strlen(s1);
 	if (len > i)
-		new = (char *)ft_malloc(i + 1);
+		new = (char *)s_malloc(i + 1);
 	else
-		new = (char *)ft_malloc(len + 1);
-	if (!new)
-		return (NULL);
+		new = (char *)s_malloc(len + 1);
 	i = 0;
 	while (s1[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:46:28 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 21:42:33 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:09:40 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ int		check_map(char **map)
 
 t_map	*get_map(char *file)
 {
+	path = NULL;
 	return (NULL);
 }

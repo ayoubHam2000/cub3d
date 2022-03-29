@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:29:10 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 14:13:04 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:35:28 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_mask(const char *str, int (*f)(char c))
 	l = 0;
 	while (str[l])
 		l++;
-	mask = ft_malloc(l + 1);
+	mask = s_malloc(l + 1);
 	l = 0;
 	while (str[l])
 	{
@@ -71,7 +71,7 @@ void	fill_table(char **tab, size_t count, char const *s, char *mask)
 		len = mask_type_len(mask);
 		if (mask[0] != '1')
 		{
-			*tab = ft_malloc(len + 1);
+			*tab = s_malloc(len + 1);
 			i = (size_t)(-1);
 			while (++i < len)
 				(*tab)[i] = s[i];
@@ -96,7 +96,7 @@ char	**msk_split(char const *s, int (*f)(char c))
 	f(0);
 	mask = get_mask(s, f);
 	len = nb_place(mask);
-	tab = ft_malloc(sizeof(char *) * (len + 1));
+	tab = s_malloc(sizeof(char *) * (len + 1));
 	fill_table(tab, len, s, mask);
 	return (tab);
 }

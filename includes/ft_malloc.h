@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_malloc.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 19:02:06 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/03/28 19:03:58 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/29 13:02:46 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef FT_MALLOC_H
+# define FT_MALLOC_H
 
-# include "utilities.h"
-# include "mlx_utils.h"
-# include "structs.h"
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <errno.h>
-# include <math.h>
-# include <mlx.h>
-# include <fcntl.h>
 
-t_map	*get_map(char *path);
-int		check_arg(int ac, char **av);
-void	*init_mlx(t_prog *prog);
-t_prog	*init_prog(void);
+# define ERR_MALLOC "MALLOC ERROR: not enough memory\n"
+
+typedef struct s_add_node
+{
+	void				*p;
+	struct s_add_node	*next;
+}	t_add_node;
+
+void		malloc_error(void);
+t_add_node	*add_address(void *new, int get);
+void		*s_malloc(size_t size);
+void		*ft_malloc(size_t size);
+void		ft_addrs_exclude(void *p);
+void		free_all(void *p);
 
 #endif
