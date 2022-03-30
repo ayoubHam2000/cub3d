@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 17:24:55 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:06:22 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:00:26 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_empty_line(char *line)
 	return (0);
 }
 
-int	get_longest_line_len(char **map)
+int	get_longest_line_width(char **map)
 {
 	int	i;
 	int	max;
@@ -44,3 +44,4 @@ int	get_longest_line_len(char **map)
 	}
 	return (max);
 }
+

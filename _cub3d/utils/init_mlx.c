@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:01:18 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:22:19 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:48:40 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,5 @@ void	*init_mlx(t_prog *prog)
 	prog->win = mlx_new_window(prog->mlx, prog->w_size, prog->w_size, WIN_TITLE);
 	if (!prog->mlx || !prog->win)
 		return (NULL);
-	prog->img.img = NULL;
-	prog->img.addr = NULL;
-	prog->map = NULL;
 	return (prog);
 }
