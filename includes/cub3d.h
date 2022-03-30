@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:31:50 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:40:58 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # include <mlx.h>
 # include <fcntl.h>
 
+typedef struct s_point
+{
+	float	x;
+	float	y;
+}	t_point;
+
 //parsing -> map
 int		check_map(char **map);
 char	**get_map_matrix(int fd);
@@ -34,11 +40,11 @@ t_map	*get_map(char *file);
 //map ->utils
 char	*remove_break_line(char *str);
 int		is_empty_line(char *line);
-int		get_longest_line_len(char **map);
+int		get_longest_line_width(char **map);
 
 //events
 int		on_mouse_down(int button, int x, int y, t_prog *prog);
-int		on_key_up(int keycode, t_prog *prog);
+int		on_key_down(int button, int x, int y, t_prog *prog);
 int		exit_cube3d(t_prog *prog);
 
 //general
@@ -47,5 +53,6 @@ void	*init_mlx(t_prog *prog);
 t_prog	*init_prog(void);
 void	*replace_image(t_prog *prog);
 void	mlx_img_pixel_put(t_prog *prog, int x, int y, int color);
+void	game_frame(t_prog *prog);
 
 #endif

@@ -6,13 +6,15 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:33:41 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:41:22 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	on_mouse_down(int button, int x, int y, t_prog *prog)
+int	on_key_down(int button, int x, int y, t_prog *prog)
 {
+	
+	game_frame(prog);
 	return (0);
 }
