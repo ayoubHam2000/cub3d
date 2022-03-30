@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 22:17:45 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:26:43 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:33:39 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	mlx_img_pixel_put(t_prog *prog, int x, int y, int color)
 {
 	char	*dst;
 
-	//y = prog->w_size - y;
-	if (y >= prog->w_size || x >= prog->w_size)
+	if (y >= prog->w_size || x >= prog->w_size || y < 0 || x < 0)
 		return ;
 	dst = prog->img.addr + (y * prog->img.line_length \
 		+ x * (prog->img.bits_per_pixel / 8));

@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 10:35:23 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:45:01 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct s_data {
 	int		endian;
 }	t_data;
 
+typedef struct	s_player
+{
+	float	x;
+	float	y;
+	float	speed;
+	float	angle;
+}	t_player;
+
 typedef struct s_prog
 {
 	void		*mlx;
@@ -50,6 +58,7 @@ typedef struct s_prog
 	int			w_size;
 	t_map		*map;
 	t_data		img;
+	t_player	player;
 }	t_prog;
 
 #endif
