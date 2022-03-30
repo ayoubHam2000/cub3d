@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 18:34:56 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:35:23 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,20 @@ typedef struct	s_type
 	char	*data;
 }	t_type;
 
-typedef struct	s_player
-{
-	int	x;
-	int	y;
-}	t_player;
-
-typedef struct s_draw
-{
-	int		x0;
-	int		x1;
-	int		y0;
-	int		y1;
-	int		dy;
-	int		dx;
-	int		index;
-	int		next;
-	int		i;
-	int		j;
-}	t_draw;
-
 typedef struct	s_map
 {
 	t_type	**types;
 	char	**map;
+	int		w_max;
 }	t_map;
+
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
 
 typedef struct s_prog
 {
@@ -60,6 +49,7 @@ typedef struct s_prog
 	void		*win;
 	int			w_size;
 	t_map		*map;
+	t_data		img;
 }	t_prog;
 
 #endif

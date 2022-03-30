@@ -3,19 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+         #
+#    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/03/29 13:33:33 by mbel-bas         ###   ########.fr        #
+#    Updated: 2022/03/29 22:32:56 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 UTIL_FILES = \
+	utils/ft_arrlen.c \
 	utils/ft_substr.c \
 	utils/ft_atoi.c \
 	utils/ft_memcpy.c \
 	utils/ft_memset.c \
 	utils/ft_split.c \
+	utils/int_check.c \
 	utils/msk_split.c \
 	utils/ft_strchr.c \
 	utils/ft_strdup.c \
@@ -40,9 +42,19 @@ UTIL_FILES = \
 	utils/queue_c/q_init.c 
 
 MainFiles = \
+	_cub3d/events/exit_cube3d.c \
+	_cub3d/events/on_key_up.c \
+	_cub3d/events/on_mouse_down.c \
+	_cub3d/map/check_identifier.c \
+	_cub3d/map/check_map.c \
 	_cub3d/map/get_map.c \
+	_cub3d/map/get_map_matrix.c \
+	_cub3d/map/get_types.c \
+	_cub3d/map/map_utils.c \
 	_cub3d/utils/check_args.c \
 	_cub3d/utils/init_mlx.c \
+	_cub3d/utils/mlx_img_pixel_put.c \
+	_cub3d/utils/replace_image.c \
 	_cub3d/utils/init_prog.c
 
 
