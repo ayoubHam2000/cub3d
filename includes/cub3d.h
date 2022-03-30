@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 11:40:58 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 12:46:44 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int		get_longest_line_width(char **map);
 
 //events
 int		on_mouse_down(int button, int x, int y, t_prog *prog);
-int		on_key_down(int button, int x, int y, t_prog *prog);
+int		on_key_down(int keycode, t_prog *prog);
+int		on_key_up(int keycode, t_prog *prog);
 int		exit_cube3d(t_prog *prog);
 
 //general

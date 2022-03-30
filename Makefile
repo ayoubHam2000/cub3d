@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/03/29 22:32:56 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/03/30 12:39:28 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ FILES = \
 
 #-Wall -Wextra -Werror
 CFLAGS = -g -I includes/
-FLAGS = -lmlx -framework opengl -framework Appkit
+FLAGS = -lmlx -framework opengl -framework Appkit -fsanitize=address
 # -fsanitize=address
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:33:52 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/28 15:37:03 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 12:59:22 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # define KEY_L 123
 # define KEY_R 124
-# define KEY_A 126
-# define KEY_D 125
-# define KEY_W 125
-# define KEY_S 125
+# define KEY_A 0
+# define KEY_D 2
+# define KEY_W 13
+# define KEY_S 1
 # define KEY_ESC 53
 
 # define WIN_TITLE "cub3d"

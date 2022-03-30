@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 11:40:12 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:24:40 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct	s_player
 {
 	float	x;
 	float	y;
+	float	dx;
+	float	dy;
 	float	speed;
 	float	angle;
 }	t_player;

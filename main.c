@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 11:42:23 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:07:02 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ void	draw_line(t_prog *prog, t_point a, t_point b)
 	}
 }
 
+void	draw_line_player(t_prog *prog)
+{
+	float	angle;
+	t_point	a;
+	t_point	b;
+
+	angle = prog->player.angle * 0.01;
+	a.x = prog->player.x;
+	a.y = prog->player.y;
+	b.x = prog->player.dx * cosf(angle) + prog->player.x;
+	b.x = prog->player.dx * sinf(angle) + prog->player.y;
+	draw_line(prog, a, b);
+	//printf("%f\n", sqrtf(x*x + y*y));
+}
+
 void	draw_square(t_prog *prog, int x, int y, int w, int h, int color)
 {
 	int	wx;
@@ -55,7 +70,35 @@ void	draw_square(t_prog *prog, int x, int y, int w, int h, int color)
 
 void	init_player_pos(t_prog *prog)
 {
-	
+	int i;
+	int j;
+	int w;
+	int h;
+
+	w = get_longest_line_width(prog->map->map);
+	w = round(WIN_SIZE / w);
+	h = ft_arrlen((void **)prog->map->map);
+	h = round(WIN_SIZE / h);
+
+	i = 0;
+	while (prog->map->map[i]) {
+		j = 0;
+		while (prog->map->map[i][j]) {
+			if (prog->map->map[i][j] == 'N') {
+				prog->player.x = (j * w) + j + w/2 - 20/2;
+				prog->player.y = (i * h) + i + h/2 - 20/2;
+				return ;
+			}
+			j++;	
+		}
+		i++;
+	}
+}
+
+// TODO : Draw Player
+void	draw_player(t_prog *prog)
+{
+	draw_square(prog, prog->player.x, prog->player.y, 20, 20, 0xffff00);	
 }
 
 void	draw_map(t_prog *prog)
@@ -78,8 +121,6 @@ void	draw_map(t_prog *prog)
 		{
 			if (map[i][j] == '1')
 				draw_square(prog, (j * w) + j, (i * h) + i, w, h, 0xffffff);
-			else if (map[i][j] == 'N')
-				draw_square(prog, ((j * w) + j) + w/2 - 20/2, ((i * h) + i) + h/2 - 20/2, 20, 20, 0xffff00);
 			j++;
 		}
 		i++;
@@ -89,7 +130,10 @@ void	draw_map(t_prog *prog)
 void	game_frame(t_prog *prog)
 {
 	replace_image(prog);
+	replace_image(prog);
 	draw_map(prog);
+	draw_player(prog);
+	draw_line_player(prog);
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
 }
 
@@ -101,6 +145,7 @@ int	start_cub3d(char *file)
 	if (!init_mlx(prog))
 		return (0);
 	prog->map = get_map(file);
+	init_player_pos(prog);	
 	if (!prog || !prog->map)
 	{
 		printf("Error\n");
@@ -108,6 +153,7 @@ int	start_cub3d(char *file)
 	}
 	game_frame(prog);
 	mlx_hook(prog->win, ON_KEYDOWN, 0, on_key_down, prog);
+	mlx_hook(prog->win, ON_KEYUP, 0, on_key_up, prog);
 	mlx_hook(prog->win, ON_DESTROY, 0, exit_cube3d, prog);
 	mlx_loop(prog->mlx);
 	return (1);
