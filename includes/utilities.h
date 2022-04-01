@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:11 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 18:36:57 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/31 11:21:28 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_error_exit(const char *str);
 int		ft_strcmp(char *str1, char *str2);
 int		ft_arrlen(void **arr);
 int		int_check(char *str);
+int		ft_in(char c, const char *str);
 
 char	*get_next_line(int fd);
 char	**msk_split(char const *s, int (*f)(char c));

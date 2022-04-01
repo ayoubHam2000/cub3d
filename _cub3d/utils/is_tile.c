@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_prog.c                                        :+:      :+:    :+:   */
+/*   is_tile.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 14:46:01 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/04/01 17:14:55 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/04/01 17:15:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_prog	*init_prog(void)
+int	is_tile(t_map *map, int x, int y)
 {
-	t_prog	*prog;
-
-	prog = ft_malloc(sizeof(t_prog));
-	prog->w_size = WIN_SIZE;
-	prog->map = NULL;
-	prog->img.img = NULL;
-	prog->img.addr = NULL;
-	prog->player.angle = 0.5f;
-	prog->player.x = 0;
-	prog->player.y = 0;
-	prog->player.dx = 100;
-	prog->player.dy = 100;
-	prog->player.speed = 1;
-	return (prog);
+	if (y < 0 || x < 0 || y >= map->len || x >= ft_strlen(map->map[y]))
+		return (1);
+	if (map->map[y][x] == '1')
+		return (1);
+	return (0);
 }

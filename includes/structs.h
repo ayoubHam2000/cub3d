@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 14:24:40 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:13:41 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_map
 {
 	t_type	**types;
 	char	**map;
-	int		w_max;
+	int		len;
 }	t_map;
 
 typedef struct s_data {
@@ -47,10 +47,15 @@ typedef struct	s_player
 {
 	float	x;
 	float	y;
-	float	dx;
-	float	dy;
+	int		map_x;
+	int		map_y;
 	float	speed;
 	float	angle;
+	float	cos;
+	float	sin;
+	float	angle_speed;
+	float	view_angle;
+	float	view_range;
 }	t_player;
 
 typedef struct s_prog

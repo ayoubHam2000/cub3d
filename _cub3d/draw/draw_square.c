@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_image.c                                    :+:      :+:    :+:   */
+/*   draw_square.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 22:20:10 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 18:14:25 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/04/01 17:31:02 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/04/01 17:31:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	*replace_image(t_prog *prog, int w, int h)
+void	draw_square(int x, int y, int length, int color)
 {
-	if (prog->img.img)
-		mlx_destroy_image(prog->mlx, prog->img.img);
-	prog->img.img = mlx_new_image(prog->mlx, w, h);
-	prog->img.addr = mlx_get_data_addr(prog->img.img, \
-		&(prog->img.bits_per_pixel), \
-		&(prog->img.line_length), &(prog->img.endian));
-	if (!prog->img.img || !prog->img.addr)
-		return (NULL);
-	return (prog);
+	int	wx;
+	int	wy;
+
+	wx = x + length;
+	wy = y + length;
+	x++;
+	while (x < wx - 1)
+	{
+		y = wy - length + 1;
+		while (y < wy - 1)
+		{
+			ft_put_pixel(x, y, color);
+			y++;
+		}
+		x++;
+	}
 }

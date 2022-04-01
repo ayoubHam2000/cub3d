@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_img_pixel_put.c                                :+:      :+:    :+:   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 22:17:45 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 10:33:39 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/04/01 17:23:44 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	mlx_img_pixel_put(t_prog *prog, int x, int y, int color)
+float	ray_casting(t_player *player, float angle)
 {
-	char	*dst;
-
-	if (y >= prog->w_size || x >= prog->w_size || y < 0 || x < 0)
-		return ;
-	dst = prog->img.addr + (y * prog->img.line_length \
-		+ x * (prog->img.bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	player->cos = cosf(angle);
+	player->sin = sinf(angle);
+	return (fmin(ray_casting_x(player), ray_casting_y(player)));
 }
