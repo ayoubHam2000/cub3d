@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 11:44:00 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/03/31 09:26:42 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	draw_square(t_prog *prog, int x, int y, int w, int h, int color)
 		wy = y;
 		while (wy < y + h)
 		{
-			mlx_img_pixel_put(prog, wx, wy, color);		
+			mlx_img_pixel_put(prog, wx, wy, color);	
 			wy++;
 		}
 		wx++;
