@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/03/29 22:32:56 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/04/01 17:33:39 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ UTIL_FILES = \
 	utils/ft_error.c \
 	utils/ft_error_exit.c \
 	utils/ft_strcmp.c \
+	utils/ft_in.c \
 	utils/ft_malloc/add_address.c \
 	utils/ft_malloc/free_all.c \
 	utils/ft_malloc/ft_addrs_exclude.c \
@@ -42,9 +43,15 @@ UTIL_FILES = \
 	utils/queue_c/q_init.c 
 
 MainFiles = \
+	_cub3d/draw/draw_line.c \
+	_cub3d/draw/draw_map.c \
+	_cub3d/draw/draw_square.c \
+	_cub3d/ray_casting/ray_casting.c \
+	_cub3d/ray_casting/ray_casting_x.c \
+	_cub3d/ray_casting/ray_casting_y.c \
 	_cub3d/events/exit_cube3d.c \
 	_cub3d/events/on_key_up.c \
-	_cub3d/events/on_mouse_down.c \
+	_cub3d/events/on_key_down.c \
 	_cub3d/map/check_identifier.c \
 	_cub3d/map/check_map.c \
 	_cub3d/map/get_map.c \
@@ -53,9 +60,12 @@ MainFiles = \
 	_cub3d/map/map_utils.c \
 	_cub3d/utils/check_args.c \
 	_cub3d/utils/init_mlx.c \
-	_cub3d/utils/mlx_img_pixel_put.c \
+	_cub3d/utils/ft_put_pixel.c \
 	_cub3d/utils/replace_image.c \
-	_cub3d/utils/init_prog.c
+	_cub3d/utils/get_prog.c \
+	_cub3d/utils/is_tile.c \
+	_cub3d/game_util.c \
+	_cub3d/game.c
 
 
 FILES = \
@@ -65,7 +75,7 @@ FILES = \
 
 #-Wall -Wextra -Werror
 CFLAGS = -g -I includes/
-FLAGS = -lmlx -framework opengl -framework Appkit
+FLAGS = -lmlx -framework opengl -framework Appkit -fsanitize=address
 # -fsanitize=address
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 

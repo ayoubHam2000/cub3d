@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:46:28 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 21:53:12 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/03/31 21:17:33 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_map	*get_map(char *file)
 		close(fd);
 		return (free_all(NULL));
 	}
+	map->len = ft_arrlen((void **)map->map);
 	close(fd);
 	return (map);
 }

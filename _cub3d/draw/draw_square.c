@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.h                                        :+:      :+:    :+:   */
+/*   draw_square.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 15:33:52 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 12:59:22 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/04/01 17:31:02 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/04/01 17:31:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_UTILS_H
-# define MLX_UTILS_H
+#include "cub3d.h"
 
-# define KEY_L 123
-# define KEY_R 124
-# define KEY_A 0
-# define KEY_D 2
-# define KEY_W 13
-# define KEY_S 1
-# define KEY_ESC 53
+void	draw_square(int x, int y, int length, int color)
+{
+	int	wx;
+	int	wy;
 
-# define WIN_TITLE "cub3d"
-# define WIN_SIZE 1000
-
-enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-};
-
-#endif
+	wx = x + length;
+	wy = y + length;
+	x++;
+	while (x < wx - 1)
+	{
+		y = wy - length + 1;
+		while (y < wy - 1)
+		{
+			ft_put_pixel(x, y, color);
+			y++;
+		}
+		x++;
+	}
+}

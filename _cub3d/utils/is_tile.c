@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_img_pixel_put.c                                :+:      :+:    :+:   */
+/*   is_tile.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 22:17:45 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 10:33:39 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/04/01 17:14:55 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/04/01 17:15:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	mlx_img_pixel_put(t_prog *prog, int x, int y, int color)
+int	is_tile(t_map *map, int x, int y)
 {
-	char	*dst;
-
-	if (y >= prog->w_size || x >= prog->w_size || y < 0 || x < 0)
-		return ;
-	dst = prog->img.addr + (y * prog->img.line_length \
-		+ x * (prog->img.bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	if (y < 0 || x < 0 || y >= map->len || x >= ft_strlen(map->map[y]))
+		return (1);
+	if (map->map[y][x] == '1')
+		return (1);
+	return (0);
 }

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   on_mouse_down.c                                    :+:      :+:    :+:   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 11:41:22 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/04/01 17:23:44 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	on_key_down(int button, int x, int y, t_prog *prog)
+float	ray_casting(t_player *player, float angle)
 {
-	
-	game_frame(prog);
-	return (0);
+	player->cos = cosf(angle);
+	player->sin = sinf(angle);
+	return (fmin(ray_casting_x(player), ray_casting_y(player)));
 }

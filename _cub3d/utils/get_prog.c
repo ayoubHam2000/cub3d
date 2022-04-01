@@ -1,29 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_prog.c                                        :+:      :+:    :+:   */
+/*   get_prog.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 11:40:38 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:13:38 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_prog	*init_prog(void)
+static void	init_player(t_player *player)
 {
-	t_prog	*prog;
+	player->x = 0.0f;
+	player->y = 0.0f;
+	player->map_x = 0;
+	player->map_y = 0;
+	player->speed = 1;
+	player->angle = 0;
+	player->cos = cosf(player->angle);
+	player->sin = sinf(player->angle);
+	player->angle_speed = 0.05;
+	player->view_angle = M_PI * 0.25;
+	player->view_range = 20;
+}
 
-	prog = ft_malloc(sizeof(t_prog));
-	prog->w_size = WIN_SIZE;
-	prog->map = NULL;
-	prog->img.img = NULL;
-	prog->img.addr = NULL;
-	prog->player.angle = 0;
-	prog->player.x = 0;
-	prog->player.y = 0;
-	prog->player.speed = 1;
+t_prog	*get_prog(void)
+{
+	static t_prog	*prog;
+
+	if (!prog)
+	{
+		prog = ft_malloc(sizeof(t_prog));
+		prog->w_size = WIN_SIZE;
+		prog->map = NULL;
+		prog->img.img = NULL;
+		prog->img.addr = NULL;
+		init_player(&prog->player);
+	}
 	return (prog);
 }

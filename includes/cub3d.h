@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 11:40:58 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:14:48 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,22 @@
 # include <mlx.h>
 # include <fcntl.h>
 
+#define INF 2000000
+#define MAX_LINE 1000
+#define TILE_SIZE 10
+#define RAY_LEN 10
+
 typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
+typedef struct s_pointf
 {
 	float	x;
 	float	y;
-}	t_point;
+}	t_pointf;
 
 //parsing -> map
 int		check_map(char **map);
@@ -44,15 +55,32 @@ int		get_longest_line_width(char **map);
 
 //events
 int		on_mouse_down(int button, int x, int y, t_prog *prog);
-int		on_key_down(int button, int x, int y, t_prog *prog);
+int		on_key_down(int keycode, t_prog *prog);
+int		on_key_up(int keycode, t_prog *prog);
 int		exit_cube3d(t_prog *prog);
 
 //general
 int		check_arg(int ac, char **av);
+t_prog	*get_prog(void);
 void	*init_mlx(t_prog *prog);
-t_prog	*init_prog(void);
-void	*replace_image(t_prog *prog);
-void	mlx_img_pixel_put(t_prog *prog, int x, int y, int color);
+void	*replace_image(t_prog *prog, int w, int h);
+void	ft_put_pixel(int x, int y, int color);
 void	game_frame(t_prog *prog);
 
+//draw
+void	draw_map(void);
+void	draw_square(int x, int y, int length, int color);
+void	draw_line(float angle, float length, float offsetx, float offsety, float color);
+
+//ray_casting
+float	ray_casting_x(t_player *player);
+float	ray_casting_y(t_player *player);
+float	ray_casting(t_player *player, float angle);
+
+//game utils
+void	draw_line(float angle, float length, float offsetx, float offsety, float color);
+void	draw_ray(void);
+void	draw_square(int x, int y, int length, int color);
+void	draw_map();
+int		is_tile(t_map *map, int x, int y);
 #endif

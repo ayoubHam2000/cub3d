@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.h                                        :+:      :+:    :+:   */
+/*   ft_put_pixel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 15:33:52 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 12:59:22 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/03/29 22:17:45 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/31 11:32:32 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_UTILS_H
-# define MLX_UTILS_H
+#include "cub3d.h"
 
-# define KEY_L 123
-# define KEY_R 124
-# define KEY_A 0
-# define KEY_D 2
-# define KEY_W 13
-# define KEY_S 1
-# define KEY_ESC 53
+void	ft_put_pixel(int x, int y, int color)
+{
+	static t_prog	*prog;
+	char	*dst;
 
-# define WIN_TITLE "cub3d"
-# define WIN_SIZE 1000
-
-enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-};
-
-#endif
+	if (!prog)
+		prog = get_prog();
+	if (y >= prog->w_size || x >= prog->w_size || y < 0 || x < 0)
+		return ;
+	dst = prog->img.addr + (y * prog->img.line_length \
+		+ x * (prog->img.bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}

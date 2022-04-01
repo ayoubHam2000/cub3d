@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.h                                        :+:      :+:    :+:   */
+/*   ft_in.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 15:33:52 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 12:59:22 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/03/31 11:19:33 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/03/31 11:21:16 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_UTILS_H
-# define MLX_UTILS_H
+#include "utilities.h"
 
-# define KEY_L 123
-# define KEY_R 124
-# define KEY_A 0
-# define KEY_D 2
-# define KEY_W 13
-# define KEY_S 1
-# define KEY_ESC 53
+int	ft_in(char c, const char *str)
+{
+	int	i;
 
-# define WIN_TITLE "cub3d"
-# define WIN_SIZE 1000
-
-enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-};
-
-#endif
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	if (str[i] == c)
+		return (1);
+	return (0);
+}

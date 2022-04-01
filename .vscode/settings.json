@@ -9,6 +9,6 @@
 		"cstring": "c",
 		"unistd.h": "c",
 		"get_next_line.h": "c",
-		"ios": "c"
+		"cmath": "c"
 	}
 }
