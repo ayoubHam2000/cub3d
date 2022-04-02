@@ -6,11 +6,23 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 14:38:20 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 12:49:19 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	change_angle(t_player *player, char c)
+{
+	if (c == 'N')
+		player->angle = M_PI * 1.5;
+	else if (c == 'S')
+		player->angle = M_PI * 0.5;
+	else if (c == 'E')
+		player->angle = 0.0f;
+	else if (c == 'W')
+		player->angle = M_PI;
+}
 
 void	init_player_pos(void)
 {
@@ -33,6 +45,7 @@ void	init_player_pos(void)
 				prog->player.y = x * TILE_SIZE + TILE_SIZE * 0.5;
 				prog->player.map_x = y;
 				prog->player.map_y = x;
+				change_angle(&prog->player, map[x][y]);
 				return ;
 			}
 			y++;

@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 18:13:41 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 09:10:26 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		img_w;
+	int		img_h;
 }	t_data;
 
 typedef struct	s_player

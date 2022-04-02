@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 17:59:55 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 12:44:29 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,18 @@
 #define KEY_dy 40
 #define KEY_REVERSE 44
 
-#define HIT_LEN 2
+#define HIT_LEN 4
+
+t_point	is_can_move(t_player *player, float angle)
+{
+	float	ray;
+	t_point	res;
+
+	ray = ray_casting(player, M_PI * angle);
+	res.x = fabs(cosf(M_PI * angle) * ray);
+	res.y = fabs(sinf(M_PI * angle) * ray);
+	return (res);
+}
 
 int	on_key_down(int keycode, t_prog *prog)
 {
@@ -32,23 +43,18 @@ int	on_key_down(int keycode, t_prog *prog)
 
 	player = &(prog->player);
 	
-	limitx.x = ray_casting(player, 0);
-	limitx.y = ray_casting(player, M_PI);
-	limity.x = ray_casting(player, M_PI * 0.5f);
-	limity.y = ray_casting(player, M_PI * 1.5f);
-	
-	move = player->speed;
-	while (move)
+	move = 0;
+	while (move < player->speed)
 	{
-		if (keycode == KEY_A && limitx.y > HIT_LEN)
+		if (keycode == KEY_A && is_can_move(player, 0.75f).y > HIT_LEN && is_can_move(player, 1.25f).y > HIT_LEN && ray_casting(player, M_PI) > HIT_LEN + 1)
 			player->x--;
-		else if (keycode == KEY_D && limitx.x > 2 * HIT_LEN)
+		else if (keycode == KEY_D && is_can_move(player, 0.25f).y > HIT_LEN && is_can_move(player, 1.75f).y > HIT_LEN && ray_casting(player, 0) > HIT_LEN + 1)
 			player->x++;
-		else if (keycode == KEY_W && limity.y > HIT_LEN)
+		else if (keycode == KEY_W && is_can_move(player, 1.25f).x > HIT_LEN && is_can_move(player, 1.75f).x > HIT_LEN && ray_casting(player, M_PI * 1.5f) > HIT_LEN + 1)
 			player->y--;
-		else if (keycode == KEY_S && limity.x > 2 * HIT_LEN)
+		else if (keycode == KEY_S && is_can_move(player, 0.25f).x > HIT_LEN && is_can_move(player, 0.75f).x > HIT_LEN && ray_casting(player, M_PI * 0.5f) > HIT_LEN + 1)
 			player->y++;
-		move--;
+		move++;
 	}
 	
 	if (keycode == KEY_L)
