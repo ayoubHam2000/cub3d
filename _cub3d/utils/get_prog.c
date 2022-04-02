@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 18:13:38 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 09:54:55 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	init_player(t_player *player)
 	player->y = 0.0f;
 	player->map_x = 0;
 	player->map_y = 0;
-	player->speed = 1;
+	player->speed = 7;
 	player->angle = 0;
 	player->cos = cosf(player->angle);
 	player->sin = sinf(player->angle);

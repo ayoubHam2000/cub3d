@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:30:00 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 17:36:12 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 08:32:32 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_map(void)
 	int		size;
 
 	map = get_prog()->map->map;
-	size = TILE_SIZE;
+	size = TILE_SIZE_MAP;
 	x = 0;
 	while (map[x])
 	{

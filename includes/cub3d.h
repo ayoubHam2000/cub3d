@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 18:14:48 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 08:58:19 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 
 #define INF 2000000
 #define MAX_LINE 1000
-#define TILE_SIZE 10
+#define TILE_SIZE 50
+#define TILE_SIZE_MAP 10
 #define RAY_LEN 10
 
 typedef struct s_point
