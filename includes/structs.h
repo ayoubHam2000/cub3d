@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 09:10:26 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 21:56:51 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_prog
 	void		*mlx;
 	void		*win;
 	int			w_size;
+	int			color;
 	t_map		*map;
 	t_data		img;
 	t_player	player;

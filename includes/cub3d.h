@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 14:49:30 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 22:41:29 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #define MAX_LINE 1000
 #define TILE_SIZE 30
 #define TILE_SIZE_MAP 10
-#define RAY_LEN 10
+#define RAY_LEN 100
 
 typedef struct s_point
 {
@@ -66,6 +66,7 @@ t_prog	*get_prog(void);
 void	*init_mlx(t_prog *prog);
 void	*replace_image(t_prog *prog, int w, int h);
 void	ft_put_pixel(int x, int y, int color);
+void	ft_put_pixel_color(int x, int y);
 void	game_frame(t_prog *prog);
 
 //draw
@@ -82,6 +83,7 @@ float	ray_casting(t_player *player, float angle);
 void	draw_line(float angle, float length, float offsetx, float offsety, float color);
 void	draw_ray(void);
 void	draw_square(int x, int y, int length, int color);
+void	draw_rectangle(int x, int y, int w, int h);
 void	draw_map();
 int		is_tile(t_map *map, int x, int y);
 void	draw_player_in_map();
