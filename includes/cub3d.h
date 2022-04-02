@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 08:58:19 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 14:49:30 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 #define INF 2000000
 #define MAX_LINE 1000
-#define TILE_SIZE 50
+#define TILE_SIZE 30
 #define TILE_SIZE_MAP 10
 #define RAY_LEN 10
 
@@ -84,4 +84,9 @@ void	draw_ray(void);
 void	draw_square(int x, int y, int length, int color);
 void	draw_map();
 int		is_tile(t_map *map, int x, int y);
+void	draw_player_in_map();
+
+void	draw_player();
+void	draw_map_world(void);
+void	mini_map(t_prog *prog);
 #endif
