@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 21:56:51 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 09:41:27 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <unistd.h>
 
+# define TEX_NBR 4
 # define NO 0
 # define SO 1
 # define WE 2
@@ -35,7 +36,8 @@ typedef struct	s_map
 	int		len;
 }	t_map;
 
-typedef struct s_data {
+typedef struct s_data
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -44,6 +46,17 @@ typedef struct s_data {
 	int		img_w;
 	int		img_h;
 }	t_data;
+
+typedef struct s_tex
+{
+	void	*tex;
+	char	*ptr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_tex;
 
 typedef struct	s_player
 {
@@ -69,6 +82,7 @@ typedef struct s_prog
 	t_map		*map;
 	t_data		img;
 	t_player	player;
+	t_tex		*texs[TEX_NBR];
 }	t_prog;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/04/02 21:58:14 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/04/03 10:15:29 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,8 @@ MainFiles = \
 	_cub3d/ray_casting/ray_casting.c \
 	_cub3d/ray_casting/ray_casting_x.c \
 	_cub3d/ray_casting/ray_casting_y.c \
+	_cub3d/graphics/texture.c \
+	_cub3d/graphics/color.c \
 	_cub3d/events/exit_cube3d.c \
 	_cub3d/events/on_key_up.c \
 	_cub3d/events/on_key_down.c \

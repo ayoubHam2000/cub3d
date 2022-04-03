@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 23:44:18 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 11:57:21 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	draw_vertival_line(int x, int length)
 	int	e;
 	int color;
 
-	color = ((length * 255.0) / (WIN_SIZE * 2));
+	//color = ((length * 255.0) / (WIN_SIZE * 2));
+	color = shade_color(255, 1 / ((float)length / (WIN_SIZE * 0.25)));
 	//printf("%d\n", color);
 	if (color > 255)
 		color = 255;
@@ -34,6 +35,38 @@ void	draw_vertival_line(int x, int length)
 		s++;
 	}
 }
+/*
+void	draw_vertival_line(int angle, int x, int length)
+{
+	int	s;
+	int	e;
+	int	i;
+	int tex_type;
+	int color;
+	t_tex	*t;
+	
+	if (!length)
+		return ;
+	if (angle <= M_PI * 0.5f)
+		tex_type = NO;
+	else if (angle <= M_PI)
+		tex_type = SO;
+	else if (angle <= M_PI * 1.5f)
+		tex_type = WE;
+	else
+		tex_type = EA;
+	t = get_prog()->texs[tex_type];
+	s = (WIN_SIZE - length) / 2;
+	e = (WIN_SIZE + length) / 2;
+	i = s;
+	while (i < e)
+	{
+		color = get_tex_color(t, ((x % length) * t->width) / length, ((i - s) * t->height) / length);
+		color = shade_color(color, 1 / ((float)length / (WIN_SIZE * 0.25)));
+		ft_put_pixel(x, i, color);
+		i++;
+	}
+}*/
 
 void	make_sky_floor()
 {
@@ -63,11 +96,9 @@ void	projection(void)
 		length = ray_casting(p, angle);
 		length = fabs(cosf(angle - p->angle) * length);
 		length = WIN_SIZE * TILE_SIZE / length;
-		
 		if (length > WIN_SIZE)
 			length = WIN_SIZE;
 		draw_vertival_line(i, length);
-		//draw_line(angle, length, p->x, p->y, 0xff00ff);
 		angle += step;
 		i++;
 	}
@@ -75,25 +106,10 @@ void	projection(void)
 
 void	game(t_prog *prog)
 {
-	int a;
-	int b;
 	int	i;
 	int	j;
 
 	replace_image(prog, WIN_SIZE, WIN_SIZE);
-	unsigned int *xpm = mlx_xpm_file_to_image(prog->mlx, "./resources/assets/bluestone.xpm", &a, &b);
-	i = 0;
-	while (i < a)
-	{
-		j = 0;
-		while (j < b)
-		{
-			ft_put_pixel(i, j, *(xpm + j * b + i));
-			j++;
-		}
-		i++;
-	}
-		printf("%d\n", *(unsigned int *)(xpm + a));
 	//draw_map_world();
 	//projection();
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);

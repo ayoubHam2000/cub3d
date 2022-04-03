@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 12:49:19 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 10:16:38 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ int	start_cub3d(char *file)
 	prog = get_prog();
 	if (!init_mlx(prog))
 		return (0);
-	prog->map = get_map(file);	
-	if (!prog || !prog->map)
+	prog->map = get_map(file);
+	if (!prog || !prog->map || !load_textures(prog))
 	{
-		printf("Error\n");
+		write(2, "Error\n", 6);
 		return (0);
 	}
 	init_player_pos();

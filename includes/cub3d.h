@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 22:41:29 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 10:14:47 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ void	draw_rectangle(int x, int y, int w, int h);
 void	draw_map();
 int		is_tile(t_map *map, int x, int y);
 void	draw_player_in_map();
+
+void	*get_texture(t_prog *prog, void *path);
+int		get_tex_color(t_tex *tex, int x, int y);
+int		shade_color(int color, float divide);
+int		load_textures(t_prog *prog);
 
 void	draw_player();
 void	draw_map_world(void);
