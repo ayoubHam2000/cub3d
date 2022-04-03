@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 11:50:17 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 12:36:03 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	on_key_down(int keycode, t_prog *prog)
 	
 	p.x = 0;
 	p.y = 0;
-	if (keycode == KEY_W || keycode == KEY_S)
+	/*if (keycode == KEY_W || keycode == KEY_S)
 	{
 		move = 1;
 		if (keycode == KEY_S)
@@ -59,11 +59,11 @@ int	on_key_down(int keycode, t_prog *prog)
 			move = -1;
 		p.x = cosf(M_PI * 0.5 + player->angle) * move;
 		p.y = sinf(M_PI * 0.5 + player->angle) * move;
-	}
+	}*/
 	//p.x *= 5;
 	//p.y *= 5;
 	move = 0;
-	while (move < player->speed)
+	/*while (move < player->speed)
 	{
 		if (p.x < 0 && is_can_move(player, 0.75f).y > HIT_LEN && is_can_move(player, 1.25f).y > HIT_LEN && ray_casting(player, M_PI) > HIT_LEN + 1)
 			player->x += p.x;
@@ -73,6 +73,18 @@ int	on_key_down(int keycode, t_prog *prog)
 			player->y += p.y;
 		if (p.y > 0 && is_can_move(player, 0.25f).x > HIT_LEN && is_can_move(player, 0.75f).x > HIT_LEN && ray_casting(player, M_PI * 0.5f) > HIT_LEN + 1)
 			player->y += p.y;
+		move++;
+	}*/
+	while (move < player->speed)
+	{
+		if (keycode == KEY_A && is_can_move(player, 0.75f).y > HIT_LEN && is_can_move(player, 1.25f).y > HIT_LEN && ray_casting(player, M_PI) > HIT_LEN + 1)
+			player->x--;
+		if (keycode == KEY_D && is_can_move(player, 0.25f).y > HIT_LEN && is_can_move(player, 1.75f).y > HIT_LEN && ray_casting(player, 0) > HIT_LEN + 1)
+			player->x++;
+		if (keycode == KEY_W && is_can_move(player, 1.25f).x > HIT_LEN && is_can_move(player, 1.75f).x > HIT_LEN && ray_casting(player, M_PI * 1.5f) > HIT_LEN + 1)
+			player->y--;
+		if (keycode == KEY_S && is_can_move(player, 0.25f).x > HIT_LEN && is_can_move(player, 0.75f).x > HIT_LEN && ray_casting(player, M_PI * 0.5f) > HIT_LEN + 1)
+			player->y++;
 		move++;
 	}
 	

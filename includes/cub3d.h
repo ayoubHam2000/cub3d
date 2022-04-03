@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 10:14:47 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 12:36:46 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 #define INF 2000000
 #define MAX_LINE 1000
-#define TILE_SIZE 30
+#define TILE_SIZE 50
 #define TILE_SIZE_MAP 10
 #define RAY_LEN 100
 

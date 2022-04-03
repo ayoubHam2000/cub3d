@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 11:35:13 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 14:48:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:43:04 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_player()
 	draw_square(pos.x * TILE_SIZE_MAP, pos.y * TILE_SIZE_MAP, TILE_SIZE_MAP, 0xff00ff);
 }
 
-
+//key:1 => p(336.000000, 818.000000, 3.191593) - (6, 16) info(1)(sp:7.000000, ar:1.036726, as:0.050000, pr:20.000000) (cos:-0.998750, sin:-0.049979)
 
 void	draw_player_in_map()
 {
@@ -38,6 +38,7 @@ void	draw_player_in_map()
 	while (angle < max_angle)
 	{
 		length = ray_casting(p, angle);
+		//draw_line(angle, 5000, p->x, p->y, 0x0000ff);
 		draw_line(angle, length, p->x, p->y, 0xff00ff);
 		angle += 0.01;
 	}
@@ -75,11 +76,11 @@ void	mini_map(t_prog *prog)
 	//size.x = get_longest_line_width(prog->map->map) * TILE_SIZE_MAP;
 	//size.y = prog->map->len * TILE_SIZE_MAP;
 	//replace_image(prog, size.x, size.y);
-	replace_image(prog, WIN_SIZE, WIN_SIZE);
+	replace_image(prog, WIN_SIZE * 2, WIN_SIZE);
 	draw_map_world();
 	draw_player_in_map();
 	//draw_map();
 	//draw_player();
 	//mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, WIN_SIZE - size.x, WIN_SIZE - size.y);
-	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, WIN_SIZE, 0);
+	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:16:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 17:19:23 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:44:17 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static int	is_hit_a_tile_y(t_player *player, float length)
 	int	x;
 	int y;
 
-	x = (player->x + length * player->cos) / TILE_SIZE;
-	y = (player->y + length * player->sin) / TILE_SIZE;
+	x = ((player->x + length * player->cos) / TILE_SIZE) + 0.000001;
+	y = ((player->y + length * player->sin) / TILE_SIZE) + 0.000001;
 	if (player->sin < 0)
 		y--;
 	return (is_tile(get_prog()->map, x, y));
@@ -39,7 +39,7 @@ static int	is_hit_a_tile_y(t_player *player, float length)
 
 float	ray_casting_y(t_player *player)
 {
-	float	y;
+	int		y;
 	float	length;
 
 	y = 0;
