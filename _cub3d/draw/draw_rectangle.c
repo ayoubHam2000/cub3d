@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_pixel.c                                     :+:      :+:    :+:   */
+/*   draw_rectangle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 22:17:45 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 09:39:07 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/04/02 21:49:58 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/04/02 21:59:21 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_put_pixel(int x, int y, int color)
+void	draw_rectangle(int x, int y, int w, int h)
 {
-	static t_prog	*prog;
-	char			*dst;
+	int	wx;
+	int	wy;
+	int	c;
 
-	if (!prog)
-		prog = get_prog();
-	if (y >= prog->img.img_h || x >= prog->img.img_w || y < 0 || x < 0)
-		return ;
-	dst = prog->img.addr + (y * prog->img.line_length \
-		+ x * (prog->img.bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	wx = x + w;
+	wy = y + h;
+	c = get_prog()->color;
+	while (x < wx)
+	{
+		y = wy - h;
+		while (y < wy)
+		{
+			ft_put_pixel(x, y, c);
+			y++;
+		}
+		x++;
+	}
 }

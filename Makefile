@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/04/01 17:33:39 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/04/03 10:15:29 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,12 @@ MainFiles = \
 	_cub3d/draw/draw_line.c \
 	_cub3d/draw/draw_map.c \
 	_cub3d/draw/draw_square.c \
+	_cub3d/draw/draw_rectangle.c \
 	_cub3d/ray_casting/ray_casting.c \
 	_cub3d/ray_casting/ray_casting_x.c \
 	_cub3d/ray_casting/ray_casting_y.c \
+	_cub3d/graphics/texture.c \
+	_cub3d/graphics/color.c \
 	_cub3d/events/exit_cube3d.c \
 	_cub3d/events/on_key_up.c \
 	_cub3d/events/on_key_down.c \
@@ -61,6 +64,7 @@ MainFiles = \
 	_cub3d/utils/check_args.c \
 	_cub3d/utils/init_mlx.c \
 	_cub3d/utils/ft_put_pixel.c \
+	_cub3d/utils/ft_put_pixel_color.c \
 	_cub3d/utils/replace_image.c \
 	_cub3d/utils/get_prog.c \
 	_cub3d/utils/is_tile.c \

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 09:54:55 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/02 22:57:38 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_player(t_player *player)
 	player->cos = cosf(player->angle);
 	player->sin = sinf(player->angle);
 	player->angle_speed = 0.05;
-	player->view_angle = M_PI * 0.25;
+	player->view_angle = M_PI * 0.33;
 	player->view_range = 20;
 }
 
@@ -38,6 +38,7 @@ t_prog	*get_prog(void)
 		prog->map = NULL;
 		prog->img.img = NULL;
 		prog->img.addr = NULL;
+		prog->color = 0;
 		init_player(&prog->player);
 	}
 	return (prog);
