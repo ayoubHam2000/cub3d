@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 12:27:36 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/04 00:02:40 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ void	game(t_prog *prog)
 
 	replace_image(prog, WIN_SIZE, WIN_SIZE);
 	//draw_map_world();
-	//projection();
+	projection();
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
 }
 
 void	game_frame(t_prog *prog)
 {
-	//game(prog);
+	game(prog);
 	mini_map(prog);
 }

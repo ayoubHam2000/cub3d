@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 12:48:09 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/03 23:52:47 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	init_player_pos(void)
 		{
 			if (ft_in(map[x][y], "NSEW"))
 			{
-				//prog->player.x = y * TILE_SIZE + TILE_SIZE * 0.5;
-				//prog->player.y = x * TILE_SIZE + TILE_SIZE * 0.5;
-				//prog->player.map_x = y;
-				//prog->player.map_y = x;
-				//change_angle(&prog->player, map[x][y]);
-				prog->player.x = 336;
+				prog->player.x = y * TILE_SIZE + TILE_SIZE * 0.5;
+				prog->player.y = x * TILE_SIZE + TILE_SIZE * 0.5;
+				prog->player.map_x = y;
+				prog->player.map_y = x;
+				change_angle(&prog->player, map[x][y]);
+				/*prog->player.x = 336;
 				prog->player.y = 818;
 				prog->player.map_x = 6;
 				prog->player.map_y = 16;
-				prog->player.angle = 3.55;
+				prog->player.angle = 3.55;*/
 				return ;
 			}
 			y++;
