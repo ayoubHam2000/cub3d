@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 23:51:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/06 20:10:50 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,11 @@ int	on_key_down(int keycode, t_prog *prog)
 	else if (keycode == KEY_REVERSE)
 		reverse *= -1;
 	
-	if (player->angle < 0)
+	/*if (player->angle < 0)
 		player->angle += 2 * M_PI;
 	else if (player->angle > 2 * M_PI)
-		player->angle = 0.0f;
+		player->angle = 0.0f;*/
+	player->angle = fmod(player->angle, M_PI_MUL_2);
 	player->cos = cosf(player->angle);
 	player->sin = sinf(player->angle);
 	player->map_x = player->x / TILE_SIZE;

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/04 00:02:40 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/06 20:51:02 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	draw_vertival_line(int x, int length)
 	if (color < 20)
 		color = 20;
 	color = (color << 16) | (color << 8) | color;
-	s = (WIN_SIZE - length) / 2;
-	e = (WIN_SIZE + length) / 2;
+	s = (WIN_SIZE - length) / 2 + get_prog()->player.mposx;
+	e = (WIN_SIZE + length) / 2 + get_prog()->player.mposx;
 	while (s < e)
 	{
 		if (length)
@@ -84,6 +84,8 @@ void	projection(void)
 	float		length;
 	float		step;
 	int			i;
+	float		x;
+	float		y;
 
 	p = &(get_prog()->player);
 	angle = p->angle - p->view_angle / 2;
@@ -94,8 +96,11 @@ void	projection(void)
 	while (angle < max_angle)
 	{
 		length = ray_casting(p, angle);
+		x = cosf(angle) * length;
+		y = sinf(angle) * length;
+		printf("%f, %f, %f\n", length, x, y);
 		length = fabs(cosf(angle - p->angle) * length);
-		length = WIN_SIZE * TILE_SIZE / length;
+		length = WIN_SIZE * (1.0f / length) * TILE_SIZE;
 		if (length > WIN_SIZE)
 			length = WIN_SIZE;
 		draw_vertival_line(i, length);

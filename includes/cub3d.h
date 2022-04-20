@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 23:56:40 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/06 20:10:13 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #define TILE_SIZE 30
 #define TILE_SIZE_MAP 10
 #define RAY_LEN 100
+#define M_PI_MUL_2 6.28318530718
 
 typedef struct s_point
 {
@@ -59,6 +60,8 @@ int		on_mouse_down(int button, int x, int y, t_prog *prog);
 int		on_key_down(int keycode, t_prog *prog);
 int		on_key_up(int keycode, t_prog *prog);
 int		exit_cube3d(t_prog *prog);
+int		on_mouse_down(int button, int x, int y, t_prog *prog);
+int		on_mouse_move(int x, int y, t_prog *prog);
 
 //general
 int		check_arg(int ac, char **av);

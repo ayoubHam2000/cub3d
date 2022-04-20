@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 23:52:47 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:35:19 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	start_cub3d(char *file)
 	init_player_pos();
 	game_frame(prog);
 	mlx_hook(prog->win, ON_KEYDOWN, 0, on_key_down, prog);
+	mlx_hook(prog->win, ON_MOUSEDOWN, 0, on_mouse_down, prog);
+	mlx_hook(prog->win, ON_MOUSEMOVE, 0, on_mouse_move, prog);
 	mlx_hook(prog->win, ON_KEYUP, 0, on_key_up, prog);
 	mlx_hook(prog->win, ON_DESTROY, 0, exit_cube3d, prog);
 	mlx_loop(prog->mlx);

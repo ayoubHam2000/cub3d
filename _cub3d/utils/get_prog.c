@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 22:57:38 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:28:19 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	init_player(t_player *player)
 	player->angle_speed = 0.05;
 	player->view_angle = M_PI * 0.33;
 	player->view_range = 20;
+	player->mposx = 0;
 }
 
 t_prog	*get_prog(void)
