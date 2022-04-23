@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/06 20:10:13 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:30:44 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <math.h>
 # include <mlx.h>
 # include <fcntl.h>
+# include <time.h>
 
 #define INF 2000000
 #define MAX_LINE 1000

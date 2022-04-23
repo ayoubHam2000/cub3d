@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/06 20:51:02 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:01:20 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,58 @@ void	game(t_prog *prog)
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
 }
 
+t_point	get_half_of(t_point *a, t_point *b)
+{
+	t_point	res;
+
+	res.x = (a->x + b->x) * 0.5f;
+	res.y = (a->y + b->y) * 0.5f;
+	return (res);
+}
+
+void	fract(t_prog *prog)
+{
+	int	max_iter = 1000000;
+	int	i = 0;
+	int	r;
+	int	c[3];
+	t_point	triangle[3];
+	t_point	new_point;
+
+	replace_image(prog, WIN_SIZE, WIN_SIZE);
+	triangle[0].x = WIN_SIZE / 2;
+	triangle[0].y = 30;
+	
+	triangle[1].x = 10;
+	triangle[1].y = WIN_SIZE - 30;
+
+	triangle[2].x = WIN_SIZE - 10;
+	triangle[2].y = WIN_SIZE - 30;
+
+	//new_point = get_half_of(&triangle[0], &triangle[2]);
+	new_point.x = 200;
+	new_point.y = 355;
+
+	c[0] = 0xff0000;
+	c[1] = 0xff0000;
+	c[2] = 0xff0000;
+	ft_put_pixel(triangle[0].x, triangle[0].y, c[0]);
+	ft_put_pixel(triangle[1].x, triangle[1].y, c[0]);
+	ft_put_pixel(triangle[2].x, triangle[2].y, c[0]);
+	srand(time(NULL));
+	while (i < max_iter)
+	{
+		r = rand() % 3;
+		ft_put_pixel(new_point.x, new_point.y, c[r]);
+		new_point = get_half_of(&new_point, &triangle[r]);
+		i++;
+	}
+	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
+}
+
 void	game_frame(t_prog *prog)
 {
-	game(prog);
+	fract(prog);
+	//game(prog);
 	mini_map(prog);
 }
