@@ -23,6 +23,18 @@
 # define F 4
 # define C 5
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
+typedef struct s_pointf
+{
+	double	x;
+	double	y;
+}	t_pointf;
+
 typedef struct	s_type
 {
 	int		id;
@@ -60,29 +72,23 @@ typedef struct s_tex
 
 typedef struct	s_player
 {
-	float	x;
-	float	y;
-	int		map_x;
-	int		map_y;
-	float	speed;
-	float	angle;
-	float	cos;
-	float	sin;
-	float	angle_speed;
-	float	view_angle;
-	float	view_range;
+	t_pointf	pos;
+	t_pointf	dir;
+	t_pointf	plane;
 }	t_player;
 
 typedef struct s_prog
 {
 	void		*mlx;
 	void		*win;
+	t_map		*map;
+	t_tex		*texs[TEX_NBR];
+	t_player	player;
 	int			w_size;
 	int			color;
-	t_map		*map;
+	int			time;
+	int			old_time;
 	t_data		img;
-	t_player	player;
-	t_tex		*texs[TEX_NBR];
 }	t_prog;
 
 #endif

@@ -11,112 +11,182 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+# include <sys/time.h>
 
-void	draw_vertival_line(int x, int length)
+size_t	get_time(void)
 {
-	int	s;
-	int	e;
-	int color;
+	struct timeval	t;
 
-	//color = ((length * 255.0) / (WIN_SIZE * 2));
-	color = shade_color(255, 1 / ((float)length / (WIN_SIZE * 0.25)));
-	//printf("%d\n", color);
-	if (color > 255)
-		color = 255;
-	if (color < 20)
-		color = 20;
-	color = (color << 16) | (color << 8) | color;
-	s = (WIN_SIZE - length) / 2;
-	e = (WIN_SIZE + length) / 2;
+	gettimeofday(&t, NULL);
+	return (t.tv_sec * 1000000 + t.tv_usec);
+}
+
+int		is_hit_a_tile(t_map *map, int x, int y)
+{
+	if (y >= 0 && x >= 0 && y < map->len && x < ft_strlen(map->map[y]))
+	{
+		if (map->map[y][x] == '1')
+			return (1);
+		else
+			return (0);
+	}
+	return (1);
+}
+
+void	verLine(int x, int s, int e, int color)
+{
 	while (s < e)
 	{
-		if (length)
 		ft_put_pixel(x, s, color);
 		s++;
 	}
 }
-/*
-void	draw_vertival_line(int angle, int x, int length)
+
+void	draw_tex_line(t_tex *tex, double wall_x, int lineHeight, double perpWallDist, int win_x)
 {
-	int	s;
-	int	e;
-	int	i;
-	int tex_type;
-	int color;
-	t_tex	*t;
-	
-	if (!length)
-		return ;
-	if (angle <= M_PI * 0.5f)
-		tex_type = NO;
-	else if (angle <= M_PI)
-		tex_type = SO;
-	else if (angle <= M_PI * 1.5f)
-		tex_type = WE;
-	else
-		tex_type = EA;
-	t = get_prog()->texs[tex_type];
-	s = (WIN_SIZE - length) / 2;
-	e = (WIN_SIZE + length) / 2;
-	i = s;
-	while (i < e)
+	int		dlx;
+	int		dly;
+	int		x;
+	double	y;
+	int		color;
+	double	step;
+	int		h;
+	size_t	s;
+	int		bg;
+
+	s = get_time();
+	h = WIN_SIZE;
+	dlx = (lineHeight * (-1) + h) * 0.5;
+	dly = (lineHeight + h) * 0.5;
+	x = tex->width * wall_x;
+	step = 1.0 * tex->height / lineHeight;
+	y = 0.0;
+	bg = -1;
+	color = 0xffffff;
+	while (dlx < dly)
 	{
-		color = get_tex_color(t, ((x % length) * t->width) / length, ((i - s) * t->height) / length);
-		color = shade_color(color, 1 / ((float)length / (WIN_SIZE * 0.25)));
-		ft_put_pixel(x, i, color);
-		i++;
+		/*if (bg != (int)y)
+		{
+			color = get_tex_color(tex, x, y);
+			bg = (int)y;
+		}*/
+		ft_put_pixel(win_x, dlx, color);
+		dlx++;
+		y += step;
 	}
-}*/
-
-void	make_sky_floor()
-{
-	get_prog()->color = 0x0000ff;
-	draw_rectangle(0, 0, WIN_SIZE, WIN_SIZE / 2);
-	get_prog()->color = 0x1e1e63;
-	draw_rectangle(0, WIN_SIZE / 2, WIN_SIZE, WIN_SIZE / 2);
-}
-
-void	projection(void)
-{
-	t_player	*p;
-	float		angle;
-	float		max_angle;
-	float		length;
-	float		step;
-	int			i;
-
-	p = &(get_prog()->player);
-	angle = p->angle - p->view_angle / 2;
-	max_angle = p->angle + p->view_angle / 2;
-	step = p->view_angle / WIN_SIZE;
-	i = 0;
-	make_sky_floor();
-	while (angle < max_angle)
-	{
-		length = ray_casting(p, angle);
-		length = fabs(cosf(angle - p->angle) * length);
-		length = WIN_SIZE * TILE_SIZE / length;
-		if (length > WIN_SIZE)
-			length = WIN_SIZE;
-		draw_vertival_line(i, length);
-		angle += step;
-		i++;
-	}
+	printf("%lu\n", get_time() - s);
 }
 
 void	game(t_prog *prog)
 {
-	int	i;
-	int	j;
+	int			w, h;
+	int			x;
+	t_pointf	ray;
+	t_pointf	deltaDist;
+	t_pointf	sideDist;
+	t_pointf	pos;
+	t_point		map_pos;
+	t_point		step;
+	double		cameraX;
+	double		perpWallDist;
+	int			hit;
+	int			side; //was a NS or a EW wall hit?
+	int			lineHeight;
+	double		wall_x;
+	t_tex		*tex;
+	size_t		s;
 
+	s = get_time();
 	replace_image(prog, WIN_SIZE, WIN_SIZE);
-	//draw_map_world();
-	projection();
+	w = WIN_SIZE;
+	h = WIN_SIZE;
+	x = 0;
+	
+	pos = prog->player.pos;
+	while (x < w)
+	{
+		cameraX = 2 * x / (double)w - 1.0;
+		ray.x = prog->player.dir.x + prog->player.plane.x * cameraX;
+		ray.y = prog->player.dir.y + prog->player.plane.y * cameraX;
+
+		deltaDist.x = (ray.x == 0) ? 1e30 : fabs(1.0 / ray.x);
+		deltaDist.y = (ray.y == 0) ? 1e30 : fabs(1.0 / ray.y);
+
+		map_pos.x = (int)pos.x;
+		map_pos.y = (int)pos.y;
+
+		if (ray.x < 0)
+		{
+			step.x = -1;
+			sideDist.x = (pos.x - map_pos.x) * deltaDist.x;
+		}
+		else
+		{
+			step.x = 1;
+			sideDist.x = (map_pos.x + 1 - pos.x) * deltaDist.x;
+		}
+		if (ray.y < 0)
+		{
+			step.y = -1;
+			sideDist.y = (pos.y - map_pos.y) * deltaDist.y;
+		}
+		else
+		{
+			step.y = 1;
+			sideDist.y = (map_pos.y + 1 - pos.y) * deltaDist.y;
+		}
+		hit = 0;
+		while (!hit)
+		{
+			if (sideDist.x < sideDist.y)
+			{
+				sideDist.x += deltaDist.x;
+				map_pos.x += step.x;
+				side = 0;
+			}
+			else
+			{
+				sideDist.y += deltaDist.y;
+				map_pos.y += step.y;
+				side = 1;
+			}
+			if (is_hit_a_tile(prog->map, map_pos.x, map_pos.y))
+				hit = 1;
+		}
+		if (side == 0)
+			perpWallDist = sideDist.x - deltaDist.x;
+		else
+			perpWallDist = sideDist.y - deltaDist.y;
+		
+		lineHeight = (h / perpWallDist);
+		//texture--------------------------
+		//texture--------------------------
+		if (side == 0)
+		{
+			wall_x = pos.y + perpWallDist * ray.y;
+			if (map_pos.x < pos.x)
+				tex = prog->texs[0];
+			else
+				tex = prog->texs[1];
+		}
+		else
+		{
+			wall_x = pos.x + perpWallDist * ray.x;
+			if (map_pos.y < pos.y)
+				tex = prog->texs[2];
+			else
+				tex = prog->texs[3];
+		}
+		wall_x = wall_x - (int)wall_x;
+		draw_tex_line(tex, wall_x, lineHeight, perpWallDist, x);
+		x++;
+	}
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
+	printf("--->%lu\n", get_time() - s);
 }
 
 void	game_frame(t_prog *prog)
 {
 	game(prog);
-	mini_map(prog);
+	//mini_map(prog);
 }

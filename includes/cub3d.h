@@ -27,20 +27,8 @@
 #define INF 2000000
 #define MAX_LINE 1000
 #define TILE_SIZE 30
-#define TILE_SIZE_MAP 10
+#define TILE_SIZE_MAP 30
 #define RAY_LEN 100
-
-typedef struct s_point
-{
-	int	x;
-	int	y;
-}	t_point;
-
-typedef struct s_pointf
-{
-	float	x;
-	float	y;
-}	t_pointf;
 
 //parsing -> map
 int		check_map(char **map);

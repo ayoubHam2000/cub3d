@@ -14,7 +14,5 @@
 
 float	ray_casting(t_player *player, float angle)
 {
-	player->cos = cosf(angle);
-	player->sin = sinf(angle);
-	return (fmin(ray_casting_x(player), ray_casting_y(player)));
+	return (0.0f);
 }

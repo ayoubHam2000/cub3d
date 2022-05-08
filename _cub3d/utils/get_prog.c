@@ -14,17 +14,12 @@
 
 static void	init_player(t_player *player)
 {
-	player->x = 0.0f;
-	player->y = 0.0f;
-	player->map_x = 0;
-	player->map_y = 0;
-	player->speed = 7;
-	player->angle = 0;
-	player->cos = cosf(player->angle);
-	player->sin = sinf(player->angle);
-	player->angle_speed = 0.05;
-	player->view_angle = M_PI * 0.33;
-	player->view_range = 20;
+	player->pos.x = 0.0;
+	player->pos.y = 0.0;
+	player->dir.x = -1.0;
+	player->dir.y = 0.0;
+	player->plane.x = 0.0;
+	player->plane.y = 0.66;
 }
 
 t_prog	*get_prog(void)
@@ -39,6 +34,8 @@ t_prog	*get_prog(void)
 		prog->img.img = NULL;
 		prog->img.addr = NULL;
 		prog->color = 0;
+		prog->time = 0;
+		prog->old_time = 0;
 		init_player(&prog->player);
 	}
 	return (prog);

@@ -12,18 +12,6 @@
 
 #include "cub3d.h"
 
-void	change_angle(t_player *player, char c)
-{
-	if (c == 'N')
-		player->angle = M_PI * 1.5;
-	else if (c == 'S')
-		player->angle = M_PI * 0.5;
-	else if (c == 'E')
-		player->angle = 0.0f;
-	else if (c == 'W')
-		player->angle = M_PI;
-}
-
 void	init_player_pos(void)
 {
 	int		x;
@@ -33,29 +21,25 @@ void	init_player_pos(void)
 
 	prog = get_prog();
 	map = prog->map->map;
-	x = 0;
-	while (map[x])
+	y = 0;
+	while (map[y])
 	{
-		y = 0;
-		while (map[x][y])
+		x = 0;
+		while (map[y][x])
 		{
-			if (ft_in(map[x][y], "NSEW"))
+			if (ft_in(map[y][x], "NSEW"))
 			{
-				prog->player.x = y * TILE_SIZE + TILE_SIZE * 0.5;
-				prog->player.y = x * TILE_SIZE + TILE_SIZE * 0.5;
-				prog->player.map_x = y;
-				prog->player.map_y = x;
-				change_angle(&prog->player, map[x][y]);
-				/*prog->player.x = 336;
-				prog->player.y = 818;
-				prog->player.map_x = 6;
-				prog->player.map_y = 16;
-				prog->player.angle = 3.55;*/
+				prog->player.pos.x = (double)x;
+				prog->player.pos.y = (double)y;
+				prog->player.dir.x = -1.0;
+				prog->player.dir.y = 0.0;
+				prog->player.plane.x = 0.0;
+				prog->player.plane.y = 0.66;
 				return ;
 			}
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
 
@@ -74,8 +58,8 @@ int	start_cub3d(char *file)
 	}
 	init_player_pos();
 	game_frame(prog);
-	mlx_hook(prog->win, ON_KEYDOWN, 0, on_key_down, prog);
-	mlx_hook(prog->win, ON_KEYUP, 0, on_key_up, prog);
+	mlx_hook(prog->win, ON_KEYDOWN, 1, on_key_down, prog);
+	mlx_hook(prog->win, ON_KEYUP, 1L<<1, on_key_up, prog);
 	mlx_hook(prog->win, ON_DESTROY, 0, exit_cube3d, prog);
 	mlx_loop(prog->mlx);
 	return (1);
