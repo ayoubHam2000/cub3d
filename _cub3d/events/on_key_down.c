@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-#define R_SPEED 0.08
+#define R_SPEED 0.1
 #define M_SPEED 0.1
 
 static void	rotate(t_player *p, int d)

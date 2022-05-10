@@ -62,14 +62,13 @@ void	draw_tex_line(t_tex *tex, double wall_x, int lineHeight, double perpWallDis
 	step = 1.0 * tex->height / lineHeight;
 	y = 0.0;
 	bg = -1;
-	color = 0xffffff;
 	while (dlx < dly)
 	{
-		/*if (bg != (int)y)
+		if (bg != (int)y)
 		{
 			color = get_tex_color(tex, x, y);
 			bg = (int)y;
-		}*/
+		}
 		ft_put_pixel(win_x, dlx, color);
 		dlx++;
 		y += step;
