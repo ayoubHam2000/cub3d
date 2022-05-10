@@ -35,6 +35,8 @@
 # endif
 
 # define WIN_TITLE "cub3d"
+# define WIN_WIDTH 500
+# define WIN_HEIGHT 500
 # define WIN_SIZE 500
 
 enum {

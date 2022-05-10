@@ -76,6 +76,114 @@ void	draw_tex_line(t_tex *tex, double wall_x, int lineHeight, double perpWallDis
 	printf("%lu\n", get_time() - s);
 }
 
+static int	dda_loop(char **map, t_ray *ray)
+{
+	int	hit;
+
+	hit = 0;
+	while (!hit)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
+		}
+		if (map[ray->map_y][ray->map_x] == '1')
+			hit = 1;
+	}
+}
+
+void	dda(char **map, t_ray *ray, t_ray_info *ray_info)
+{
+	ray->step_x = (ray->ray_x >= 0.0) * 2 - 1;
+	ray->step_y = (ray->ray_y >= 0.0) * 2 - 1;
+	if (ray->step_x == 1)	
+		ray->side_dist_x = (ray->map_x + 1 - ray->pos_x) * ray->delta_dist_x;
+	else
+		ray->side_dist_x = (ray->pos_x - ray->map_x) * ray->delta_dist_x;
+	if (ray->step_y == 1)	
+		ray->side_dist_y = (ray->map_y + 1 - ray->pos_y) * ray->delta_dist_y;
+	else
+		ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
+	ray->map_x = (int)ray->pos_x;
+	ray->map_y = (int)ray->pos_y;
+	dda_loop(map, ray);
+	if (ray->side == 0)
+	{
+		ray_info->perpWallDist = ray->side_dist_x - ray->delta_dist_x;
+		ray_info->wall_x = ray->pos_x + ray->delta_dist_x * ray_info->perpWallDist;
+		ray_info->side = ray->map_x < ray->pos_x;
+	}
+	else
+	{
+		ray_info->perpWallDist = ray->side_dist_y - ray->delta_dist_y;
+		ray_info->wall_x = ray->pos_x + ray->delta_dist_y * ray_info->perpWallDist;
+		ray_info->side = 2 + ray->map_y < ray->pos_y;
+	}
+}
+
+void	raycasting(t_player *p, char **map, t_ray_info *ray_info)
+{
+	int			x;
+	double		camera_x;
+	t_ray		ray;
+
+	x = 0;
+	ray.pos_x = p->pos.x;
+	ray.pos_y = p->pos.y;
+	while (x < WIN_WIDTH)
+	{
+		camera_x = 2 * x / (double)WIN_WIDTH - 1.0;
+		ray.ray_x = p->dir.x + p->plane.x * camera_x;
+		ray.ray_y = p->dir.y + p->plane.y * camera_x;
+		ray.delta_dist_x = 1e30;
+		if (ray.ray_x != 0.0)
+			ray.delta_dist_x = fabs(1.0 / ray.ray_x);
+		ray.delta_dist_y = 1e30;
+		if (ray.ray_y != 0.0)
+			ray.delta_dist_y = fabs(1.0 / ray.ray_y);
+		dda(map, &ray, ray_info + x);
+		x++;
+	}
+}
+
+void	projection(t_prog *prog)
+{
+	t_ray_info	ray_info[WIN_WIDTH];
+	int			x;
+	int			y;
+	int			y_end;
+	int			line_height;
+	double		step;
+	t_tex		*tex;
+	int			color;
+
+	raycasting(&prog->player, prog->map->map, ray_info);
+	x = 0;
+	while (x < WIN_WIDTH)
+	{
+		tex = prog->texs[ray_info[x].side];
+		line_height = (WIN_HEIGHT / ray_info[x].perpWallDist);
+		y = (line_height * -1 + WIN_HEIGHT) / 2;
+		y_end = (line_height + WIN_HEIGHT) / 2;
+		step = 1.0 * tex->height / line_height;
+		while (y < y_end)
+		{
+			color = get_tex_color(tex, tex->width * ray_info[x].wall_x, )
+			ft_put_pixel(x, y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
 void	game(t_prog *prog)
 {
 	int			w, h;
