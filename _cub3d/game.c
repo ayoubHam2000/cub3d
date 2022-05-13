@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/04 00:02:40 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/13 12:37:23 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,33 @@ void	draw_tex_line(t_tex *tex, double wall_x, int lineHeight, double perpWallDis
 	int		dly;
 	int		x;
 	double	y;
-	int		color;
 	double	step;
+	int		color;
 	int		h;
 	size_t	s;
-	int		bg;
 
 	s = get_time();
 	h = WIN_SIZE;
 	dlx = (lineHeight * (-1) + h) * 0.5;
 	dly = (lineHeight + h) * 0.5;
-	x = tex->width * wall_x;
 	step = 1.0 * tex->height / lineHeight;
-	y = 0.0;
-	bg = -1;
+	if (dlx < 0)
+	{
+		y = -dlx * step;
+		dlx = 0;
+	}
+	if (dly > h)
+		dly = h;
+	x = tex->width * wall_x;
+	//printf("%d %d %d --- ", dly, dlx, dly - dlx);
 	while (dlx < dly)
 	{
-		if (bg != (int)y)
-		{
-			color = get_tex_color(tex, x, y);
-			bg = (int)y;
-		}
+		color = get_tex_color(tex, x, y);
 		ft_put_pixel(win_x, dlx, color);
 		dlx++;
 		y += step;
 	}
-	printf("%lu\n", get_time() - s);
+	//printf("%lu\n", get_time() - s);
 }
 
 void	game(t_prog *prog)
@@ -93,6 +94,8 @@ void	game(t_prog *prog)
 	int			lineHeight;
 	double		wall_x;
 	t_tex		*tex;
+	static int f = 0;
+	static size_t start_time;
 	size_t		s;
 
 	s = get_time();
@@ -100,6 +103,7 @@ void	game(t_prog *prog)
 	w = WIN_SIZE;
 	h = WIN_SIZE;
 	x = 0;
+	
 	
 	pos = prog->player.pos;
 	while (x < w)
@@ -186,6 +190,9 @@ void	game(t_prog *prog)
 
 void	game_frame(t_prog *prog)
 {
-	game(prog);
+
+		//game(prog);
+	mlx_loop_hook(prog->mlx, game, prog);
+
 	//mini_map(prog);
 }

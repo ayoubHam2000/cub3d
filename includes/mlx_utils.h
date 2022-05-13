@@ -6,14 +6,14 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:33:52 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/30 12:59:22 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/13 12:14:01 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX_UTILS_H
 # define MLX_UTILS_H
 
-# define UBUNTO
+//# define UBUNTO
 # ifdef UBUNTO
 # define KEY_L 65363
 # define KEY_R 65361
@@ -25,8 +25,8 @@
 # endif
 
 # ifndef UBUNTO
-# define KEY_L 123
-# define KEY_R 124
+# define KEY_L 124
+# define KEY_R 123
 # define KEY_A 0
 # define KEY_D 2
 # define KEY_W 13

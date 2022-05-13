@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/04/04 18:34:43 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/05/12 18:07:34 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,11 +76,11 @@ FILES = \
 	main.c
 
 #-Wall -Wextra -Werror
-#CFLAGS = -g -I includes/
-#FLAGS = -lmlx -framework opengl -framework Appkit -fsanitize=address
+CFLAGS = -g -I includes/
+FLAGS = -lmlx -framework opengl -framework Appkit -fsanitize=address
 
-CFLAGS = -g -I includes/ -I/usr/include -Imlx_linux
-FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
+#CFLAGS = -g -I includes/ -I/usr/include -Imlx_linux
+#FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
 
 # -fsanitize=address
 DEPFLAGS = -MMD -MF $(@:.o=.d)

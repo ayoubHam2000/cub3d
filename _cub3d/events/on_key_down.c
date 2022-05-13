@@ -6,14 +6,14 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 23:51:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/13 12:32:05 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define R_SPEED 0.1
-#define M_SPEED 0.1
+#define R_SPEED 0.15
+#define M_SPEED 0.3
 
 static void	rotate(t_player *p, int d)
 {
@@ -65,6 +65,6 @@ int	on_key_down(int keycode, t_prog *prog)
 	else if (keycode == KEY_W || keycode == KEY_S || keycode == KEY_A || keycode == KEY_D)
 		move(p, prog->map->map, keycode);
 	//printf("%d %0.2f %0.2f|%0.2f %0.2f|%.2f %.2f\n",keycode, p->pos.x, p->pos.y, p->dir.x, p->dir.y, p->plane.x, p->plane.y);
-	game_frame(prog);
+	//game_frame(prog);
 	return (1);
 }
