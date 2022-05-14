@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 22:57:38 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/14 11:26:16 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	init_player(t_player *player)
 {
-	player->pos.x = 0.0;
-	player->pos.y = 0.0;
-	player->dir.x = -1.0;
-	player->dir.y = 0.0;
-	player->plane.x = 0.0;
-	player->plane.y = 0.66;
+	player->x = 0.0;
+	player->y = 0.0;
+	player->dir_x = -1.0;
+	player->dir_y = 0.0;
+	player->plane_x = 0.0;
+	player->plane_y = 0.66;
 }
 
 t_prog	*get_prog(void)
@@ -29,13 +29,14 @@ t_prog	*get_prog(void)
 	if (!prog)
 	{
 		prog = ft_malloc(sizeof(t_prog));
-		prog->w_size = WIN_SIZE;
 		prog->map = NULL;
 		prog->img.img = NULL;
 		prog->img.addr = NULL;
 		prog->color = 0;
 		prog->time = 0;
 		prog->old_time = 0;
+		prog->pressed_key[0] = -1;
+		prog->pressed_key[1] = -1;
 		init_player(&prog->player);
 	}
 	return (prog);

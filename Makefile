@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/05/12 18:07:34 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/05/14 13:07:31 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ MainFiles = \
 	_cub3d/graphics/color.c \
 	_cub3d/events/exit_cube3d.c \
 	_cub3d/events/on_key_up.c \
+	_cub3d/events/mouse_move.c \
 	_cub3d/events/on_key_down.c \
 	_cub3d/map/check_identifier.c \
 	_cub3d/map/check_map.c \

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 09:41:27 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/14 11:24:06 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,12 @@ typedef struct s_tex
 
 typedef struct	s_player
 {
-	t_pointf	pos;
-	t_pointf	dir;
-	t_pointf	plane;
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }	t_player;
 
 typedef struct s_prog
@@ -84,11 +87,31 @@ typedef struct s_prog
 	t_map		*map;
 	t_tex		*texs[TEX_NBR];
 	t_player	player;
-	int			w_size;
 	int			color;
 	int			time;
 	int			old_time;
 	t_data		img;
+	int			pressed_key[2];
 }	t_prog;
+
+typedef struct	s_ray
+{
+	double	x;
+	double	y;
+	double	pos_x;
+	double	pos_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	dist;
+	double	wall_x;
+	int		side;
+	int		line_height;
+}	t_ray;
 
 #endif

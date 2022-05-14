@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:33:52 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/13 12:14:01 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/13 14:48:45 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@
 # define KEY_S 1
 # define KEY_ESC 53
 # endif
-
-# define WIN_TITLE "cub3d"
-# define WIN_SIZE 500
 
 enum {
 	ON_KEYDOWN = 2,
