@@ -213,3 +213,30 @@ void	game(t_prog *prog)
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
 	printf("--->%lu\n", get_time() - s);
 }
+
+
+
+
+
+
+
+static void	rotate_mouse(t_prog *prog)
+{
+	double		oldDirX;
+	double		oldPlaneX;
+	t_player	*p;
+	double		d;
+	static int huh;
+
+	if (huh == prog->m_x)
+		return ;
+	p = &prog->player;
+	oldDirX = p->dir_x;
+	d = (prog->old_m_x - prog->m_x) * 0.17;
+	p->dir_x = p->dir_x  * cos(R_SPEED * d) - p->dir_y * sin(R_SPEED * d);
+	p->dir_y = oldDirX * sin(R_SPEED * d) + p->dir_y * cos(R_SPEED * d);
+	oldPlaneX = p->plane_x;
+	p->plane_x = p->plane_x * cos(R_SPEED * d) - p->plane_y * sin(R_SPEED * d);
+	p->plane_y = oldPlaneX * sin(R_SPEED * d) + p->plane_y * cos(R_SPEED * d);
+	huh = prog->m_x;
+}

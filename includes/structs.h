@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 11:24:06 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/14 15:56:48 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@ typedef struct s_prog
 	int			old_time;
 	t_data		img;
 	int			pressed_key[2];
+	int			m_x;
+	int			m_y;
+	int			old_m_x;
+	int			old_m_y;
 }	t_prog;
 
 typedef struct	s_ray

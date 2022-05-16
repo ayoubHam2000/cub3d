@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 13:17:36 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/15 18:18:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define WIN_TITLE "cub3d"
 # define WIN_SIZE 500
 
-# define HEIGHT 600
-# define WIDTH 1000
+# define HEIGHT (600)
+# define WIDTH (1000)
 
 //parsing -> map
 int		check_map(char **map);
