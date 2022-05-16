@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 22:57:38 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/14 16:01:55 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 static void	init_player(t_player *player)
 {
-	player->x = 0.0f;
-	player->y = 0.0f;
-	player->map_x = 0;
-	player->map_y = 0;
-	player->speed = 7;
-	player->angle = 0;
-	player->cos = cosf(player->angle);
-	player->sin = sinf(player->angle);
-	player->angle_speed = 0.05;
-	player->view_angle = M_PI * 0.33;
-	player->view_range = 20;
+	player->x = 0.0;
+	player->y = 0.0;
+	player->dir_x = -1.0;
+	player->dir_y = 0.0;
+	player->plane_x = 0.0;
+	player->plane_y = 0.66;
 }
 
 t_prog	*get_prog(void)
@@ -34,11 +29,18 @@ t_prog	*get_prog(void)
 	if (!prog)
 	{
 		prog = ft_malloc(sizeof(t_prog));
-		prog->w_size = WIN_SIZE;
 		prog->map = NULL;
 		prog->img.img = NULL;
 		prog->img.addr = NULL;
 		prog->color = 0;
+		prog->time = 0;
+		prog->old_time = 0;
+		prog->pressed_key[0] = -1;
+		prog->pressed_key[1] = -1;
+		prog->m_x = 0;
+		prog->m_y = 0;
+		prog->old_m_y = 0;
+		prog->old_m_y = 0;
 		init_player(&prog->player);
 	}
 	return (prog);

@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/04/03 10:15:29 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/05/14 13:07:31 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,12 +48,11 @@ MainFiles = \
 	_cub3d/draw/draw_square.c \
 	_cub3d/draw/draw_rectangle.c \
 	_cub3d/ray_casting/ray_casting.c \
-	_cub3d/ray_casting/ray_casting_x.c \
-	_cub3d/ray_casting/ray_casting_y.c \
 	_cub3d/graphics/texture.c \
 	_cub3d/graphics/color.c \
 	_cub3d/events/exit_cube3d.c \
 	_cub3d/events/on_key_up.c \
+	_cub3d/events/mouse_move.c \
 	_cub3d/events/on_key_down.c \
 	_cub3d/map/check_identifier.c \
 	_cub3d/map/check_map.c \
@@ -80,6 +79,10 @@ FILES = \
 #-Wall -Wextra -Werror
 CFLAGS = -g -I includes/
 FLAGS = -lmlx -framework opengl -framework Appkit -fsanitize=address
+
+#CFLAGS = -g -I includes/ -I/usr/include -Imlx_linux
+#FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
+
 # -fsanitize=address
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 

@@ -6,41 +6,32 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 11:35:13 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/02 14:48:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/14 13:41:12 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_player()
+//////////////
+size_t	get_time(void)
 {
-	t_player	*p;
-	t_point		pos;
+	static size_t	s;
+	struct timeval	t;
 
-	p = &(get_prog()->player);
-	pos.x = (p->x / TILE_SIZE);
-	pos.y = (p->y / TILE_SIZE);
-	draw_square(pos.x * TILE_SIZE_MAP, pos.y * TILE_SIZE_MAP, TILE_SIZE_MAP, 0xff00ff);
+	gettimeofday(&t, NULL);
+	if (s == 0)
+		s = t.tv_sec * 1000000 + t.tv_usec;
+	return (t.tv_sec * 1000000 + t.tv_usec - s);
 }
-
-
+//////////////
 
 void	draw_player_in_map()
 {
 	t_player	*p;
-	float		angle;
-	float		max_angle;
-	float		length;
 
 	p = &(get_prog()->player);
-	angle = p->angle - p->view_angle / 2;
-	max_angle = p->angle + p->view_angle / 2;
-	while (angle < max_angle)
-	{
-		length = ray_casting(p, angle);
-		draw_line(angle, length, p->x, p->y, 0xff00ff);
-		angle += 0.01;
-	}
+	draw_square(TILE_SIZE_MAP * p->x - 1, TILE_SIZE_MAP * p->y - 1, 4, 0xffff00);
+	draw_line(atan2(p->dir_y, p->dir_x), 30, p->x * TILE_SIZE_MAP, p->y * TILE_SIZE_MAP, 0xffffff);
 }
 
 void	draw_map_world(void)
@@ -51,7 +42,7 @@ void	draw_map_world(void)
 	int		size;
 
 	map = get_prog()->map->map;
-	size = TILE_SIZE;
+	size = TILE_SIZE_MAP;
 	x = 0;
 	while (map[x])
 	{
@@ -72,14 +63,10 @@ void	mini_map(t_prog *prog)
 {
 	t_point	size;
 	
-	//size.x = get_longest_line_width(prog->map->map) * TILE_SIZE_MAP;
-	//size.y = prog->map->len * TILE_SIZE_MAP;
-	//replace_image(prog, size.x, size.y);
-	replace_image(prog, WIN_SIZE, WIN_SIZE);
+	size.x = get_longest_line_width(prog->map->map) * TILE_SIZE_MAP;
+	size.y = prog->map->len * TILE_SIZE_MAP;
+	replace_image(prog, HEIGHT, HEIGHT);
 	draw_map_world();
 	draw_player_in_map();
-	//draw_map();
-	//draw_player();
-	//mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, WIN_SIZE - size.x, WIN_SIZE - size.y);
-	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, WIN_SIZE, 0);
+	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, WIDTH, 0);
 }

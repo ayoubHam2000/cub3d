@@ -6,22 +6,36 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/03 10:16:38 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/14 16:40:13 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	change_angle(t_player *player, char c)
+void	init_player_direction(char direction, t_player *p)
 {
-	if (c == 'N')
-		player->angle = M_PI * 1.5;
-	else if (c == 'S')
-		player->angle = M_PI * 0.5;
-	else if (c == 'E')
-		player->angle = 0.0f;
-	else if (c == 'W')
-		player->angle = M_PI;
+	double	angle;
+	double	old_dir_x;
+	double	old_plane_x;
+
+	p->dir_x = -1.0;
+	p->dir_y = 0.0;
+	p->plane_x = 0.0;
+	p->plane_y = 0.66;
+	if (direction == 'E')
+		angle = M_PI;
+	else if (direction == 'N')
+		angle = M_PI_2;
+	else if (direction == 'S')
+		angle = M_PI * 1.5;
+	else
+		return ;
+	old_dir_x = p->dir_x;
+	p->dir_x = p->dir_x  * cos(angle) - p->dir_y * sin(angle);
+	p->dir_y = old_dir_x * sin(angle) + p->dir_y * cos(angle);
+	old_plane_x = p->plane_x;
+	p->plane_x = p->plane_x * cos(angle) - p->plane_y * sin(angle);
+	p->plane_y = old_plane_x * sin(angle) + p->plane_y * cos(angle);
 }
 
 void	init_player_pos(void)
@@ -33,24 +47,22 @@ void	init_player_pos(void)
 
 	prog = get_prog();
 	map = prog->map->map;
-	x = 0;
-	while (map[x])
+	y = 0;
+	while (map[y])
 	{
-		y = 0;
-		while (map[x][y])
+		x = 0;
+		while (map[y][x])
 		{
-			if (ft_in(map[x][y], "NSEW"))
+			if (ft_in(map[y][x], "NSEW"))
 			{
-				prog->player.x = y * TILE_SIZE + TILE_SIZE * 0.5;
-				prog->player.y = x * TILE_SIZE + TILE_SIZE * 0.5;
-				prog->player.map_x = y;
-				prog->player.map_y = x;
-				change_angle(&prog->player, map[x][y]);
+				prog->player.x = (double)x + 0.1;
+				prog->player.y = (double)y + 0.1;
+				init_player_direction(map[y][x], &prog->player);
 				return ;
 			}
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
 
@@ -69,8 +81,9 @@ int	start_cub3d(char *file)
 	}
 	init_player_pos();
 	game_frame(prog);
-	mlx_hook(prog->win, ON_KEYDOWN, 0, on_key_down, prog);
-	mlx_hook(prog->win, ON_KEYUP, 0, on_key_up, prog);
+	mlx_hook(prog->win, ON_KEYDOWN, 1, on_key_down, prog);
+	mlx_hook(prog->win, ON_MOUSEMOVE, 0, on_mouse_move, prog);
+	mlx_hook(prog->win, ON_KEYUP, 1L<<1, on_key_up, prog);
 	mlx_hook(prog->win, ON_DESTROY, 0, exit_cube3d, prog);
 	mlx_loop(prog->mlx);
 	return (1);
