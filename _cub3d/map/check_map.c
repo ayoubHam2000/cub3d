@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:09:54 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:14:43 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/16 20:08:52 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_surrounded_by_one(char **map)
 
 static int is_in_charset(char c, int *p)
 {
-	const char	set[] = "01NSEW\0";
+	const char	set[] = "012NSEW\0";
 	int			i;
 
 	i = 0;

@@ -6,115 +6,112 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 17:22:54 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:04:37 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:57:38 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	msk_type_split(char c)
+static int	type_msk_split(char c)
 {
-	static int	flag;
+	static short	counter;
 
-	if (c == 0)
+	if (!c)
 	{
-		flag = 0;
+		counter = 0;
 		return (0);
 	}
-	if (c == ' ' && !flag)
-		flag = 1;
-	else if (c != ' ' && flag)
-		flag = 2;
-	if (flag == 2 || !flag)
+	if (c != ' ')
+		counter++;
+	if (c != ' ' && counter < 3)
 		return (0);
-	return (1);
-}
-
-static int	get_type_index(const char type[2])
-{
-	const char	stypes[][3] = {"NO\0", "SO\0", "WE\0", "EA\0", "F\0", "C\0"};
-	int			i;
-
-	i = 0;
-	while (stypes[i])
-	{
-		if (!ft_strncmp(type, stypes[i], ft_strlen(stypes[i])))
-			return (i);
-		i++;
-	}
+	if (c == ' ' && counter < 3)
+		return (1);
 	return (0);
 }
 
-static int	is_a_valide_type(char *type, const char stype[2])
+static t_type *get_type(char *line)
 {
-	int	i;
+	t_type	*type;
+	char	**sp;
 
-	i = ft_strlen(stype);
-	if (!ft_strncmp(type, stype, i))
+	sp = msk_split(line, type_msk_split);
+	if (ft_arrlen(sp) == 3)
 	{
-		while (type[i] == ' ')
-			i++;
-		if (!type[i])
-			return (0);
-		type = remove_break_line(type);
-		if (!check_identifier(type + i, get_type_index(stype)))
-			return (0);
-		else
-			return (1);
+		type = s_malloc(sizeof(t_type));
+		type->type = sp[0][0];
+		type->id = sp[1][0];
+		type->data = sp[2];
+		if (!type->data || !ft_in(type->type, "FWDS") || \
+		ft_in(type->id, "NSWE0") || type->id < 33 || type->id >= 127)
+			return (NULL);
+		type->id = sp[1][0] - 33;
 	}
-	return (0);
+	else
+		return (NULL);
+	return (type);
 }
 
-static char	**get_types_data(int fd)
+static int	get_nb_type(int fd)
 {
-	const char	stypes[][3] = {"NO\0", "SO\0", "WE\0", "EA\0", "F\0", "C\0"};
-	char		**res;
-	char		*line;
-	int			i;
+	char	*line;
+	int		res;
 
-	res = s_malloc(sizeof(char *) * 7);
 	line = get_next_line(fd);
-	i = 0;
 	while (line)
 	{
-		if (!is_empty_line(line))
+		if (!is_empty_line(line) && !is_comment(line))
 		{
-			if (is_a_valide_type(line, stypes[i]))
-				res[i] = line;
+			res = ft_atoi(line);
+			if (res <= 0)
+				return (-1);
 			else
-				break ;
-			if (++i == 6)
+				return (res);
+		}
+		line = get_next_line(fd);
+	}
+	return (-1);
+}
+
+static t_queue	*get_file_types(int fd)
+{
+	t_queue	*queue;
+	char	*line;
+	int		nb_type;
+
+	nb_type = get_nb_type(fd);
+	if (nb_type == -1)
+		return (NULL);
+	queue = q_init();
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (!is_empty_line(line) && !is_comment(line))
+		{
+			q_enqueue(queue, line);
+			if (--nb_type <= 0)
 				break ;
 		}
 		line = get_next_line(fd);
 	}
-	res[i] = NULL;
-	if (i == 6)
-		return (res);
-	return (NULL);
+	return (queue);
 }
 
-t_type	**get_types(int	fd)
+t_queue *get_types(t_prog *prog, int fd)
 {
-	char	**types;
-	char	**info;
-	t_type	**res;
-	int		i;
+	t_queue	*queue;
+	t_node	*node;
 
-	types = get_types_data(fd);
-	if (!types)
+	queue = get_file_types(fd);
+	if (!queue && !queue->first)
 		return (NULL);
-	i = 0;
-	res = ft_malloc(sizeof(t_type *) * 7);
-	while (types[i])
+	node = queue->first->next;
+	while (node)
 	{
-		info = msk_split(types[i], msk_type_split);
-		res[i] = ft_malloc(sizeof(t_type));
-		res[i]->id = get_type_index(info[0]);
-		res[i]->data = info[1];
-		ft_addrs_exclude(info[1]);
-		i++;
+		node->p = get_type(node->p);
+		if (!node->p)
+			return (NULL);
+		node = node->next;
 	}
-	res[i] = NULL;
-	return (res);
+	return (queue);
 }

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 16:40:13 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:39:51 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,28 @@ int	start_cub3d(char *file)
 	t_prog	*prog;
 
 	prog = get_prog();
-	if (!init_mlx(prog))
-		return (0);
-	prog->map = get_map(file);
-	if (!prog || !prog->map || !load_textures(prog))
+	if (!prog)
 	{
 		write(2, "Error\n", 6);
 		return (0);
 	}
-	init_player_pos();
+	if (!init_mlx(prog))
+		return (0);
+	if (!setup(prog, file))
+	{
+		write(2, "Error\n", 6);
+		return (0);
+	}
+	/*init_player_pos();
+	printf("tex_width = %d || tex_height = %d\n", prog->texs[0]->width, prog->texs[0]->height);
 	game_frame(prog);
 	mlx_hook(prog->win, ON_KEYDOWN, 1, on_key_down, prog);
-	mlx_hook(prog->win, ON_MOUSEMOVE, 0, on_mouse_move, prog);
+	mlx_hook(prog->win, ON_MOUSEMOVE, (0), on_mouse_move, prog);
 	mlx_hook(prog->win, ON_KEYUP, 1L<<1, on_key_up, prog);
 	mlx_hook(prog->win, ON_DESTROY, 0, exit_cube3d, prog);
-	mlx_loop(prog->mlx);
+	mlx_loop(prog->mlx);*/
 	return (1);
+	
 }
 
 int	main(int ac, char **av)

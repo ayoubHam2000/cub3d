@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 15:56:48 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:28:20 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 #include <unistd.h>
 
-# define TEX_NBR 4
+# define TEX_BUFFER_SIZE 100
+# define KEYS_MAX 94
 # define NO 0
 # define SO 1
 # define WE 2
@@ -37,9 +38,16 @@ typedef struct s_pointf
 
 typedef struct	s_type
 {
-	int		id;
+	char	type;
+	char	id;
 	char	*data;
 }	t_type;
+
+typedef struct	s_file
+{
+	t_queue	**types;
+	char	**map;
+}	t_file;
 
 typedef struct	s_map
 {
@@ -80,12 +88,20 @@ typedef struct	s_player
 	double	plane_y;
 }	t_player;
 
+typedef struct m_key
+{
+	char	type;
+	short	tex_s;
+	short	tex_e;
+}	t_m_key;
+
 typedef struct s_prog
 {
 	void		*mlx;
 	void		*win;
 	t_map		*map;
-	t_tex		*texs[TEX_NBR];
+	t_tex		*texs[TEX_BUFFER_SIZE];
+	t_m_key		*map_keys[KEYS_MAX];
 	t_player	player;
 	int			color;
 	int			time;
@@ -97,6 +113,13 @@ typedef struct s_prog
 	int			old_m_x;
 	int			old_m_y;
 }	t_prog;
+
+typedef struct t_file_data
+{
+	t_queue	*texs;
+	t_queue	*types;
+	t_queue	*map;
+}	t_file_data;
 
 typedef struct	s_ray
 {

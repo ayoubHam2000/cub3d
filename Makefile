@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/05/14 13:07:31 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/05/18 15:26:21 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ MainFiles = \
 	_cub3d/map/get_map_matrix.c \
 	_cub3d/map/get_types.c \
 	_cub3d/map/map_utils.c \
+	_cub3d/map/read_file.c \
+	_cub3d/map/load_tex_from_file.c \
 	_cub3d/utils/check_args.c \
 	_cub3d/utils/init_mlx.c \
 	_cub3d/utils/ft_put_pixel.c \
@@ -78,7 +80,7 @@ FILES = \
 
 #-Wall -Wextra -Werror
 CFLAGS = -g -I includes/
-FLAGS = -lmlx -framework opengl -framework Appkit -fsanitize=address
+FLAGS = -framework opengl -framework Appkit -fsanitize=address
 
 #CFLAGS = -g -I includes/ -I/usr/include -Imlx_linux
 #FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
@@ -87,6 +89,8 @@ FLAGS = -lmlx -framework opengl -framework Appkit -fsanitize=address
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 
 NAME = cub3d
+MLX_LIB_NAME = libmlx.dylib
+MLX_DIR = minilibx
 
 OBJ_DIR = _OUT/
 
@@ -96,8 +100,12 @@ deps = $(OBJ:.o=.d)
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
-	gcc  $(OBJ) $(FLAGS) -o $(NAME)
+$(MLX_LIB_NAME) :
+	make -C $(MLX_DIR)
+	mv $(MLX_DIR)/$(MLX_LIB_NAME) .
+
+$(NAME) : $(OBJ) $(MLX_LIB_NAME)
+	gcc $(MLX_LIB_NAME) $(OBJ) $(FLAGS) -o $(NAME)
 
 $(OBJ) : $(OBJ_DIR)%.o : %.c
 	mkdir -p $(dir $@)
@@ -106,9 +114,11 @@ $(OBJ) : $(OBJ_DIR)%.o : %.c
 -include $(deps)
 
 clean :
+	make -C $(MLX_DIR) clean
 	rm -rf $(OBJ_DIR)
 
 fclean : clean
+	rm -f $(MLX_LIB_NAME)
 	rm -f $(NAME)
 
 re : fclean all

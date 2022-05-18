@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 14:04:16 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/16 20:14:01 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	dda(t_ray *ray, char **map)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (map[ray->map_y][ray->map_x] == '1')
+		if (map[ray->map_y][ray->map_x] == '1' || map[ray->map_y][ray->map_x] == '2')
 			break ;
 	}
 	if (ray->side == 0)
@@ -51,12 +51,12 @@ static void	ray_info(t_ray *ray)
 	{
 		ray->wall_x = ray->pos_x + ray->dist * ray->x;
 		if (ray->map_y < ray->pos_y)
-			ray->side = 0;
+			ray->side = 2;//0
 		else
-			ray->side = 1;
+			ray->side = 3;//1
 	}
 	ray->wall_x = ray->wall_x - (int)ray->wall_x;
-	ray->line_height = (HEIGHT / ray->dist);
+	ray->line_height = (HEIGHT/ ray->dist);
 }
 
 void	raycasting(double camera_x, t_ray *ray, t_player *player, char **map)

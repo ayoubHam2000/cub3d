@@ -6,13 +6,13 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 16:32:56 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:22:37 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define R_SPEED 0.07
+#define R_SPEED 0.06
 #define M_SPEED 0.1
 
 static void	rotate(int keycode, t_player *p)
@@ -104,6 +104,7 @@ void	perform_events(t_prog *prog)
 	if (prog->pressed_key[1] != -1)
 		move(p, prog->map->map, prog->pressed_key[1]);
 	rotate_mouse(prog);
+	prog->m_y = prog->old_m_y;
 }
 
 int	on_key_down(int keycode, t_prog *prog)

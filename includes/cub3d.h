@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/15 18:18:10 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:35:22 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include <sys/time.h>
+# include "mlx.h"
 
 #define INF 2000000
 #define MAX_LINE 1000
@@ -34,20 +35,24 @@
 # define WIN_TITLE "cub3d"
 # define WIN_SIZE 500
 
-# define HEIGHT (600)
-# define WIDTH (1000)
+# define HEIGHT (500)
+# define WIDTH (900)
 
 //parsing -> map
 int		check_map(char **map);
 char	**get_map_matrix(int fd);
 int		check_identifier(char *identifier, int type);
-t_type	**get_types(int	fd);
+t_queue *get_types(t_prog *prog, int fd);
 t_map	*get_map(char *file);
+int	setup(t_prog *prog, char *file);
 
 //map ->utils
 char	*remove_break_line(char *str);
 int		is_empty_line(char *line);
 int		get_longest_line_width(char **map);
+int		is_blank(char c);
+int		is_comment(char *line);
+int		nb_blank(char *line);
 size_t	get_time(void);
 
 //events
@@ -86,13 +91,14 @@ void	draw_player_in_map();
 void	*get_texture(t_prog *prog, void *path);
 int		get_tex_color(t_tex *tex, int x, int y);
 int		shade_color(int color, float divide);
-int		load_textures(t_prog *prog);
+int		load_textures(t_prog *prog, t_queue *texs);
+
 
 void	draw_player();
 void	draw_map_world(void);
 void	mini_map(t_prog *prog);
 
 
-
+t_file_data	*get_file_data(int fd);
 
 #endif
