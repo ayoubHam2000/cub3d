@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/18 15:35:22 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:21:59 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,28 @@
 # include <sys/time.h>
 # include "mlx.h"
 
-#define INF 2000000
-#define MAX_LINE 1000
 #define TILE_SIZE 30
 #define TILE_SIZE_MAP 30
-#define RAY_LEN 100
+#define MAX_LINE 1000
 
 # define WIN_TITLE "cub3d"
-# define WIN_SIZE 500
 
 # define HEIGHT (500)
 # define WIDTH (900)
 
-//parsing -> map
-int		check_map(char **map);
-char	**get_map_matrix(int fd);
-int		check_identifier(char *identifier, int type);
-t_queue *get_types(t_prog *prog, int fd);
-t_map	*get_map(char *file);
-int	setup(t_prog *prog, char *file);
+//parsing -> setup
+int		check_map(t_prog *prog, char **map);
+char	**load_map(t_prog *prog, t_queue *map);
+int		load_textures(t_prog *prog, t_queue *texs);
+t_file_data	*read_file(char *file);
+int		load_types(t_prog *prog, t_queue *texs, t_queue *types);
+int		setup(t_prog *prog, char *file);
+char	get_key_type(char c);
 
 //map ->utils
-char	*remove_break_line(char *str);
 int		is_empty_line(char *line);
 int		get_longest_line_width(char **map);
-int		is_blank(char c);
 int		is_comment(char *line);
-int		nb_blank(char *line);
 size_t	get_time(void);
 
 //events
@@ -77,7 +72,7 @@ void	draw_square(int x, int y, int length, int color);
 void	draw_line(float angle, float length, float offsetx, float offsety, float color);
 
 //ray_casting
-void	raycasting(double camera_x, t_ray *ray, t_player *player, char **map);
+void	raycasting(double camera_x, t_ray *ray, t_player *player);
 
 //game utils
 void	draw_line(float angle, float length, float offsetx, float offsety, float color);
@@ -85,20 +80,14 @@ void	draw_ray(void);
 void	draw_square(int x, int y, int length, int color);
 void	draw_rectangle(int x, int y, int w, int h);
 void	draw_map();
-int		is_tile(t_map *map, int x, int y);
 void	draw_player_in_map();
 
-void	*get_texture(t_prog *prog, void *path);
 int		get_tex_color(t_tex *tex, int x, int y);
 int		shade_color(int color, float divide);
-int		load_textures(t_prog *prog, t_queue *texs);
-
 
 void	draw_player();
 void	draw_map_world(void);
 void	mini_map(t_prog *prog);
 
-
-t_file_data	*get_file_data(int fd);
 
 #endif

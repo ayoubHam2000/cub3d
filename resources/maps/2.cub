@@ -13,31 +13,34 @@
 # empty space represented by 0
 # 89 id char are allowed -> ascii[33, 126] - {NSWE0}
 
-4
+---start---
 tex_1 resources/assets/wall_1.png
 tex_2 resources/assets/wall_2.png
 tex_3 resources/assets/wall_3.png
 tex_4 resources/assets/wall_4.png
 
-5
+---start---
 #floor and ceil.
 F tex_1 tex_2
+W 1 tex_1 tex_2 tex_1 tex_4
+W 2 tex_2 tex_3 tex_1 tex_4
 
 # walls
-W 1 tex_1 tex_2 tex_1 tex_2
+W t tex_1 tex_2 tex_1 tex_2
 
 # door
-D 2 tex_1
+D d tex_1
 
 # sprites
-S ! resources/assets/door01.png
-S ? resources/assets/door02.png
+S ! tex_1
+S ? tex_1
 
 #MAP
+---start---
 1 1 1 1 1 1 1 1 1
 1 N 0 0 0 0 0 0 1
-1 0 0 0 1 1 1 ! 1
-1 0 0 0 0 2 0 0 1
-1 0 0 0 1 1 1 0 1
-1 0 0 0 0 0 0 0 1
+1 0 0 ! 1 1 2 0 1 1 1 1 1 1
+1 0 0 d d 1 2 0 0 0 0 0 0 1
+1 0 0 ? 1 1 2 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 11:35:13 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 13:41:12 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:29:17 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	draw_map_world(void)
 	int		y;
 	int		size;
 
-	map = get_prog()->map->map;
+	map = get_prog()->player.map;
 	size = TILE_SIZE_MAP;
 	x = 0;
 	while (map[x])
@@ -49,7 +49,7 @@ void	draw_map_world(void)
 		y = 0;
 		while (map[x][y])
 		{
-			if (map[x][y] == '1')
+			if (get_key_type(map[x][y]) == 'W')
 				draw_square(y * size, x * size, size, 0xffffff);
 			else
 				draw_square(y * size, x * size, size, 0x223322);
@@ -63,8 +63,8 @@ void	mini_map(t_prog *prog)
 {
 	t_point	size;
 	
-	size.x = get_longest_line_width(prog->map->map) * TILE_SIZE_MAP;
-	size.y = prog->map->len * TILE_SIZE_MAP;
+	size.x = get_longest_line_width(prog->player.map) * TILE_SIZE_MAP;
+	size.y = ft_arrlen(prog->player.map) * TILE_SIZE_MAP;
 	replace_image(prog, HEIGHT, HEIGHT);
 	draw_map_world();
 	draw_player_in_map();

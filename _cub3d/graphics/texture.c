@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:24:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/18 15:32:52 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:59:59 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,26 @@ static int	tex_extension(char *str)
 	return (-1);
 }
 
-void	*get_texture(t_prog *prog, void *path)
+static int	format_tex_queue(t_queue *tex)
+{
+	t_node	*node;
+	char	**split;
+
+	if ((int)tex->len >= TEX_BUFFER_SIZE)
+		return (0);
+	node = tex->first;
+	while (node)
+	{
+		split = ft_split(node->p, ' ');
+		if (!split || ft_arrlen(split) != 2)
+			return (0);
+		node->p = split;
+		node = node->next;
+	}
+	return (1);
+}
+
+static void	*get_texture(t_prog *prog, void *path)
 {
 	t_tex	*img;
 	int		ext;
@@ -48,19 +67,19 @@ void	*get_texture(t_prog *prog, void *path)
 	return (img);
 }
 
-int	load_textures(t_prog *prog, t_queue *texs)
+int	load_textures(t_prog *prog, t_queue *tex)
 {
 	int		i;
 	t_node	*node;
 
-	if (texs->len >= TEX_BUFFER_SIZE)
+	if (!format_tex_queue(tex))
 		return (0);
 	i = 0;
-	node = texs->first;
-	while (i < texs->len)
+	node = tex->first;
+	while (node)
 	{
-		printf("load %s\n", node->p);
-		prog->texs[i] = get_texture(prog, node->p);
+		prog->texs[i] = get_texture(prog, ((char **)(node->p))[1]);
+		node->p = ((char **)(node->p))[0];
 		if (!prog->texs[i])
 		{
 			while (--i >= 0)

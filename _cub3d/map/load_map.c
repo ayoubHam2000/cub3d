@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map_matrix.c                                   :+:      :+:    :+:   */
+/*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:08:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/03/29 22:05:53 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:34:41 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,50 +34,45 @@ static void	remove_spaces(char **str)
 	}
 }
 
-static char	**get_map_data(int fd)
+static char	**get_map_matrix(t_queue *map)
 {
-	t_queue	*queue;
-	char	*line;
+	char	**data;
 	char	**res;
 	int		i;
-	
-	queue = q_init();
-	line = get_next_line(fd);
-	while (line)
-	{
-		if (!is_empty_line(line))
-			q_enqueue(queue, line);
-		line = get_next_line(fd);
-	}
-	res = ft_malloc(sizeof(char *) * (queue->len + 1));
+
+	if (map->len < 3L)
+		return (0);
+	data = s_malloc(sizeof(char *) * (map->len + 1));
 	i = 0;
-	line = q_dequeue(queue);
-	while (line)
+	while (1)
 	{
-		res[i++] = remove_break_line(line);
-		ft_addrs_exclude(line);
-		line = q_dequeue(queue);
+		data[i] = q_dequeue(map);
+		if (!data[i])
+			break ;
+		i++;
 	}
-	res[i] = NULL;
-	remove_spaces(res);
-	return (res);
+	remove_spaces(data);
+	return (data);
 }
 
-char	**get_map_matrix(int fd)
+char	**load_map(t_prog *prog, t_queue *map)
 {
 	char	**data;
 	int		i;
 
-	data = get_map_data(fd);
+	data = get_map_matrix(map);
 	if (!data)
 		return (NULL);
-	if (!check_map(data))
-	{
-		i = 0;
-		while (data[i])
-			free(data[i++]);
-		free(data);
+	if (!check_map(prog, data))
 		return (NULL);
+	i = 0;
+	printf("%p\n", data);
+	while (data[i])
+	{
+		printf("%s\n", data[i]);
+		ft_addrs_exclude(data[i++]);
 	}
+	ft_addrs_exclude(data);
+	prog->player.map = data;
 	return (data);
 }

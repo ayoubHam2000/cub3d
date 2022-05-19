@@ -6,77 +6,59 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:41:51 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/18 15:24:44 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:42:24 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_queue	*read_section(int fd, char *line)
-{
-	t_queue	*res;
-	int		len;
-	char	*line;
-
-	len = ft_atoi(line);
-	if (len <= 0)
-		return (NULL);
-	res = q_init();
-	while (len > 0)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			return (NULL);
-		if (!is_empty_line(line) && !is_comment(line))
-		{
-			q_enqueue(res, line);
-			len--;
-		}
-	}
-	return (res);
-}
-
-t_queue	*read_map_data(t_queue *data, int fd, char *line)
-{
-	t_queue	*res;
-	char	*line;
-
-	res = q_init();
-	while (line)
-	{
-		if (is_comment(line))
-			return (NULL);
-		if (!is_empty_line(line))
-			q_enqueue(res, line);
-		line = get_next_line(fd);
-	}
-	return (res);	
-}
-
-t_file_data	*get_file_data(int fd)
+static t_file_data	*init_data(void)
 {
 	t_file_data	*data;
+
+	data = s_malloc(sizeof(t_file_data));
+	data->texs = q_init();
+	data->types = q_init();
+	data->map = q_init();
+	return (data);
+}
+
+static t_file_data *get_file_data_fd(t_file_data *data, int fd)
+{
 	char		*line;
 	int			state;
 
-	data = s_malloc(sizeof(t_file_data));
-	line = get_next_line(fd);
 	state = 0;
-	while (line)	
+	while (1)	
 	{
-		if (!is_empty_line(line) && is_comment(line))
-		{
-			if (state == 0)
-				data->texs = read_section(fd, line);
-			else if (data->texs && state == 1)
-				data->types = read_section(fd, line);
-			else if (data->texs && data->types)
-				return (read_map_data(data, fd, line));
-			else
-				return (NULL);
-			state++;
-		}
 		line = get_next_line(fd);
+		if (!line)
+			break ;
+		line = ft_strtrim(line, " \n");
+		if (is_empty_line(line) || (is_comment(line) && state != 3))
+			continue ;
+		if (ft_strcmp(line, "---start---"))
+			state++;
+		else if (state == 1)
+			q_enqueue(data->texs, line);
+		else if (state == 2)
+			q_enqueue(data->types, line);
+		else if (state == 3)
+			q_enqueue(data->map, line);
 	}
+	if (state != 3 || data->texs->len <= 0 || data->texs->len <= 1)
+		return (NULL);
+	return (data);
+}
+
+t_file_data	*read_file(char *file)
+{
+	t_file_data	*data;
+	int			fd;
+
+	fd = open(file, O_RDONLY);
+	data = init_data();
+	data = get_file_data_fd(data, fd);
+	close(fd);
 	return (data);
 }

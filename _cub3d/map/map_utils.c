@@ -6,28 +6,11 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 17:24:55 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/18 15:15:37 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:40:34 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-char	*remove_break_line(char *str)
-{
-	char	*break_line;
-
-	break_line = ft_strchr(str, '\n');
-	if (break_line)
-		break_line[0] = 0;
-	return (str);
-}
-
-int	is_blank(char c)
-{
-	if (c == ' ' || c == '\f' || c == '\t')
-		return (1);
-	return (0);
-}
 
 int	is_empty_line(char *line)
 {
@@ -38,21 +21,16 @@ int	is_empty_line(char *line)
 
 int	is_comment(char *line)
 {
-	while (*line && is_blank(*line))
-		line++;
 	if (*line == '#')
 		return (1);
 	return (0);
 }
 
-int	nb_blank(char *line)
+char	get_key_type(char c)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] && is_blank(line[i]))
-		i++;
-	return (i);
+	if (ft_in(c, "NSWE0"))
+		return (0);
+	return (get_prog()->map_keys[c - 33]->type);
 }
 
 int	get_longest_line_width(char **map)

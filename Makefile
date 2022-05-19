@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/05/18 15:26:21 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/05/19 15:22:10 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ UTIL_FILES = \
 	utils/ft_strncmp.c \
 	utils/ft_strrchr.c \
 	utils/ft_error.c \
+	utils/ft_strtrim.c \
 	utils/ft_error_exit.c \
 	utils/ft_strcmp.c \
 	utils/ft_in.c \
@@ -54,21 +55,18 @@ MainFiles = \
 	_cub3d/events/on_key_up.c \
 	_cub3d/events/mouse_move.c \
 	_cub3d/events/on_key_down.c \
-	_cub3d/map/check_identifier.c \
 	_cub3d/map/check_map.c \
-	_cub3d/map/get_map.c \
-	_cub3d/map/get_map_matrix.c \
-	_cub3d/map/get_types.c \
+	_cub3d/map/load_map.c \
+	_cub3d/map/load_types.c \
 	_cub3d/map/map_utils.c \
 	_cub3d/map/read_file.c \
-	_cub3d/map/load_tex_from_file.c \
+	_cub3d/map/setup.c \
 	_cub3d/utils/check_args.c \
 	_cub3d/utils/init_mlx.c \
 	_cub3d/utils/ft_put_pixel.c \
 	_cub3d/utils/ft_put_pixel_color.c \
 	_cub3d/utils/replace_image.c \
 	_cub3d/utils/get_prog.c \
-	_cub3d/utils/is_tile.c \
 	_cub3d/game_util.c \
 	_cub3d/game.c
 

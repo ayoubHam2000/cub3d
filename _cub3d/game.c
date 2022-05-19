@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/16 18:59:08 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:20:05 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,6 @@ void	draw_tex_line(t_tex *tex, int win_x, t_ray *ray)
 		y += step;
 	}
 }
-
-int		get_color(char *str)
-{
-	char	**colors;
-	int		color;
-
-	color = 0;
-	colors = ft_split(str, ',');
-	color += (ft_atoi(colors[0]) << 16);
-	color += (ft_atoi(colors[1]) << 8);
-	color += (ft_atoi(colors[2]));
-	free_all(NULL);
-	return (color);
-}
-/*
-void	draw_sky_floor(t_map *map)
-{
-	int	x;
-	int	y;
-	int	c1;
-	int	c2;
-
-	x = 0;
-	c1 = get_color(map->types[4]->data);
-	c2 = get_color(map->types[5]->data);
-	while (x < WIDTH)
-	{
-		y = 0;
-		while (y < HEIGHT)
-		{
-			if (y < HEIGHT - get_prog()->m_y)
-				ft_put_pixel(x, y, c2);
-			else
-				ft_put_pixel(x, y, c1);
-			y++;
-		}
-		x++;
-	}
-}*/
 
 void	draw_sky_floor(t_prog *prog)
 {
@@ -256,7 +217,7 @@ void	game(t_prog *prog)
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1.0;
-		raycasting(cameraX, &ray, &prog->player, prog->map->map);
+		raycasting(cameraX, &ray, &prog->player);
 		draw_tex_line(prog->texs[ray.side], x, &ray);
 		x++;
 	}
@@ -307,6 +268,5 @@ int	the_game(t_prog *prog)
 
 void	game_frame(t_prog *prog)
 {
-	
 	mlx_loop_hook(prog->mlx, the_game, prog);
 }

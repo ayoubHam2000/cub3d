@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:11 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/18 12:42:24 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/18 16:46:14 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int		ft_in(char c, const char *str);
 
 char	*get_next_line(int fd);
 char	**msk_split(char const *s, int (*f)(char c));
+char    *ft_strtrim(char const *s1, char const *set);
 
 #endif

@@ -10,6 +10,7 @@
 		"unistd.h": "c",
 		"get_next_line.h": "c",
 		"cmath": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"util.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/18 15:28:20 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:08:46 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ typedef struct	s_file
 	char	**map;
 }	t_file;
 
-typedef struct	s_map
-{
-	t_type	**types;
-	char	**map;
-	int		len;
-}	t_map;
-
 typedef struct s_data
 {
 	void	*img;
@@ -86,20 +79,21 @@ typedef struct	s_player
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	char	**map;
 }	t_player;
 
 typedef struct m_key
 {
+	char	key;
 	char	type;
-	short	tex_s;
-	short	tex_e;
+	int		*tex_index;
 }	t_m_key;
 
 typedef struct s_prog
 {
 	void		*mlx;
 	void		*win;
-	t_map		*map;
+	int			floor[2];
 	t_tex		*texs[TEX_BUFFER_SIZE];
 	t_m_key		*map_keys[KEYS_MAX];
 	t_player	player;

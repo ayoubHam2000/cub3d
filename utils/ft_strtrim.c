@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_tile.c                                          :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 17:14:55 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/04/01 17:15:10 by aben-ham         ###   ########.fr       */
+/*   Created: 2021/11/03 17:32:56 by mbel-bas          #+#    #+#             */
+/*   Updated: 2022/05/18 16:48:55 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "utilities.h"
 
-int	is_tile(t_map *map, int x, int y)
+char    *ft_strtrim(char const *s1, char const *set)
 {
-	if (y < 0 || x < 0 || y >= map->len || x >= ft_strlen(map->map[y]))
-		return (1);
-	if (map->map[y][x] == '1')
-		return (1);
-	return (0);
+    size_t    i;
+
+    if (!s1 || !set)
+        return (0);
+    while (*s1 && ft_strchr(set, *s1))
+        s1++;
+    i = ft_strlen(s1);
+    while (i && ft_strchr(set, s1[i]))
+        i--;
+    return (ft_substr(s1, 0, i + 1));
 }
