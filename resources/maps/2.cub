@@ -1,12 +1,46 @@
-NO resources/assets/wall_1.xpm
-SO resources/assets/wall_2.xpm
-WE resources/assets/wall_3.xpm
-EA resources/assets/wall_4.xpm
+# # -> for comment (must be the first char in the line)
+# the first line of information has a number indicate [nb of types]
+# the second line [floor tex], [ceil tex]
+# walls: [W] [char] [NO tex] [SO tex] [WE tex] [EA tex]
+# doors: [D] [char] [tex]
+# sprites: [S] [char] [list of tex, ...]
+# elements can be separated by one or more space(s).
+# each type can be separated by one or more empty line(s).
+# only png or xpm extension are allowed for the texture
+# forbidden char {N S W E 0}
+# map has to be surrounded by ones
+# player is represented by [N|S|W|E]
+# empty space represented by 0
+# 89 id char are allowed -> ascii[33, 126] - {NSWE0}
 
-F 184,113,39
-C 51,198,227
+---start---
+tex_1 resources/assets/wall_1.png
+tex_2 resources/assets/wall_2.png
+tex_3 resources/assets/wall_3.png
+tex_4 resources/assets/wall_4.png
 
-  1 1 1 1
-    1 N 0 1
- 1 0 0 1
-1111
+---start---
+#floor and ceil.
+F tex_1 tex_2
+W 1 tex_1 tex_2 tex_1 tex_4
+W 2 tex_2 tex_3 tex_1 tex_4
+
+# walls
+W t tex_1 tex_2 tex_1 tex_2
+
+# door
+D d tex_1
+
+# sprites
+S ! tex_1
+S ? tex_1
+
+#MAP
+---start---
+1 1 1 1 1 1 1 1 1
+1 N 0 0 0 0 0 0 1
+1 0 0 ! 1 1 2 0 1 1 1 1 1 1
+1 0 0 d d 1 2 0 0 0 0 0 0 1
+1 0 0 ? 1 1 2 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1

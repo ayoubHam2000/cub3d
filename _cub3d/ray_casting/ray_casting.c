@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 14:04:16 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:25:06 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	dda(t_ray *ray, char **map)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (map[ray->map_y][ray->map_x] == '1')
+		if (get_key_type(map[ray->map_y][ray->map_x]) == 'W')
 			break ;
 	}
 	if (ray->side == 0)
@@ -51,15 +51,15 @@ static void	ray_info(t_ray *ray)
 	{
 		ray->wall_x = ray->pos_x + ray->dist * ray->x;
 		if (ray->map_y < ray->pos_y)
-			ray->side = 0;
+			ray->side = 2;//0
 		else
-			ray->side = 1;
+			ray->side = 3;//1
 	}
 	ray->wall_x = ray->wall_x - (int)ray->wall_x;
-	ray->line_height = (HEIGHT / ray->dist);
+	ray->line_height = (HEIGHT/ ray->dist);
 }
 
-void	raycasting(double camera_x, t_ray *ray, t_player *player, char **map)
+void	raycasting(double camera_x, t_ray *ray, t_player *player)
 {
 	ray->x = player->dir_x + player->plane_x * camera_x;
 	ray->y = player->dir_y + player->plane_y * camera_x;
@@ -82,6 +82,6 @@ void	raycasting(double camera_x, t_ray *ray, t_player *player, char **map)
 		ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
 	else
 		ray->side_dist_y = (ray->map_y + 1 - ray->pos_y) * ray->delta_dist_y;
-	dda(ray, map);
+	dda(ray, player->map);
 	ray_info(ray);
 }

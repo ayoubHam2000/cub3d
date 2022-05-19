@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_move.c                                       :+:      :+:    :+:   */
+/*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/14 11:52:38 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/16 17:12:48 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/03/28 15:46:28 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/05/19 15:31:16 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	on_mouse_move(int x, int y, t_prog *prog)
+int	setup(t_prog *prog, char *file)
 {
-	//if (x < 1000 && x > 0 && y > 0 && y < HEIGHT)
-	//{
-		prog->old_m_x = prog->m_x;
-		prog->m_x = x;
-	//}
-	if (y > 0 && y < HEIGHT)
-	{
-		prog->old_m_y = y;
-		//prog->m_y = y;
-	}
-	return (0);
+	t_file_data	*data;
+
+	data = read_file(file);
+	if (!data)
+		return (0);
+	if (!load_textures(prog, data->texs))
+		return (0);
+	if (!load_types(prog, data->texs, data->types))
+		return (0);
+	if (!load_map(prog, data->map))
+		return (0);
+	free_all(NULL);
+	return (1);
 }

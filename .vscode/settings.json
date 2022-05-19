@@ -9,6 +9,8 @@
 		"cstring": "c",
 		"unistd.h": "c",
 		"get_next_line.h": "c",
-		"cmath": "c"
+		"cmath": "c",
+		"mlx.h": "c",
+		"util.h": "c"
 	}
 }

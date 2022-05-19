@@ -6,13 +6,13 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/14 16:32:56 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:17:48 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define R_SPEED 0.07
+#define R_SPEED 0.06
 #define M_SPEED 0.1
 
 static void	rotate(int keycode, t_player *p)
@@ -33,21 +33,6 @@ static void	rotate(int keycode, t_player *p)
 	p->plane_x = p->plane_x * cos(R_SPEED * d) - p->plane_y * sin(R_SPEED * d);
 	p->plane_y = oldPlaneX * sin(R_SPEED * d) + p->plane_y * cos(R_SPEED * d);
 }
-
-/*
-static void	rotate_mouse(t_prog *prog)
-{
-	t_player	*p;
-	double		d;
-
-	p = &prog->player;
-	d = (M_PI * -4 / WIDTH) * prog->m_x;
-	p->dir_x = - cos(d);
-	p->dir_y = - sin(d);
-	p->plane_x = - 0.66 * sin(d);
-	p->plane_y = 0.66 * cos(d);
-}
-*/
 
 static void	rotate_mouse(t_prog *prog)
 {
@@ -88,9 +73,9 @@ static void	move(t_player *p, char **map, int d)
 		next_pos.x = p->x - p->dir_y * M_SPEED * a;
 		next_pos.y = p->y + p->dir_x * M_SPEED * a;
 	}
-    if(map[(int)p->y][(int)next_pos.x] != '1')
+	if (get_key_type(map[(int)p->y][(int)next_pos.x]) != 'W')
 		p->x = next_pos.x;
-	if(map[(int)next_pos.y][(int)p->x] != '1')
+	if (get_key_type(map[(int)next_pos.y][(int)p->x]) != 'W')
 		p->y = next_pos.y;
 }
 
@@ -102,8 +87,9 @@ void	perform_events(t_prog *prog)
 	if (prog->pressed_key[0] != -1)
 		rotate(prog->pressed_key[0], p);
 	if (prog->pressed_key[1] != -1)
-		move(p, prog->map->map, prog->pressed_key[1]);
+		move(p, prog->player.map, prog->pressed_key[1]);
 	rotate_mouse(prog);
+	prog->m_y = prog->old_m_y;
 }
 
 int	on_key_down(int keycode, t_prog *prog)

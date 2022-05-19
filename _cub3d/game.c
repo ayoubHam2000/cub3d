@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/16 11:55:31 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:20:05 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,6 @@ void	draw_tex_line(t_tex *tex, int win_x, t_ray *ray)
 		y += step;
 	}
 }
-
-int		get_color(char *str)
-{
-	char	**colors;
-	int		color;
-
-	color = 0;
-	colors = ft_split(str, ',');
-	color += (ft_atoi(colors[0]) << 16);
-	color += (ft_atoi(colors[1]) << 8);
-	color += (ft_atoi(colors[2]));
-	free_all(NULL);
-	return (color);
-}
-/*
-void	draw_sky_floor(t_map *map)
-{
-	int	x;
-	int	y;
-	int	c1;
-	int	c2;
-
-	x = 0;
-	c1 = get_color(map->types[4]->data);
-	c2 = get_color(map->types[5]->data);
-	while (x < WIDTH)
-	{
-		y = 0;
-		while (y < HEIGHT)
-		{
-			if (y < HEIGHT - get_prog()->m_y)
-				ft_put_pixel(x, y, c2);
-			else
-				ft_put_pixel(x, y, c1);
-			y++;
-		}
-		x++;
-	}
-}*/
 
 void	draw_sky_floor(t_prog *prog)
 {
@@ -148,7 +109,7 @@ void	draw_sky_floor(t_prog *prog)
 				ft_put_pixel(x, y, color);
 
 				color = get_tex_color(ceil_tex, tx, ty);
-				color = (color >> 1) & 8355711;
+				//color = (color >> 1) & 8355711;
 				ft_put_pixel(x, (HEIGHT - y - 1), color);
 			//}
 			x++;
@@ -161,13 +122,78 @@ void	my_floor(t_prog *prog)
 {
 	int	x;
 	int	y;
+	double	dist;
+	double	floor_x;
+	double	floor_y;
+	double	step_x;
+	double	step_y;
+	int		cell_x;
+	int		cell_y;
+	int		tx;
+	int		ty;
+	t_tex	*ceil_tex;
+	t_tex	*floor_tex;
+	int		color;
+	double	m_p;
 
-	y = HEIGHT * 2;
+	ceil_tex = prog->texs[0];
+	floor_tex = prog->texs[1];
+	m_p = prog->m_y;
+	y = m_p;
 	while (y < HEIGHT)
 	{
+		dist = (HEIGHT * 0.5) / (y - m_p);
+		floor_x = prog->player.x + dist * (prog->player.dir_x - prog->player.plane_x);
+		floor_y = prog->player.y + dist * (prog->player.dir_y - prog->player.plane_y);
+		step_x = dist * (2 * prog->player.plane_x) / WIDTH;
+		step_y = dist * (2 * prog->player.plane_y) / WIDTH;
 		x = 0;
 		while (x < WIDTH)
 		{
+			cell_x = (int)floor_x;
+			cell_y = (int)floor_y;
+			tx = (int)(ceil_tex->width * (floor_x - cell_x)) & (ceil_tex->width -1);
+			ty = (int)(ceil_tex->height * (floor_y - cell_y)) & (ceil_tex->height -1);
+			
+		
+			if (y > m_p)
+			{
+				color = get_tex_color(ceil_tex, tx, ty);
+				color = (color >> 1) & 8355711;
+				ft_put_pixel(x, HEIGHT - y, color);
+			}
+			floor_x += step_x;
+			floor_y += step_y;
+			x++;
+		}
+		y++;
+	}
+	m_p = HEIGHT - prog->m_y;
+	y = m_p;
+	while (y < HEIGHT)
+	{
+		dist = (HEIGHT * 0.5) / (y - m_p);
+		floor_x = prog->player.x + dist * (prog->player.dir_x - prog->player.plane_x);
+		floor_y = prog->player.y + dist * (prog->player.dir_y - prog->player.plane_y);
+		step_x = dist * (2 * prog->player.plane_x) / WIDTH;
+		step_y = dist * (2 * prog->player.plane_y) / WIDTH;
+		x = 0;
+		while (x < WIDTH)
+		{
+			cell_x = (int)floor_x;
+			cell_y = (int)floor_y;
+			tx = (int)(ceil_tex->width * (floor_x - cell_x)) & (ceil_tex->width -1);
+			ty = (int)(ceil_tex->height * (floor_y - cell_y)) & (ceil_tex->height -1);
+			
+		
+			//if (y > m_p)
+			//{
+				color = get_tex_color(floor_tex, tx, ty);
+				color = (color >> 1) & 8355711;
+				ft_put_pixel(x, y, color);
+			//}
+			floor_x += step_x;
+			floor_y += step_y;
 			x++;
 		}
 		y++;
@@ -185,24 +211,49 @@ void	game(t_prog *prog)
 	//draw_sky_floor(prog);
 	my_floor(prog);
 	
-	/*ray.pos_x = prog->player.x;
+	ray.pos_x = prog->player.x;
 	ray.pos_y = prog->player.y;
 	x = 0;
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1.0;
-		raycasting(cameraX, &ray, &prog->player, prog->map->map);
+		raycasting(cameraX, &ray, &prog->player);
 		draw_tex_line(prog->texs[ray.side], x, &ray);
 		x++;
-	}*/
+	}
 	perform_events(prog);
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
+}
+
+void	change_mouse_location(t_prog *prog)
+{
+	int	to_x;
+
+	if (prog->m_y < 20 || prog->m_y > HEIGHT - 20)
+	{
+		mlx_mouse_show();
+		return ;
+	}
+	else
+		mlx_mouse_hide();
+	to_x = -1;
+	if (prog->m_x > WIDTH)
+		to_x = 0;
+	if (prog->m_x < 0)
+		to_x = WIDTH;
+	if (to_x == -1)
+		return ;
+	mlx_mouse_move(prog->win, to_x, prog->old_m_y);
+	prog->old_m_x = to_x;
+	prog->m_x = to_x;
 }
 
 int	the_game(t_prog *prog)
 {
 	static size_t	frame;
 	size_t		time;
+	
+	change_mouse_location(prog);
 	game(prog);
 	time = get_time();
 	frame++;
@@ -210,6 +261,7 @@ int	the_game(t_prog *prog)
 	if (time)
 		printf("frame: %lu -- time: %lu -- fps: %lu\n", frame, time / 1000, (frame * 1000000 / time));
 	printf("%d %d\n", prog->m_x, prog->m_y);
+
 	//mini_map(prog);
 	return (0);
 }
