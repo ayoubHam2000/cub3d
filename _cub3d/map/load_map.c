@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:08:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:34:41 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:54:52 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ char	**load_map(t_prog *prog, t_queue *map)
 	if (!check_map(prog, data))
 		return (NULL);
 	i = 0;
-	printf("%p\n", data);
 	while (data[i])
 	{
-		printf("%s\n", data[i]);
 		ft_addrs_exclude(data[i++]);
 	}
 	ft_addrs_exclude(data);
