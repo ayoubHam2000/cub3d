@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
 /*   Updated: 2022/05/19 15:08:46 by aben-ham         ###   ########.fr       */
