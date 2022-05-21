@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 11:35:13 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:29:17 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 11:02:25 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_map_world(void)
 		y = 0;
 		while (map[x][y])
 		{
-			if (get_key_type(map[x][y]) == 'W')
+			if (is_tile(map, y, x))
 				draw_square(y * size, x * size, size, 0xffffff);
 			else
 				draw_square(y * size, x * size, size, 0x223322);

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:59:01 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 10:10:08 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_prog	*get_prog(void)
 		prog->old_time = 0;
 		prog->pressed_key[0] = -1;
 		prog->pressed_key[1] = -1;
+		prog->pressed_key[2] = -1;
 		prog->m_x = 2;
 		prog->m_y = 2;
 		prog->old_m_y = 0;

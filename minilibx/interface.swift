@@ -269,10 +269,16 @@ public func mlx_mouse_move_swift(_ winptr:UnsafeRawPointer, _ x:Int32, _ y:Int32
 	let win:MlxWin = _mlx_bridge(ptr:winptr)
 	let frame = win.getWinEFrame()
 ///	let sframe = win.getScreenFrame()
+
 	var pt = CGPoint()
 	pt.x = frame.origin.x + CGFloat(x)
 ///	pt.y = sframe.size.y - frame.size.y - frame.origin.y + 1 + y
-	pt.y = frame.origin.y + frame.size.height - 1.0 - CGFloat(y)
+	//pt.y = frame.origin.y + frame.size.height - 1.0 - CGFloat(y)
+	//pt.y = 1440 - frame.origin.y + frame.size.height - 1.0 - CGFloat(500.0)
+	let screenHeight = CGFloat(NSScreen.main!.frame.height)
+	pt.y = screenHeight - frame.origin.y - frame.size.height + 1.0 + CGFloat(y)
+	//print("??? -> ", CGFloat(500.0), "+", frame.origin.y, "=", pt.y)
+	//print("to -> ", x, y, pt.x, pt.y, frame.origin.x, frame.origin.y, frame.size.height, screenHeight)
 	CGWarpMouseCursorPosition(pt)
 	CGAssociateMouseAndMouseCursorPosition(UInt32(1))
 	return Int32(0);

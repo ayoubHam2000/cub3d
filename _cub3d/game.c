@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:20:05 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 15:20:40 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ void	my_floor(t_prog *prog)
 	int		color;
 	double	m_p;
 
-	ceil_tex = prog->texs[0];
-	floor_tex = prog->texs[1];
+	ceil_tex = prog->texs[prog->floor[0]];
+	floor_tex = prog->texs[prog->floor[1]];
 	m_p = prog->m_y;
 	y = m_p;
 	while (y < HEIGHT)
@@ -205,20 +205,29 @@ void	game(t_prog *prog)
 	t_ray	ray;
 	int		x;
 	double	cameraX;
+	int tex_index;
 	
 	replace_image(prog, WIDTH, HEIGHT);
 	//draw_sky_floor(prog->map);
 	//draw_sky_floor(prog);
 	my_floor(prog);
-	
+
 	ray.pos_x = prog->player.x;
 	ray.pos_y = prog->player.y;
+	ray.flag = 1;
 	x = 0;
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1.0;
 		raycasting(cameraX, &ray, &prog->player);
-		draw_tex_line(prog->texs[ray.side], x, &ray);
+		char	c = prog->player.map[ray.map_y][ray.map_x] - 33;
+		//printf("%c\n", c);
+		tex_index = 0;
+		if (prog->map_keys[c]->type == 'W')
+			tex_index = prog->map_keys[c]->tex_index[ray.side];
+		else if (prog->map_keys[c]->type == 'D')
+			tex_index = prog->map_keys[c]->tex_index[0];
+		draw_tex_line(prog->texs[tex_index], x, &ray);
 		x++;
 	}
 	perform_events(prog);
@@ -227,15 +236,10 @@ void	game(t_prog *prog)
 
 void	change_mouse_location(t_prog *prog)
 {
+	int x;
+	int y;
 	int	to_x;
 
-	if (prog->m_y < 20 || prog->m_y > HEIGHT - 20)
-	{
-		mlx_mouse_show();
-		return ;
-	}
-	else
-		mlx_mouse_hide();
 	to_x = -1;
 	if (prog->m_x > WIDTH)
 		to_x = 0;
@@ -243,7 +247,8 @@ void	change_mouse_location(t_prog *prog)
 		to_x = WIDTH;
 	if (to_x == -1)
 		return ;
-	mlx_mouse_move(prog->win, to_x, prog->old_m_y);
+	mlx_mouse_get_pos(prog->win, &x, &y);
+	mlx_mouse_move(prog->win, to_x, y);
 	prog->old_m_x = to_x;
 	prog->m_x = to_x;
 }
@@ -253,16 +258,16 @@ int	the_game(t_prog *prog)
 	static size_t	frame;
 	size_t		time;
 	
-	change_mouse_location(prog);
+	//change_mouse_location(prog);
 	game(prog);
 	time = get_time();
 	frame++;
-	system("clear");
-	if (time)
-		printf("frame: %lu -- time: %lu -- fps: %lu\n", frame, time / 1000, (frame * 1000000 / time));
-	printf("%d %d\n", prog->m_x, prog->m_y);
+	//system("clear");
+	//if (time)
+	//	printf("frame: %lu -- time: %lu -- fps: %lu\n", frame, time / 1000, (frame * 1000000 / time));
+	//printf("---> %d %d\n", prog->m_x, prog->m_y);
 
-	//mini_map(prog);
+	mini_map(prog);
 	return (0);
 }
 

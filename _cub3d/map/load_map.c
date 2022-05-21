@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:08:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:54:52 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 16:11:11 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,45 @@ static char	**get_map_matrix(t_queue *map)
 	return (data);
 }
 
-char	**load_map(t_prog *prog, t_queue *map)
+void	construct_map_data(t_prog *prog, char **map)
+{
+	int			x;
+	int			y;
+	t_m_info	**map_info;
+
+	map_info = ft_malloc(sizeof(t_m_info *) * (ft_arrlen(map) + 1));
+	y = -1;
+	while (map[y])
+	{
+		map_info[y] = ft_malloc(sizeof(t_m_info) * (ft_strlen(map[y])));
+		x = -1;
+		while (map[y][x])
+		{
+			map_info[y][x].key = map[y][x];
+			map_info[y][x].type = map[y][x];
+			map_info[y][x].timer = 0.0f;
+			map_info[y][x].step = 0;
+			if (map[y][x] != '0')
+				map[y][x] = '1';
+			x++;
+		}
+		ft_addrs_exclude(map[y]);
+		y++;
+	}
+	map_info[y] = NULL;
+	prog->player.map = map;
+	prog->player.map_info = map_info;
+}
+
+int	load_map(t_prog *prog, t_queue *map)
 {
 	char	**data;
-	int		i;
 
 	data = get_map_matrix(map);
 	if (!data)
-		return (NULL);
+		return (0);
 	if (!check_map(prog, data))
-		return (NULL);
-	i = 0;
-	while (data[i])
-	{
-		ft_addrs_exclude(data[i++]);
-	}
-	ft_addrs_exclude(data);
-	prog->player.map = data;
-	return (data);
+		return (0);
+	construct_map_data(prog, data);
+	return (1);
 }

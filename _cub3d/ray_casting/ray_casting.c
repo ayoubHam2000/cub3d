@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:25:06 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:41:40 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	dda(t_ray *ray, char **map)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (get_key_type(map[ray->map_y][ray->map_x]) == 'W')
+		if (is_block(map, ray->map_x, ray->map_y, ray->flag))
 			break ;
 	}
 	if (ray->side == 0)
@@ -43,17 +43,17 @@ static void	ray_info(t_ray *ray)
 	{
 		ray->wall_x = ray->pos_y + ray->dist * ray->y;
 		if (ray->map_x < ray->pos_x)
-			ray->side = 2;
+			ray->side = WE;
 		else
-			ray->side = 3;
+			ray->side = EA;
 	}
 	else
 	{
 		ray->wall_x = ray->pos_x + ray->dist * ray->x;
 		if (ray->map_y < ray->pos_y)
-			ray->side = 2;//0
+			ray->side = NO;
 		else
-			ray->side = 3;//1
+			ray->side = SO;
 	}
 	ray->wall_x = ray->wall_x - (int)ray->wall_x;
 	ray->line_height = (HEIGHT/ ray->dist);

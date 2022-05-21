@@ -6,14 +6,14 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:56:12 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:51:25 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 #define R_SPEED 0.06
-#define M_SPEED 0.1
+#define M_SPEED 0.11
 
 static void	rotate(int keycode, t_player *p)
 {
@@ -73,9 +73,9 @@ static void	move(t_player *p, char **map, int d)
 		next_pos.x = p->x - p->dir_y * M_SPEED * a;
 		next_pos.y = p->y + p->dir_x * M_SPEED * a;
 	}
-	if (get_key_type(map[(int)p->y][(int)next_pos.x]) != 'W')
+	if (!is_tile(map, (int)next_pos.x, (int)p->y))
 		p->x = next_pos.x;
-	if (get_key_type(map[(int)next_pos.y][(int)p->x]) != 'W')
+	if (!is_tile(map, (int)p->x, (int)next_pos.y))
 		p->y = next_pos.y;
 }
 
@@ -88,7 +88,9 @@ void	perform_events(t_prog *prog)
 		rotate(prog->pressed_key[0], p);
 	if (prog->pressed_key[1] != -1)
 		move(p, prog->player.map, prog->pressed_key[1]);
-	rotate_mouse(prog);
+	if (prog->pressed_key[2] != -1)
+		move(p, prog->player.map, prog->pressed_key[2]);
+	//rotate_mouse(prog);
 	prog->m_y = prog->old_m_y;
 }
 
@@ -96,7 +98,9 @@ int	on_key_down(int keycode, t_prog *prog)
 {
 	if (keycode == KEY_L || keycode == KEY_R)
 		prog->pressed_key[0] = keycode;
-	if (keycode == KEY_A || keycode == KEY_D || keycode == KEY_S || keycode == KEY_W)
+	else if (keycode == KEY_S || keycode == KEY_W)
 		prog->pressed_key[1] = keycode;
+	else if (keycode == KEY_A || keycode == KEY_D)
+		prog->pressed_key[2] = keycode;
 	return (0);
 }

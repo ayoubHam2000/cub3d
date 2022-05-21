@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:08:46 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 16:07:38 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define STRUCTS_H
 
 #include <unistd.h>
+#include <pthread.h>
 
 # define TEX_BUFFER_SIZE 100
 # define KEYS_MAX 94
@@ -71,15 +72,24 @@ typedef struct s_tex
 	int		endian;
 }	t_tex;
 
+typedef struct	s_m_info
+{
+	char	key;
+	char	type;
+	float	timer;
+	float	step;
+}	t_m_info;
+
 typedef struct	s_player
 {
-	double	x;
-	double	y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	char	**map;
+	double		x;
+	double		y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	char		**map;
+	t_m_info	**map_info;
 }	t_player;
 
 typedef struct m_key
@@ -101,7 +111,7 @@ typedef struct s_prog
 	int			time;
 	int			old_time;
 	t_data		img;
-	int			pressed_key[2];
+	int			pressed_key[3];
 	int			m_x;
 	int			m_y;
 	int			old_m_x;
@@ -133,6 +143,7 @@ typedef struct	s_ray
 	double	wall_x;
 	int		side;
 	int		line_height;
+	int		flag;
 }	t_ray;
 
 #endif

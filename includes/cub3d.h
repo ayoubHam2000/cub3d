@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:21:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 15:45:56 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include <sys/time.h>
+# include <pthread.h>
 # include "mlx.h"
 
 #define TILE_SIZE 30
@@ -35,14 +36,22 @@
 # define HEIGHT (500)
 # define WIDTH (900)
 
+#define NO 0
+#define SO 1
+#define WE 2
+#define EA 3
+
 //parsing -> setup
 int		check_map(t_prog *prog, char **map);
-char	**load_map(t_prog *prog, t_queue *map);
+int		load_map(t_prog *prog, t_queue *map);
 int		load_textures(t_prog *prog, t_queue *texs);
 t_file_data	*read_file(char *file);
 int		load_types(t_prog *prog, t_queue *texs, t_queue *types);
 int		setup(t_prog *prog, char *file);
 char	get_key_type(char c);
+t_m_key	*get_key(char c);
+int		is_tile(char **map, int x, int y);
+int	is_block(char **map, int x, int y, int flag);
 
 //map ->utils
 int		is_empty_line(char *line);

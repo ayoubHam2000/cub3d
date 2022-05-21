@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:24:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 14:59:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/20 11:31:17 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	load_textures(t_prog *prog, t_queue *tex)
 		node->p = ((char **)(node->p))[0];
 		if (!prog->texs[i])
 		{
+			printf("Error at: %s\n", node->p);
 			while (--i >= 0)
 			{
 				mlx_destroy_image(prog->mlx, prog->texs[i]->tex);
