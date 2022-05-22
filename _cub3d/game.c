@@ -6,22 +6,30 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 10:55:56 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:34:41 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_tex_line(t_tex *tex, int win_x, t_ray *ray)
+void	draw_tex_line(t_prog *prog, int win_x, t_ray *ray)
 {
 	t_point	line;
 	int		x;
 	double	y;
 	double	step;
 	int		color;
+	t_tex	*tex;
+	int		tex_index;
 
 	//line.x = (ray->line_height * (-1) + HEIGHT) * 0.5;
 	//line.y = (ray->line_height + HEIGHT) * 0.5;
+	if (prog->player.map_info[ray->map_y][ray->map_x].type == 'D')
+		tex_index = get_tex(ray->map_x, ray->map_y)[0];
+	else
+		tex_index = get_tex(ray->map_x, ray->map_y)[ray->side];
+	tex = prog->texs[tex_index];
+
 	int i = HEIGHT - get_prog()->m_y;
 	line.x = -0.5 * ray->line_height + i;
 	line.y = 0.5 * ray->line_height + i;
@@ -33,7 +41,12 @@ void	draw_tex_line(t_tex *tex, int win_x, t_ray *ray)
 	}
 	if (line.y > HEIGHT)
 		line.y = HEIGHT;
+
 	x = tex->width * ray->wall_x;
+	if (get_prog()->player.map_info[ray->map_y][ray->map_x].type == 'D')
+	{
+		x -= get_prog()->player.map_info[ray->map_y][ray->map_x].timer * tex->width;
+	}
 	while (line.x < line.y)
 	{
 		color = get_tex_color(tex, x, y);
@@ -216,16 +229,15 @@ void	events(t_prog *prog)
 			if (map[y][x].on)
 			{
 				map[y][x].timer += TIMER_CONST * map[y][x].on;
+				if (map[y][x].on < 0)
+					prog->player.map[y][x] = '1';
 				if (map[y][x].timer >= 1.0f)
 				{
-					prog->player.map[y][x] = '1';
+					prog->player.map[y][x] = '0';
 					map[y][x].timer = 1.0;
 				}
 				if (map[y][x].timer <= 0.0f)
-				{
 					map[y][x].timer = 0;
-					prog->player.map[y][x] = '0';
-				}
 				if (map[y][x].timer >= 1.0f || map[y][x].timer <= 0.0f)
 					map[y][x].on = 0;
 				//printf("%d %d->%.2f\n", x, y, map[y][x].timer);
@@ -241,7 +253,6 @@ void	game(t_prog *prog)
 	t_ray	ray;
 	int		x;
 	double	cameraX;
-	int tex_index;
 	
 	replace_image(prog, WIDTH, HEIGHT);
 	//draw_sky_floor(prog->map);
@@ -255,13 +266,8 @@ void	game(t_prog *prog)
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1.0;
-		
 		raycasting(cameraX, &ray, &prog->player);
-		if (prog->player.map_info[ray.map_y][ray.map_x].type == 'D')
-			tex_index = get_tex(ray.map_x, ray.map_y)[0];
-		else
-			tex_index = get_tex(ray.map_x, ray.map_y)[ray.side];
-		draw_tex_line(prog->texs[tex_index], x, &ray);
+		draw_tex_line(prog, x, &ray);
 		x++;
 	}
 	perform_events(prog);
@@ -301,7 +307,7 @@ int	the_game(t_prog *prog)
 	//	printf("frame: %lu -- time: %lu -- fps: %lu\n", frame, time / 1000, (frame * 1000000 / time));
 	//printf("---> %d %d\n", prog->m_x, prog->m_y);
 
-	mini_map(prog);
+	//mini_map(prog);
 	return (0);
 }
 

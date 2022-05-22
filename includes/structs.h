@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 09:43:16 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 14:24:03 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define TEX_BUFFER_SIZE 100
 # define KEYS_MAX 94
-# define TIMER_CONST 0.1f
+# define TIMER_CONST 0.06f
 # define NO 0
 # define SO 1
 # define WE 2

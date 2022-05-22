@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 10:38:23 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:24:14 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,27 @@ static int	stop(t_ray *ray, t_player *player)
 		ray->door_x = ray->map_x;
 		ray->door_y = ray->map_y;
 		ray->door_side = ray->side;
+		
 		if (ray->side == 0)
 			ray->door_dist = ray->side_dist_x - ray->delta_dist_x;
 		else
 			ray->door_dist = ray->side_dist_y - ray->delta_dist_y;
+
 		if (ray->side == 0)
-			ray->door_wall_x = ray->pos_y + ray->dist * ray->y;
+			ray->door_wall_x = ray->pos_y + ray->door_dist * ray->y;
 		else
-			ray->door_wall_x = ray->pos_x + ray->dist * ray->x;
+			ray->door_wall_x = ray->pos_x + ray->door_dist * ray->x;
+		
+		double tmp;
+		if (ray->side == 0)
+			tmp = ray->pos_y + (ray->door_dist + 0.5 * ray->delta_dist_x) * ray->y;
+		else
+			tmp = ray->pos_x + (ray->door_dist + 0.5 * ray->delta_dist_y) * ray->x;
+		int boo = (((int)tmp > (int)ray->door_wall_x) || ((int)tmp < (int)ray->door_wall_x));
 		ray->door_wall_x = ray->door_wall_x - (int)ray->door_wall_x;
-		if (ray->door_wall_x < 0.5)
+	
+		double t = player->map_info[ray->map_y][ray->map_x].timer;
+		if (boo || (tmp - (int)tmp) < t)
 			return (0);
 		return (1);
 	}
@@ -61,6 +72,14 @@ static void	dda(t_ray *ray, t_player *player)
 		ray->dist = ray->side_dist_x - ray->delta_dist_x;
 	else
 		ray->dist = ray->side_dist_y - ray->delta_dist_y;
+
+	if (player->map_info[ray->map_y][ray->map_x].type == 'D')
+	{
+		if (ray->side == 0)
+			ray->dist += 0.5 * ray->delta_dist_x;
+		else
+			ray->dist += 0.5 * ray->delta_dist_y;
+	}
 }
 
 static void	ray_info(t_ray *ray)

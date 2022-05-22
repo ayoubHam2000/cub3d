@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:08:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 20:16:20 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:40:16 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	set_map_info(t_prog *prog, t_m_info *map_info, char c)
 		map_info->type = prog->map_keys[c - 33]->type;
 	else
 		map_info->type = -1;
-	map_info->timer = 1.0f;
+	map_info->timer = 0.0f;
 	map_info->on = 0;
 
 }
