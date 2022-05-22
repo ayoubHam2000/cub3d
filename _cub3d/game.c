@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 15:20:40 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 10:55:56 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,42 @@ void	my_floor(t_prog *prog)
 	}
 }
 
+void	events(t_prog *prog)
+{
+	t_m_info	**map;
+	int	x;
+	int	y;
+
+	map = prog->player.map_info;
+	y = 0;
+	while (prog->player.map[y])
+	{
+		x = 0;
+		while (prog->player.map[y][x])
+		{
+			if (map[y][x].on)
+			{
+				map[y][x].timer += TIMER_CONST * map[y][x].on;
+				if (map[y][x].timer >= 1.0f)
+				{
+					prog->player.map[y][x] = '1';
+					map[y][x].timer = 1.0;
+				}
+				if (map[y][x].timer <= 0.0f)
+				{
+					map[y][x].timer = 0;
+					prog->player.map[y][x] = '0';
+				}
+				if (map[y][x].timer >= 1.0f || map[y][x].timer <= 0.0f)
+					map[y][x].on = 0;
+				//printf("%d %d->%.2f\n", x, y, map[y][x].timer);
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	game(t_prog *prog)
 {
 	t_ray	ray;
@@ -214,19 +250,17 @@ void	game(t_prog *prog)
 
 	ray.pos_x = prog->player.x;
 	ray.pos_y = prog->player.y;
-	ray.flag = 1;
 	x = 0;
+	events(prog);
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1.0;
+		
 		raycasting(cameraX, &ray, &prog->player);
-		char	c = prog->player.map[ray.map_y][ray.map_x] - 33;
-		//printf("%c\n", c);
-		tex_index = 0;
-		if (prog->map_keys[c]->type == 'W')
-			tex_index = prog->map_keys[c]->tex_index[ray.side];
-		else if (prog->map_keys[c]->type == 'D')
-			tex_index = prog->map_keys[c]->tex_index[0];
+		if (prog->player.map_info[ray.map_y][ray.map_x].type == 'D')
+			tex_index = get_tex(ray.map_x, ray.map_y)[0];
+		else
+			tex_index = get_tex(ray.map_x, ray.map_y)[ray.side];
 		draw_tex_line(prog->texs[tex_index], x, &ray);
 		x++;
 	}

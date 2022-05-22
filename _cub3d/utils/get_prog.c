@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 10:10:08 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 09:40:47 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init_player(t_player *player)
 	player->dir_y = 0.0;
 	player->plane_x = 0.0;
 	player->plane_y = 0.66;
+	player->timer = 0.0;
 	player->map = NULL;
 }
 
@@ -41,7 +42,7 @@ t_prog	*get_prog(void)
 		prog->m_x = 2;
 		prog->m_y = 2;
 		prog->old_m_y = 0;
-		prog->old_m_y = 0;
+		prog->old_m_y = HEIGHT / 2;
 		ft_memset(prog->map_keys, 0, KEYS_MAX * sizeof(t_m_key *));
 		init_player(&prog->player);
 	}

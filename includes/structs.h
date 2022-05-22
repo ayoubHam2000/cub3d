@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 16:07:38 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 09:43:16 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define TEX_BUFFER_SIZE 100
 # define KEYS_MAX 94
+# define TIMER_CONST 0.1f
 # define NO 0
 # define SO 1
 # define WE 2
@@ -77,7 +78,7 @@ typedef struct	s_m_info
 	char	key;
 	char	type;
 	float	timer;
-	float	step;
+	int		on;
 }	t_m_info;
 
 typedef struct	s_player
@@ -90,6 +91,7 @@ typedef struct	s_player
 	double		plane_y;
 	char		**map;
 	t_m_info	**map_info;
+	double		timer;
 }	t_player;
 
 typedef struct m_key
@@ -143,7 +145,13 @@ typedef struct	s_ray
 	double	wall_x;
 	int		side;
 	int		line_height;
-	int		flag;
+
+	int		hit_door;
+	int		door_x;
+	int		door_y;
+	double	door_dist;
+	double	door_wall_x;
+	int		door_side;
 }	t_ray;
 
 #endif

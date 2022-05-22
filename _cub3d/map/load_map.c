@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:08:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 16:11:11 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 20:16:20 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,19 @@ static char	**get_map_matrix(t_queue *map)
 	return (data);
 }
 
-void	construct_map_data(t_prog *prog, char **map)
+static void	set_map_info(t_prog *prog, t_m_info *map_info, char c)
+{
+	map_info->key = c;
+	if (!ft_in(c, "WSNE0"))
+		map_info->type = prog->map_keys[c - 33]->type;
+	else
+		map_info->type = -1;
+	map_info->timer = 1.0f;
+	map_info->on = 0;
+
+}
+
+static void	construct_map_data(t_prog *prog, char **map)
 {
 	int			x;
 	int			y;
@@ -63,23 +75,19 @@ void	construct_map_data(t_prog *prog, char **map)
 
 	map_info = ft_malloc(sizeof(t_m_info *) * (ft_arrlen(map) + 1));
 	y = -1;
-	while (map[y])
+	while (map[++y])
 	{
 		map_info[y] = ft_malloc(sizeof(t_m_info) * (ft_strlen(map[y])));
 		x = -1;
-		while (map[y][x])
+		while (map[y][++x])
 		{
-			map_info[y][x].key = map[y][x];
-			map_info[y][x].type = map[y][x];
-			map_info[y][x].timer = 0.0f;
-			map_info[y][x].step = 0;
-			if (map[y][x] != '0')
+			set_map_info(prog, &map_info[y][x], map[y][x]);
+			if (!ft_in(map[y][x], "WSNE0"))
 				map[y][x] = '1';
-			x++;
 		}
 		ft_addrs_exclude(map[y]);
-		y++;
 	}
+	ft_addrs_exclude(map);
 	map_info[y] = NULL;
 	prog->player.map = map;
 	prog->player.map_info = map_info;

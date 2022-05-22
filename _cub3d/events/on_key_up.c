@@ -6,46 +6,11 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:35:59 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 14:43:19 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 09:41:31 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	switch_door(t_prog *prog)
-{
-	t_player	*p;
-	double		sx;
-	double		sy;
-	double		wall_x;
-	double		wall_y;
-
-	p = &prog->player;
-
-	if (p->dir_x < 0)
-		sx = (p->x - (int)p->x) * (1.0 / p->dir_x);
-	else
-		sx = ((int)p->x + 1 - p->x) * (1.0 / p->dir_x);
-	if (p->dir_y < 0)
-		sy = (p->y - (int)p->y) * (1.0 / p->dir_y);
-	else
-		sy = ((int)p->y + 1 - p->y) * (1.0 / p->dir_y);
-
-	wall_x = p->x + sx * p->dir_y;
-	wall_y = p->y + sy * p->dir_x;
-	//wall_x = wall_x - (int)wall_x;
-	wall_y = wall_y - p->x;
-	printf("=> %.2f %.2f || %.2f %.2f || %.2f %.2f\n", p->x, p->y, sx, sy, wall_x, wall_y);
-	if (p->dir_y < 0 && is_tile(p->map, p->x, p->y - 1))
-		wall_y = 0;
-	else if (p->dir_y >= 0 && is_tile(p->map, p->x, p->y + 1))
-		wall_y = 1;
-	if (p->dir_x < 0 && is_tile(p->map, p->x - 1, p->y))
-		wall_x = 0;
-	else if (p->dir_x >= 0 && is_tile(p->map, p->x + 1, p->y))
-		wall_x = 1;
-	printf("%.2f %.2f || %.2f %.2f || %.2f %.2f\n", p->x, p->y, sx, sy, wall_x, wall_y);
-}
 
 void	k(t_prog *prog)
 {
@@ -57,12 +22,12 @@ void	k(t_prog *prog)
 	p = &prog->player;
 	ray.pos_x = prog->player.x;
 	ray.pos_y = prog->player.y;
-	ray.flag = 0;
+	//ray.flag = 0;
 	raycasting(0.0, &ray, p);
 	f = -1;
 	x = p->x;
 	y = p->y;
-	if (get_key_type(p->map[ray.map_y][ray.map_x]) == 'D')
+	if (p->map_info[ray.map_y][ray.map_x].type == 'D')
 	{
 		if (p->dir_y < 0 && ray.map_x == (int)x && ray.map_y == y - 1)
 			f = 0;
@@ -79,6 +44,29 @@ void	k(t_prog *prog)
 	printf("%d %d || %d %d || %d (%f, %f)\n",(int)p->x, (int)p->y, ray.map_x, ray.map_y, f, p->dir_x, p->dir_y);
 }
 
+void j(t_prog *prog)
+{
+	t_player	*p;
+	t_ray		ray;
+	int			f;
+	int x, y;
+
+	p = &prog->player;
+	ray.pos_x = prog->player.x;
+	ray.pos_y = prog->player.y;
+	raycasting(0.0, &ray, p);
+	if (ray.hit_door && ray.door_dist <= 1.4 && !prog->player.map_info[ray.door_y][ray.door_x].on)
+	{
+		printf("%d %d || %f\n",ray.door_x, ray.door_y, ray.door_dist);
+		if (prog->player.map_info[ray.door_y][ray.door_x].timer == 0)
+			prog->player.map_info[ray.door_y][ray.door_x].on = 1;
+		else
+			prog->player.map_info[ray.door_y][ray.door_x].on = -1;
+	}
+	else
+		printf("no hit\n");
+}
+
 int	on_key_up(int keycode, t_prog *prog)
 {
 	if (keycode == KEY_ESC)
@@ -92,7 +80,10 @@ int	on_key_up(int keycode, t_prog *prog)
 		else if (keycode == KEY_A || keycode == KEY_D)
 			prog->pressed_key[2] = -1;
 		else if (keycode == KEY_SPACE)
-			k(prog);
+		{
+			prog->player.timer += TIMER_CONST;
+			//j(prog);
+		}
 	}
 	return (0);
 }

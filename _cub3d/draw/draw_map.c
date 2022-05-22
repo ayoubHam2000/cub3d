@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:30:00 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:27:48 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 17:08:08 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	draw_map(void)
 		y = 0;
 		while (map[x][y])
 		{
-			if (get_key_type(map[x][y]) == 'W')
+			if (map[x][y] == '1')
 				draw_square(y * size, x * size, size, 0xffffff);
 			else
 				draw_square(y * size, x * size, size, 0x223322);

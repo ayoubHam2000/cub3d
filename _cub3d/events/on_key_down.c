@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 14:51:25 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 20:26:39 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ static void	move(t_player *p, char **map, int d)
 		next_pos.x = p->x - p->dir_y * M_SPEED * a;
 		next_pos.y = p->y + p->dir_x * M_SPEED * a;
 	}
-	if (!is_tile(map, (int)next_pos.x, (int)p->y))
+	if (p->map[(int)p->y][(int)next_pos.x] != '1')
 		p->x = next_pos.x;
-	if (!is_tile(map, (int)p->x, (int)next_pos.y))
+	if (p->map[(int)next_pos.y][(int)p->x] != '1')
 		p->y = next_pos.y;
 }
 
