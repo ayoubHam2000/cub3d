@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:08:46 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 10:50:27 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define EA 3
 # define F 4
 # define C 5
+# define s_number 10 
 
 typedef struct s_point
 {
@@ -135,4 +136,12 @@ typedef struct	s_ray
 	int		line_height;
 }	t_ray;
 
+typedef struct s_sprite
+{
+	int		x;
+	int		y;
+	int		tex;
+	char	*arr_s;
+
+}	t_sprite;
 #endif

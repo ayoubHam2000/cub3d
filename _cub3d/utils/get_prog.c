@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_prog.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:28:18 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:00:30 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_prog	*get_prog(void)
 		prog->m_y = 2;
 		prog->old_m_y = 0;
 		prog->old_m_y = 0;
-		ft_memset(prog->map_keys, 0, KEYS_MAX * sizeof(t_m_key));
+		ft_memset(prog->map_keys, 0, KEYS_MAX * sizeof(t_m_key *));
 		init_player(&prog->player);
 	}
 	return (prog);

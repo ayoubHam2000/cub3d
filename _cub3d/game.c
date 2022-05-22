@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:20:05 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 10:55:21 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,11 +202,13 @@ void	my_floor(t_prog *prog)
 
 void	game(t_prog *prog)
 {
-	t_ray	ray;
-	int		x;
-	double	cameraX;
+	t_ray		ray;
+	t_sprite	*s;
+	int			x;
+	double		cameraX;
 	
 	replace_image(prog, WIDTH, HEIGHT);
+	s = malloc(sizeof(t_sprite));
 	//draw_sky_floor(prog->map);
 	//draw_sky_floor(prog);
 	my_floor(prog);
@@ -218,6 +220,7 @@ void	game(t_prog *prog)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1.0;
 		raycasting(cameraX, &ray, &prog->player);
+		s->arr_s[x] = ray.dist;
 		draw_tex_line(prog->texs[ray.side], x, &ray);
 		x++;
 	}
