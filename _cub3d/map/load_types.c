@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:02:37 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 11:39:28 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 09:29:42 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static t_m_key	*load_key(t_m_key *key, t_prog *prog, char *str, t_queue *texs)
 	split = ft_split(split[2], ' ');
 	i = ft_arrlen(split);
 	if (ft_in(key->key + 33, "NSWE0") || key->key < 0 || key->key >= KEYS_MAX ||
-		(key->type == 'W' && i != 4) || (key->type == 'D' && i != 1))
+		(key->type == 'W' && i != 4) || (key->type == 'D' && i != 2))
 		return (0);
 	key->tex_index = ft_malloc(sizeof(int) * (ft_arrlen(split) + 1));
 	i = 0;

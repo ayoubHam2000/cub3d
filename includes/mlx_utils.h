@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:33:52 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/13 14:48:45 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 10:07:06 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define KEY_D 2
 # define KEY_W 13
 # define KEY_S 1
+# define KEY_SPACE 49
 # define KEY_ESC 53
 # endif
 

@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 15:46:28 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/20 11:33:45 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/05/21 10:40:11 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/05/21 10:41:11 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# include <stdio.h>
 
-int	setup(t_prog *prog, char *file)
+int	main()
 {
-	t_file_data	*data;
+	double	a;
 
-	data = read_file(file);
-	if (!data)
-		return (0);
-	printf("Load texture\n");
-	if (!load_textures(prog, data->texs))
-		return (0);
-	printf("Load types\n");
-	if (!load_types(prog, data->texs, data->types))
-		return (0);
-	printf("Load map\n");
-	if (!load_map(prog, data->map))
-		return (0);
-	free_all(NULL);
-	return (1);
+	a = 1.0 / 0.0;
+	printf("%f\n", a);
+	return (0);
 }
