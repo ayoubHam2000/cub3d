@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 15:48:34 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 20:26:39 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:39:43 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	rotate_mouse(t_prog *prog)
 static void	move(t_player *p, char **map, int d)
 {
 	t_pointf	next_pos;
+	t_pointf	next_pos_1;
 	int			a;
 
 	a = 1;
@@ -67,15 +68,21 @@ static void	move(t_player *p, char **map, int d)
 	{
 		next_pos.x = p->x + p->dir_x * M_SPEED * a;
 		next_pos.y = p->y + p->dir_y * M_SPEED * a;
+		a *= 3;
+		next_pos_1.x = p->x + p->dir_x * M_SPEED * a;
+		next_pos_1.y = p->y + p->dir_y * M_SPEED * a;
 	}
 	else if(d == KEY_A || d == KEY_D)
 	{
 		next_pos.x = p->x - p->dir_y * M_SPEED * a;
 		next_pos.y = p->y + p->dir_x * M_SPEED * a;
+		a *= 3;
+		next_pos_1.x = p->x - p->dir_y * M_SPEED * a;
+		next_pos_1.y = p->y + p->dir_x * M_SPEED * a;
 	}
-	if (p->map[(int)p->y][(int)next_pos.x] != '1')
+	if (p->map[(int)p->y][(int)next_pos_1.x] != '1')
 		p->x = next_pos.x;
-	if (p->map[(int)next_pos.y][(int)p->x] != '1')
+	if (p->map[(int)next_pos_1.y][(int)p->x] != '1')
 		p->y = next_pos.y;
 }
 
@@ -90,7 +97,7 @@ void	perform_events(t_prog *prog)
 		move(p, prog->player.map, prog->pressed_key[1]);
 	if (prog->pressed_key[2] != -1)
 		move(p, prog->player.map, prog->pressed_key[2]);
-	//rotate_mouse(prog);
+	rotate_mouse(prog);
 	prog->m_y = prog->old_m_y;
 }
 

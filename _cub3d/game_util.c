@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 11:35:13 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 11:08:28 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 14:39:51 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_player_in_map(t_prog *prog)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1.0;
 		raycasting(cameraX, &ray, p);
-		draw_line(atan2(ray.y, ray.x), TILE_SIZE_MAP * ray.dist, p->x * TILE_SIZE_MAP, p->y * TILE_SIZE_MAP, 0xffff00 * (ray.dist / 10));
+		draw_line(atan2(ray.y, ray.x), TILE_SIZE_MAP * ray.dist, p->x * TILE_SIZE_MAP, p->y * TILE_SIZE_MAP, 0xffff00);
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:35:59 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 09:41:31 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:11:28 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	on_key_up(int keycode, t_prog *prog)
 		else if (keycode == KEY_SPACE)
 		{
 			prog->player.timer += TIMER_CONST;
-			//j(prog);
+			j(prog);
 		}
 	}
 	return (0);
