@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/05/19 15:22:10 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/05/23 13:19:56 by mbel-bas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ UTIL_FILES = \
 
 MainFiles = \
 	_cub3d/draw/draw_line.c \
+	_cub3d/sprite/sprite.c \
 	_cub3d/draw/draw_map.c \
 	_cub3d/draw/draw_square.c \
 	_cub3d/draw/draw_rectangle.c \

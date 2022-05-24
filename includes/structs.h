@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 10:50:27 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:16:25 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 #define STRUCTS_H
 
 #include <unistd.h>
+#include <pthread.h>
 
 # define TEX_BUFFER_SIZE 100
 # define KEYS_MAX 94
+# define TIMER_CONST 0.1f
 # define NO 0
 # define SO 1
 # define WE 2
 # define EA 3
 # define F 4
 # define C 5
-# define s_number 10 
+# define s_number 1
 
 typedef struct s_point
 {
@@ -72,15 +74,25 @@ typedef struct s_tex
 	int		endian;
 }	t_tex;
 
+typedef struct	s_m_info
+{
+	char	key;
+	char	type;
+	float	timer;
+	int		on;
+}	t_m_info;
+
 typedef struct	s_player
 {
-	double	x;
-	double	y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	char	**map;
+	double		x;
+	double		y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	char		**map;
+	t_m_info	**map_info;
+	double		timer;
 }	t_player;
 
 typedef struct m_key
@@ -102,7 +114,7 @@ typedef struct s_prog
 	int			time;
 	int			old_time;
 	t_data		img;
-	int			pressed_key[2];
+	int			pressed_key[3];
 	int			m_x;
 	int			m_y;
 	int			old_m_x;
@@ -134,14 +146,19 @@ typedef struct	s_ray
 	double	wall_x;
 	int		side;
 	int		line_height;
+	int		hit_door;
+	int		door_x;
+	int		door_y;
+	double	door_dist;
+	double	door_wall_x;
+	int		door_side;
 }	t_ray;
 
 typedef struct s_sprite
 {
-	int		x;
-	int		y;
-	int		tex;
+	double	x;
+	double	y;
+	t_tex	*tex;
 	char	*arr_s;
-
 }	t_sprite;
 #endif

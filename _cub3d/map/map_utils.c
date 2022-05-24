@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 17:24:55 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:40:34 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/22 11:24:38 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,19 @@ int	is_comment(char *line)
 	return (0);
 }
 
-char	get_key_type(char c)
+//==================
+
+int	*get_tex(int x, int y)
 {
-	if (ft_in(c, "NSWE0"))
-		return (0);
-	return (get_prog()->map_keys[c - 33]->type);
+	char	c;
+
+	c = get_prog()->player.map_info[y][x].key - 33;
+	return (get_prog()->map_keys[c]->tex_index);
 }
+
+
+//==================
+
 
 int	get_longest_line_width(char **map)
 {

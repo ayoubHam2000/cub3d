@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 16:00:30 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/05/22 11:18:49 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init_player(t_player *player)
 	player->dir_y = 0.0;
 	player->plane_x = 0.0;
 	player->plane_y = 0.66;
+	player->timer = 0.0;
 	player->map = NULL;
 }
 
@@ -37,10 +38,11 @@ t_prog	*get_prog(void)
 		prog->old_time = 0;
 		prog->pressed_key[0] = -1;
 		prog->pressed_key[1] = -1;
+		prog->pressed_key[2] = -1;
 		prog->m_x = 2;
 		prog->m_y = 2;
 		prog->old_m_y = 0;
-		prog->old_m_y = 0;
+		prog->old_m_y = HEIGHT / 2;
 		ft_memset(prog->map_keys, 0, KEYS_MAX * sizeof(t_m_key *));
 		init_player(&prog->player);
 	}

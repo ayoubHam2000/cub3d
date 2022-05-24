@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:38:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:37:55 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:50:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	init_player_pos(t_player *player)
 		{
 			if (ft_in(map[y][x], "NSEW"))
 			{
-				player->x = (double)x + 0.1;
-				player->y = (double)y + 0.1;
+				player->x = (double)x + 0.2;
+				player->y = (double)y + 0.2;
 				init_player_direction(map[y][x], player);
 				return ;
 			}

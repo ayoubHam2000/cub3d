@@ -3,16 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/19 15:25:06 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:43:13 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	dda(t_ray *ray, char **map)
+static int	stop(t_ray *ray, t_player *player)
+{
+	if (player->map_info[ray->map_y][ray->map_x].type == 'D')
+	{
+		ray->hit_door = 1;
+		ray->door_x = ray->map_x;
+		ray->door_y = ray->map_y;
+		ray->door_side = ray->side;
+		if (ray->side == 0)
+			ray->door_dist = ray->side_dist_x - ray->delta_dist_x;
+		else
+			ray->door_dist = ray->side_dist_y - ray->delta_dist_y;
+		if (ray->side == 0)
+			ray->door_wall_x = ray->pos_y + ray->dist * ray->y;
+		else
+			ray->door_wall_x = ray->pos_x + ray->dist * ray->x;
+		ray->door_wall_x = ray->door_wall_x - (int)ray->door_wall_x;
+		if (ray->door_wall_x < 0.5)
+			return (0);
+		return (1);
+	}
+	else if (player->map_info[ray->map_y][ray->map_x].type == 'S')
+		
+		return (0);
+	if (player->map[ray->map_y][ray->map_x] == '1')
+		return (1);
+	return (0);
+}
+
+static void	dda(t_ray *ray, t_player *player)
 {
 	while (1)
 	{
@@ -28,7 +57,7 @@ static void	dda(t_ray *ray, char **map)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (get_key_type(map[ray->map_y][ray->map_x]) == 'W')
+		if (stop(ray, player))
 			break ;
 	}
 	if (ray->side == 0)
@@ -43,20 +72,20 @@ static void	ray_info(t_ray *ray)
 	{
 		ray->wall_x = ray->pos_y + ray->dist * ray->y;
 		if (ray->map_x < ray->pos_x)
-			ray->side = 2;
+			ray->side = WE;
 		else
-			ray->side = 3;
+			ray->side = EA;
 	}
 	else
 	{
 		ray->wall_x = ray->pos_x + ray->dist * ray->x;
 		if (ray->map_y < ray->pos_y)
-			ray->side = 2;//0
+			ray->side = NO;
 		else
-			ray->side = 3;//1
+			ray->side = SO;
 	}
 	ray->wall_x = ray->wall_x - (int)ray->wall_x;
-	ray->line_height = (HEIGHT/ ray->dist);
+	ray->line_height = (HEIGHT / ray->dist);
 }
 
 void	raycasting(double camera_x, t_ray *ray, t_player *player)
@@ -82,6 +111,7 @@ void	raycasting(double camera_x, t_ray *ray, t_player *player)
 		ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
 	else
 		ray->side_dist_y = (ray->map_y + 1 - ray->pos_y) * ray->delta_dist_y;
-	dda(ray, player->map);
+	ray->hit_door = 0;
+	dda(ray, player);
 	ray_info(ray);
 }
