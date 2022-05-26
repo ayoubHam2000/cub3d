@@ -6,44 +6,47 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 15:24:14 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:05:38 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static int	hit_door(t_ray *ray, t_player *player)
+{
+	double	tmp;
+	int		bo;
+
+	ray->hit_door = 1;
+	ray->door_x = ray->map_x;
+	ray->door_y = ray->map_y;
+	ray->door_side = ray->side;
+	if (ray->side == 0)
+	{
+		ray->door_dist = ray->side_dist_x - ray->delta_dist_x;
+		ray->door_wall_x = ray->pos_y + ray->door_dist * ray->y;
+		tmp = ray->pos_y + (ray->door_dist + 0.5 * ray->delta_dist_x) * ray->y;
+	}
+	else
+	{
+		ray->door_dist = ray->side_dist_y - ray->delta_dist_y;
+		ray->door_wall_x = ray->pos_x + ray->door_dist * ray->x;
+		tmp = ray->pos_x + (ray->door_dist + 0.5 * ray->delta_dist_y) * ray->x;
+	}
+	bo = (((int)tmp > (int)ray->door_wall_x)
+			|| ((int)tmp < (int)ray->door_wall_x));
+	ray->door_wall_x = ray->door_wall_x - (int)ray->door_wall_x;
+	if (bo || (tmp - (int)tmp) < player->map_info[ray->map_y][ray->map_x].timer)
+		return (0);
+	return (1);
+}
+
 static int	stop(t_ray *ray, t_player *player)
 {
-	if (player->map_info[ray->map_y][ray->map_x].type == 'D')
-	{
-		ray->hit_door = 1;
-		ray->door_x = ray->map_x;
-		ray->door_y = ray->map_y;
-		ray->door_side = ray->side;
-		
-		if (ray->side == 0)
-			ray->door_dist = ray->side_dist_x - ray->delta_dist_x;
-		else
-			ray->door_dist = ray->side_dist_y - ray->delta_dist_y;
-
-		if (ray->side == 0)
-			ray->door_wall_x = ray->pos_y + ray->door_dist * ray->y;
-		else
-			ray->door_wall_x = ray->pos_x + ray->door_dist * ray->x;
-		
-		double tmp;
-		if (ray->side == 0)
-			tmp = ray->pos_y + (ray->door_dist + 0.5 * ray->delta_dist_x) * ray->y;
-		else
-			tmp = ray->pos_x + (ray->door_dist + 0.5 * ray->delta_dist_y) * ray->x;
-		int boo = (((int)tmp > (int)ray->door_wall_x) || ((int)tmp < (int)ray->door_wall_x));
-		ray->door_wall_x = ray->door_wall_x - (int)ray->door_wall_x;
-	
-		double t = player->map_info[ray->map_y][ray->map_x].timer;
-		if (boo || (tmp - (int)tmp) < t)
-			return (0);
-		return (1);
-	}
+	if (player->map_info[ray->map_y][ray->map_x].type == 'D' && !ray->hit_door)
+		return (hit_door(ray, player));
+	else if (player->map_info[ray->map_y][ray->map_x].type == 'S')
+		return (0);
 	if (player->map[ray->map_y][ray->map_x] == '1')
 		return (1);
 	return (0);
@@ -68,24 +71,15 @@ static void	dda(t_ray *ray, t_player *player)
 		if (stop(ray, player))
 			break ;
 	}
-	if (ray->side == 0)
-		ray->dist = ray->side_dist_x - ray->delta_dist_x;
-	else
-		ray->dist = ray->side_dist_y - ray->delta_dist_y;
-
-	if (player->map_info[ray->map_y][ray->map_x].type == 'D')
-	{
-		if (ray->side == 0)
-			ray->dist += 0.5 * ray->delta_dist_x;
-		else
-			ray->dist += 0.5 * ray->delta_dist_y;
-	}
 }
 
-static void	ray_info(t_ray *ray)
+static void	ray_info(t_ray *ray, t_player *player)
 {
 	if (ray->side == 0)
 	{
+		ray->dist = ray->side_dist_x - ray->delta_dist_x;
+		if (player->map_info[ray->map_y][ray->map_x].type == 'D')
+			ray->dist += 0.5 * ray->delta_dist_x;
 		ray->wall_x = ray->pos_y + ray->dist * ray->y;
 		if (ray->map_x < ray->pos_x)
 			ray->side = WE;
@@ -94,6 +88,9 @@ static void	ray_info(t_ray *ray)
 	}
 	else
 	{
+		ray->dist = ray->side_dist_y - ray->delta_dist_y;
+		if (player->map_info[ray->map_y][ray->map_x].type == 'D')
+			ray->dist += 0.5 * ray->delta_dist_y;
 		ray->wall_x = ray->pos_x + ray->dist * ray->x;
 		if (ray->map_y < ray->pos_y)
 			ray->side = NO;
@@ -116,7 +113,6 @@ void	raycasting(double camera_x, t_ray *ray, t_player *player)
 		ray->delta_dist_y = fabs(1.0 / ray->y);
 	ray->map_x = (int)ray->pos_x;
 	ray->map_y = (int)ray->pos_y;
-
 	ray->step_x = (ray->x >= 0) * 2 - 1;
 	ray->step_y = (ray->y >= 0) * 2 - 1;
 	if (ray->x < 0)
@@ -129,5 +125,5 @@ void	raycasting(double camera_x, t_ray *ray, t_player *player)
 		ray->side_dist_y = (ray->map_y + 1 - ray->pos_y) * ray->delta_dist_y;
 	ray->hit_door = 0;
 	dda(ray, player);
-	ray_info(ray);
+	ray_info(ray, player);
 }
