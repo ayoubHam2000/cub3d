@@ -1,27 +1,34 @@
-R 1920 1080
-NO textures/wall_1.xpm
-SO textures/wall_2.xpm
-WE textures/wall_3.xpm
-EA textures/wall_4.xpm
-S textures/sprite_1.xpm
-F 184,113,39
-C 51,198,227
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-1 0 1 1 0 0 0 0 0 1 1 1 0 2 0 0 0 0 0 0 0 0 0 0 1 0 2 0 1
-1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1
-1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1
-1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 1 1 1 0 1 1 1 1 0 0 0 1
-1 1 1 1 0 1 1 1 1 1 1 1 1 1 0 1 1 1 0 0 0 0 0 0 1 0 0 0 1
-1 1 1 1 0 1 1 1 1 1 1 1 1 1 0 1 1 1 0 1 0 1 0 0 1 0 0 0 1
-1 1 0 0 0 0 0 0 1 1 0 1 0 1 0 1 1 1 0 0 0 0 0 0 1 0 0 0 1
-1 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 0 0 1
-1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 0 1 0 0 1 0 0 0 1
-1 1 0 2 0 0 0 0 1 1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-1 1 1 1 0 1 1 1 1 1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0 2 0 0 0 1 0 0 0 1
-1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 1 0 1 0 0 1
-1 0 2 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 1 0 0 0 1 0 0 1
-1 0 0 0 0 0 0 0 0 0 1 1 0 1 0 0 0 2 0 0 N 0 0 2 0 0 2 0 1
-1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 1
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+---start---
+w_1 resources/assets/wall_1.png
+w_2 resources/assets/wall_2.png
+w_3 resources/assets/wall_3.png
+w_4 resources/assets/wall_4.png
+sky resources/assets/sky_1.xpm
+flr resources/assets/floor_1.xpm
+d_1 resources/assets/door01.xpm
+d_s resources/assets/door_side_01.xpm
+
+---start---
+#floor and ceil.
+F sky flr
+
+#Walls
+W 1 w_1 w_2 w_3 w_4
+W 2 w_1 d_s w_1 w_1
+W 3 d_s w_1 w_1 w_1
+W 4 w_1 w_1 d_s w_1
+W 5 w_1 w_1 w_1 d_s
+
+# door
+D d d_1 flr
+
+# sprite
+S s w_1 w_2 w_3
+
+#MAP
+---start---
+1 1 1 1 1
+1 0 0 0 1
+1 0 N 0 1 
+1 0 0 0 1
+1 1 1 1 1

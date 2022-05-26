@@ -6,15 +6,16 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 14:24:03 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:50:48 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
-#define STRUCTS_H
+# define STRUCTS_H
 
-#include <unistd.h>
-#include <pthread.h>
+# include "queue.h"
+# include <unistd.h>
+# include <pthread.h>
 
 # define TEX_BUFFER_SIZE 100
 # define KEYS_MAX 94
@@ -25,6 +26,7 @@
 # define EA 3
 # define F 4
 # define C 5
+# define S_NUMBER 1
 
 typedef struct s_point
 {
@@ -38,14 +40,14 @@ typedef struct s_pointf
 	double	y;
 }	t_pointf;
 
-typedef struct	s_type
+typedef struct s_type
 {
 	char	type;
 	char	id;
 	char	*data;
 }	t_type;
 
-typedef struct	s_file
+typedef struct s_file
 {
 	t_queue	**types;
 	char	**map;
@@ -73,7 +75,7 @@ typedef struct s_tex
 	int		endian;
 }	t_tex;
 
-typedef struct	s_m_info
+typedef struct s_m_info
 {
 	char	key;
 	char	type;
@@ -81,7 +83,7 @@ typedef struct	s_m_info
 	int		on;
 }	t_m_info;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double		x;
 	double		y;
@@ -91,6 +93,8 @@ typedef struct	s_player
 	double		plane_y;
 	char		**map;
 	t_m_info	**map_info;
+	int			map_len;
+	int			map_longest_len;
 	double		timer;
 }	t_player;
 
@@ -109,7 +113,6 @@ typedef struct s_prog
 	t_tex		*texs[TEX_BUFFER_SIZE];
 	t_m_key		*map_keys[KEYS_MAX];
 	t_player	player;
-	int			color;
 	int			time;
 	int			old_time;
 	t_data		img;
@@ -127,7 +130,44 @@ typedef struct t_file_data
 	t_queue	*map;
 }	t_file_data;
 
-typedef struct	s_ray
+typedef struct s_mini_map
+{
+	char	**map;
+	int		map_width;
+	int		map_height;
+	int		x_start;
+	int		x_end;
+	int		y_start;
+	int		y_end;
+	int		p_x;
+	int		p_y;
+	int		player_map_x;
+	int		player_map_y;
+	int		shift_x;
+	int		shift_y;
+	int		map_x;
+	int		map_y;
+}	t_mini_map;
+
+typedef struct t_floor
+{
+	double	dist;
+	double	floor_x;
+	double	floor_y;
+	double	step_x;
+	double	step_y;
+	double	dir_x;
+	double	dir_y;
+	int		tx;
+	int		ty;
+	int		m_p;
+	int		color;
+	int		x;
+	int		y;
+	t_tex	*tex;
+}	t_floor;
+
+typedef struct s_ray
 {
 	double	x;
 	double	y;
@@ -153,5 +193,13 @@ typedef struct	s_ray
 	double	door_wall_x;
 	int		door_side;
 }	t_ray;
+
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	t_tex	*tex;
+	char	*arr_s;
+}	t_sprite;
 
 #endif

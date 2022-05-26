@@ -6,25 +6,13 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:33:52 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/21 10:07:06 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/25 20:52:38 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX_UTILS_H
 # define MLX_UTILS_H
 
-//# define UBUNTO
-# ifdef UBUNTO
-# define KEY_L 65363
-# define KEY_R 65361
-# define KEY_A 97
-# define KEY_D 100
-# define KEY_W 119
-# define KEY_S 115
-# define KEY_ESC 65307
-# endif
-
-# ifndef UBUNTO
 # define KEY_L 124
 # define KEY_R 123
 # define KEY_A 0
@@ -33,7 +21,6 @@
 # define KEY_S 1
 # define KEY_SPACE 49
 # define KEY_ESC 53
-# endif
 
 enum {
 	ON_KEYDOWN = 2,
@@ -44,5 +31,12 @@ enum {
 	ON_EXPOSE = 12,
 	ON_DESTROY = 17
 };
+
+void	*mlx_png_file_to_image(void *mlx_ptr, char *file,
+			int *width, int *height);
+int		mlx_mouse_hide(void);
+int		mlx_mouse_show(void);
+int		mlx_mouse_move(void *win_ptr, int x, int y);
+int		mlx_mouse_get_pos(void *win_ptr, int *x, int *y);
 
 #endif
