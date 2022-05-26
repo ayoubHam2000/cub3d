@@ -11,6 +11,23 @@
 		"get_next_line.h": "c",
 		"cmath": "c",
 		"mlx.h": "c",
-		"util.h": "c"
+		"util.h": "c",
+		"debug.h": "c",
+		"__bit_reference": "c",
+		"__hash_table": "c",
+		"__string": "c",
+		"__undef_macros": "c",
+		"algorithm": "c",
+		"bitset": "c",
+		"chrono": "c",
+		"istream": "c",
+		"limits": "c",
+		"locale": "c",
+		"ratio": "c",
+		"streambuf": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c",
+		"complex": "c"
 	}
 }

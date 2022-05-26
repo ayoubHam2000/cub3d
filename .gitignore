@@ -7,3 +7,4 @@
 _OUT/
 cub3d
 test/
+**/*.dylib
