@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 11:44:01 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/28 14:37:39 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define EA 3
 # define F 4
 # define C 5
-# define S_NUMBER 1
+# define S_NUMBER 12
 
 typedef struct s_point
 {
@@ -207,8 +207,8 @@ typedef struct s_sprite
 {
 	double	x;
 	double	y;
+	double	dist;
 	t_tex	*tex;
-	char	*arr_s;
 }	t_sprite;
 
 #endif

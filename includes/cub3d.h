@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 13:22:06 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/28 14:37:29 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void		health_bar(t_prog *prog);
 void		game_over(t_prog *prog);
 
 //sprite
-void		 sprite(t_prog *prog, double *ZBuffer);
+void		sprite(t_prog *prog, double *ZBuffer);
+t_sprite	**map_sprite(t_player *p);
 
 #endif

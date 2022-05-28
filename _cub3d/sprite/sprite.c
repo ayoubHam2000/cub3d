@@ -6,27 +6,81 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 11:02:22 by mbel-bas          #+#    #+#             */
-/*   Updated: 2022/05/26 18:22:13 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/28 14:56:50 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-// t_sprite	*get_sprites(t_prog *prog)
-// {
-// 	t_queue	*queue;
+void insertion_sort(t_sprite **sprites) 
+{
+	int			size;
+	int			step;
+	t_sprite	*key;
+	int			j;
 
-// 	queue = q_init();
-// 	q_enqueue(queue, )
-// }
+	size = 0;
+	while (sprites[size])
+		size++;
+	step = 1;
+	while (step < size)
+	{
+		key = sprites[step];
+		j = step - 1;
+
+		while (j >= 0 && key->dist >= sprites[j]->dist)
+		{
+			sprites[j + 1] = sprites[j];
+			j--;
+		}
+		sprites[j + 1] = key;
+		step++;
+	}
+}
+
+t_sprite	*get_sprite(double x, double y, t_player *p)
+{
+	t_sprite	*s;
+
+	s = ft_malloc(sizeof(t_sprite));
+	s->x = x;
+	s->y = y;
+	s->tex = get_prog()->texs[get_tex(x, y)[0]];
+	s->dist = ((s->x - p->x) * (s->x - p->x) + (s->y - p->y) * (s->y - p->y));
+	return (s);
+}
+
+t_sprite	**map_sprite(t_player *p)
+{
+	t_queue		*queue;
+	t_sprite	**sprites;
+	int			i;
+	int			x;
+	int			y;
+
+	queue = q_init();
+	y = -1;
+	while (p->map[++y])
+	{
+		x = -1;
+		while(p->map[y][++x])
+			if (p->map_info[y][x].type == 'S')
+				q_enqueue(queue, get_sprite(x + 0.5, y + 0.5, p));
+	}
+	sprites = ft_malloc(sizeof(t_sprite *) * (queue->len + 1));
+	i = 0;
+	while (queue->len)
+		sprites[i++] = q_dequeue(queue);
+	sprites[i] = NULL;
+	free_all(NULL);
+	return (sprites);
+}
 
 void sprite(t_prog *prog, double *ZBuffer)
 {
 	t_player	*p;
 	int			i;
-	int			*sprite_order;
-	t_sprite	*sprite;
-	double		*sprite_distance;
+	t_sprite	**sprites;
 	double		spriteX;
 	double		spriteY;
 	double		invDet;
@@ -42,32 +96,18 @@ void sprite(t_prog *prog, double *ZBuffer)
 	int			stripe;
 	int			texX;
 	int			texY;
-	int			texwidth;
 	int			y;
 	int			d;
 	int			color;
-	
+
 	p = &prog->player;
+	sprites = map_sprite(p);
+	insertion_sort(sprites);
 	i = -1;
-	// while (++i < s_number)
-	// {
-	// 	sprite_distance[i] = ((p->x - sprite[i].x) * (p->x - sprite[i].x) + (p->y - sprite[i].y) * (p->y - sprite[i].y));
-	// 	printf("huh\n");
-	// 	//printf("%f\n",sprite_distance);
-	// }
-	//sort_sprite(sprite_order,sprite_distance,s_number);
-
-	t_sprite s;
-
-	s.x = 3.5;
-	s.y = 4.5;
-	s.tex = prog->texs[8];
-
-	i = -1;
-	while (++i < S_NUMBER)
+	while (sprites[++i])
 	{
-		spriteX = s.x - p->x;
-		spriteY = s.y - p->y;
+		spriteX = sprites[i]->x - p->x;
+		spriteY = sprites[i]->y - p->y;
 		invDet = 1.0 / (p->plane_x * p->dir_y - p->dir_x * p->plane_y);
 		transformX = invDet * (p->dir_y * spriteX - p->dir_x * spriteY);
 		transformY = invDet * (-p->plane_y * spriteX + p->plane_x * spriteY);
@@ -78,7 +118,7 @@ void sprite(t_prog *prog, double *ZBuffer)
 			drawStartY = 0;
 		drawEndY = spriteHeight / 2  + HEIGHT / 2;
 		if(drawEndY >= HEIGHT)
-			drawEndY = HEIGHT - 1;
+			drawEndY = HEIGHT -1;
 		spriteWidth = abs((int)(HEIGHT / (transformY)));
 		drawStartX = -spriteWidth / 2 + spriteScreenX;
 		if(drawStartX < 0)
@@ -87,18 +127,17 @@ void sprite(t_prog *prog, double *ZBuffer)
 		if(drawEndX >= WIDTH)
 			drawEndX = WIDTH - 1;
 		stripe = drawStartX;
-		texwidth = get_prog()->texs[0]->width;
 		while (stripe < drawEndX)
 		{
-			texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * get_prog()->texs[0]->width / spriteWidth) / 256;
+			texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * sprites[i]->tex->width / spriteWidth) / 256;
 			if((transformY > 0 && stripe > 0 && stripe < WIDTH) && transformY < ZBuffer[stripe])
 			{
 				y = drawStartY;
 				while (y < drawEndY)
 				{
 					d = (y) * 256 - HEIGHT * 128 + spriteHeight * 128;
-					texY = ((d * get_prog()->texs[0]->height) / spriteHeight) / 256;
-					color = get_tex_color(prog->texs[8], texX, texY);
+					texY = ((d * sprites[i]->tex->height) / spriteHeight) / 256;
+					color = get_tex_color(sprites[i]->tex, texX, texY);
 					if((color & 0x00FFFFFF) != 0)
 						ft_put_pixel(stripe,y + HEIGHT / 2 - prog->m_y,color);
 					y++;
@@ -108,16 +147,3 @@ void sprite(t_prog *prog, double *ZBuffer)
 		}
 	}
 }
-
-/*int sort_sprite(int* order, double* dist, int amount)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while (i < number)
-	{
-		while ()
-	}
-
-}*/
