@@ -6,118 +6,80 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 11:02:22 by mbel-bas          #+#    #+#             */
-/*   Updated: 2022/05/27 18:56:10 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/05/28 14:04:22 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-void quicksort(int number[25],int first,int last){
-   int i, j, pivot, temp;
-   if(first<last){
-      pivot=first;
-      i=first;
-      j=last;
-      while(i<j){
-         while(number[i]<=number[pivot]&&i<last)
-         i++;
-         while(number[j]>number[pivot])
-         j--;
-         if(i<j){
-            temp=number[i];
-            number[i]=number[j];
-            number[j]=temp;
-         }
-      }
-      temp=number[pivot];
-      number[pivot]=number[j];
-      number[j]=temp;
-      quicksort(number,first,j-1);
-      quicksort(number,j+1,last);
-   }
-}
-
-void get_position(int x, int y)
+void insertion_sort(t_sprite **sprites) 
 {
-	t_sprite sprite[S_NUMBER];
-	static int	i;
+	int			size;
+	int			step;
+	t_sprite	*key;
+	int			j;
 
-	i = 0;
-	if (i < S_NUMBER)
+	size = 0;
+	while (sprites[size])
+		size++;
+	step = 1;
+	while (step < size)
 	{
-		sprite[i].x = x + 0.5;
-		sprite[i].y = y + 0.5;
-		i++;
-	}
-}
-	
-void map_sprite(t_player *p,t_sprite sprite[S_NUMBER])
-{
-	int	x;
-	int	y;
-	int	i;
+		key = sprites[step];
+		j = step - 1;
 
-	x = 0;
-	i = 0;
-	while (p->map[x])
-	{
-		y =0;
-		while(p->map[x][y])
+		while (j >= 0 && key->dist >= sprites[j]->dist)
 		{
-			if (p->map_info[x][y].type == 'S')
-			{
-		
-				printf("%d ------- %d\n",x,y);
-				sprite[i].x = y;
-				sprite[i].y = x;
-				i++;
-			}
-			y++;
+			sprites[j + 1] = sprites[j];
+			j--;
 		}
-		x++;
-
+		sprites[j + 1] = key;
+		step++;
 	}
 }
-// t_sprite	*get_sprites(t_prog *prog)
-// {
-// 	t_queue	*queue;
 
-// 	queue = q_init();
-// 	q_enqueue(queue, )
-// }
-// void sort_sprite(int *order,double *dist,t_sprite *sprite)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < S_NUMBER)
-// 	{
-// 		sprite[i].first = dist[i];
-// 		sprite[i].second = order[i];
-// 		i++;
-// 	}
-// }
-
-double	s_dist(double x1, double y1, double x2, double y2)
+t_sprite	*get_sprite(double x, double y, t_player *p)
 {
-	return ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+	t_sprite	*s;
+
+	s = ft_malloc(sizeof(t_sprite));
+	s->x = x;
+	s->y = y;
+	s->dist = ((s->x - p->x) * (s->x - p->x) + (s->y - p->y) * (s->y - p->y));
+	return (s);
 }
 
-void	sort_sprites(t_sprite *sprite, int len, double x, double y)
+t_sprite	**map_sprite(t_player *p)
 {
-	double dist;
+	t_queue		*queue;
+	t_sprite	**sprites;
+	int			i;
+	int			x;
+	int			y;
 
-	dist = s_dist(x,y,sprite->x,sprite->y);
-	quicksort()
+	queue = q_init();
+	y = -1;
+	while (p->map[++y])
+	{
+		x = -1;
+		while(p->map[y][++x])
+			if (p->map_info[y][x].type == 'S')
+				q_enqueue(queue, get_sprite(x + 0.5, y + 0.5, p));
+	}
+	sprites = ft_malloc(sizeof(t_sprite *) * (queue->len + 1));
+	i = 0;
+	while (queue->len)
+		sprites[i++] = q_dequeue(queue);
+	sprites[i] = NULL;
+	free_all(NULL);
+	return (sprites);
 }
 
 void sprite(t_prog *prog, double *ZBuffer)
 {
 	t_player	*p;
 	int			i;
-	int			sprite_order[S_NUMBER];
-	t_sprite	sprite[S_NUMBER];
-	double		sprite_distance[S_NUMBER];
+	t_sprite	**sprites;
 	double		spriteX;
 	double		spriteY;
 	double		invDet;
@@ -137,28 +99,15 @@ void sprite(t_prog *prog, double *ZBuffer)
 	int			y;
 	int			d;
 	int			color;
+
 	p = &prog->player;
+	sprites = map_sprite(p);
+	insertion_sort(sprites);
 	i = -1;
-	while (++i < S_NUMBER)
+	while (sprites[++i])
 	{
-		sprite_order[i] = i;
-		sprite_distance[i] = ((p->x - sprite[i].x) * (p->x - sprite[i].x) + (p->y - sprite[i].y) * (p->y - sprite[i].y));
-	}
-	//sort_sprite(sprite_order,sprite_distance,sprite);
-
-	t_sprite s;
-	map_sprite(p,sprite);
-	//printf("%f----%f\n",sprite[i].x,sprite[i].y);
-
-	s.x = 3.5;
-	s.y = 4.5;
-	s.tex = prog->texs[8];
-
-	i = -1;
-	while (++i < S_NUMBER)
-	{
-		spriteX = sprite[i].x - p->x;
-		spriteY = sprite[i].y - p->y;
+		spriteX = sprites[i]->x - p->x;
+		spriteY = sprites[i]->y - p->y;
 		invDet = 1.0 / (p->plane_x * p->dir_y - p->dir_x * p->plane_y);
 		transformX = invDet * (p->dir_y * spriteX - p->dir_x * spriteY);
 		transformY = invDet * (-p->plane_y * spriteX + p->plane_x * spriteY);

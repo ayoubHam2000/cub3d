@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/26 17:47:21 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/28 11:35:06 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,15 @@ void	events(t_prog *prog)
 
 void	game(t_prog *prog)
 {
-	t_ray	ray;
-	int		x;
-	double	cameraX;
-	double	Zbuffer[WIDTH];
+	t_ray		ray;
+	int			x;
+	double		cameraX;
+	double		Zbuffer[WIDTH];
 	
 	replace_image(prog, WIDTH, HEIGHT);
 	//draw_sky_floor(prog->map);
 	//draw_sky_floor(prog);
 	draw_floor(prog);
-
 	ray.pos_x = prog->player.x;
 	ray.pos_y = prog->player.y;
 	x = 0;
