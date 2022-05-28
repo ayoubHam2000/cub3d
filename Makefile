@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/05/26 17:49:24 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/05/28 12:52:10 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ MainFiles = \
 	_cub3d/events/on_key_up.c \
 	_cub3d/events/mouse_move.c \
 	_cub3d/events/on_key_down.c \
+	_cub3d/events/on_mouse_down.c \
 	_cub3d/events/perform_events.c \
 	_cub3d/utils/color.c \
 	_cub3d/init/check_args.c \
@@ -62,6 +63,7 @@ MainFiles = \
 	_cub3d/setup/check_map.c \
 	_cub3d/setup/init_player.c \
 	_cub3d/setup/load_map.c \
+	_cub3d/setup/load_static.c \
 	_cub3d/setup/load_texture.c \
 	_cub3d/setup/load_types.c \
 	_cub3d/setup/map_utils.c \
@@ -71,15 +73,17 @@ MainFiles = \
 	_cub3d/render/ft_put_pixel.c \
 	_cub3d/render/replace_image.c \
 	_cub3d/start/floor.c \
-	_cub3d/start/game.c
+	_cub3d/start/other.c \
+	_cub3d/start/game.c \
 
 FILES = \
 	$(UTIL_FILES) \
 	$(MainFiles) \
 	main.c
 
+# -I /Users/aben-ham/goinfre/brew/opt/glfw/include/GLFW -L /Users/aben-ham/goinfre/brew/opt/glfw/lib
 #-Wall -Wextra -Werror
-CFLAGS = -g -I includes/
+CFLAGS = -oFast -g -I includes/
 FLAGS = -framework opengl -framework Appkit -fsanitize=address
 
 #CFLAGS = -g -I includes/ -I/usr/include -Imlx_linux

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:46:28 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/25 21:01:20 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/28 11:46:26 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int	setup(t_prog *prog, char *file)
 		return (0);
 	printf("Load map\n");
 	if (!load_map(prog, data->map))
+		return (0);
+	printf("Load static\n");
+	if (!load_static(prog))
 		return (0);
 	init_player_pos(&prog->player);
 	free_all(NULL);

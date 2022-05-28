@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/26 17:50:48 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/28 11:44:01 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_player
 	int			map_len;
 	int			map_longest_len;
 	double		timer;
+	float		health;
 }	t_player;
 
 typedef struct m_key
@@ -105,22 +106,30 @@ typedef struct m_key
 	int		*tex_index;
 }	t_m_key;
 
+typedef struct s_static
+{
+	t_tex	*gun[5];
+	t_tex	*game_over[2];
+}	t_static;
+
 typedef struct s_prog
 {
 	void		*mlx;
 	void		*win;
 	int			floor[2];
 	t_tex		*texs[TEX_BUFFER_SIZE];
+	t_static	static_tex;
 	t_m_key		*map_keys[KEYS_MAX];
 	t_player	player;
 	int			time;
 	int			old_time;
 	t_data		img;
-	int			pressed_key[3];
+	int			pressed_key[4];
 	int			m_x;
 	int			m_y;
 	int			old_m_x;
 	int			old_m_y;
+	int			frame;
 }	t_prog;
 
 typedef struct t_file_data

@@ -5,8 +5,6 @@ import mlx_window
 import mlx_image
 import mlx_init
 
-
-
 func _mlx_bridge<T : AnyObject>(obj : T) -> UnsafeRawPointer {
     return UnsafeRawPointer(Unmanaged.passUnretained(obj).toOpaque())
 }

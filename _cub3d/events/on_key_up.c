@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:35:59 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/26 15:13:14 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/27 20:18:23 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int	on_key_up(int keycode, t_prog *prog)
 			prog->player.timer += 1;
 			switch_door(prog);
 		}
+	}
+	if (prog->player.health <= 0)
+	{
+		prog->player.health = 200.0f;
 	}
 	return (0);
 }

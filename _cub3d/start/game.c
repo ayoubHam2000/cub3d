@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/26 17:47:21 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/28 12:51:14 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,12 @@ void	game(t_prog *prog)
 		x++;
 	}
 	sprite(prog, Zbuffer);
+	draw_gun(prog);
+	health_bar(prog);
+	draw_minimap(prog);
 	perform_events(prog);
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
+	
 }
 
 void	change_mouse_location(t_prog *prog)
@@ -155,19 +159,26 @@ void	change_mouse_location(t_prog *prog)
 
 int	the_game(t_prog *prog)
 {
-	static size_t	frame;
 	size_t		time;
 	
 	//change_mouse_location(prog);
-	game(prog);
+	if (prog->player.health > 0)
+	{
+		game(prog);
+	}
+	else
+	{
+		game_over(prog);
+		printf("%d -> Game Over\n", prog->frame);
+	}
+	prog->frame++;
 	time = get_time();
-	frame++;
 	//system("clear");
 	//if (time)
 	//	printf("frame: %lu -- time: %lu -- fps: %lu\n", frame, time / 1000, (frame * 1000000 / time));
 	//printf("---> %d %d\n", prog->m_x, prog->m_y);
 
-	draw_minimap(prog);
+	
 	//mini_map(prog);
 	return (0);
 }

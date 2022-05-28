@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 09:24:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/25 21:46:44 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/28 10:25:37 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	format_tex_queue(t_queue *tex)
 	return (1);
 }
 
-static void	*get_texture(t_prog *prog, void *path)
+t_tex	*get_texture(t_prog *prog, void *path)
 {
 	t_tex	*img;
 	int		ext;

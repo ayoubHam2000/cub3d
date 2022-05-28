@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:10:39 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/26 15:13:35 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/27 14:22:57 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,17 @@ static void	move(t_player *p, char **map, int d)
 		p->y = p->y + step.y;
 }
 
+void	gun_hit(t_prog *prog)
+{
+	t_ray	ray;
+
+	ray.pos_x = prog->player.x;
+	ray.pos_y = prog->player.y;
+	raycasting(0, &ray, &prog->player);
+	if (ray.dist < 8)
+		printf("%d, %d\n", ray.map_x, ray.map_y);
+}
+
 void	perform_events(t_prog *prog)
 {
 	t_player	*p;
@@ -88,6 +99,8 @@ void	perform_events(t_prog *prog)
 		move(p, prog->player.map, prog->pressed_key[1]);
 	if (prog->pressed_key[2] != -1)
 		move(p, prog->player.map, prog->pressed_key[2]);
+	if (prog->pressed_key[3] == 1)
+		gun_hit(prog);
 	rotate_mouse(prog);
 	prog->m_y = prog->old_m_y;
 }

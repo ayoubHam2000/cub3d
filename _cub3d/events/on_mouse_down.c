@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*   on_mouse_down.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 19:01:18 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/27 10:30:56 by aben-ham         ###   ########.fr       */
+/*   Created: 2022/05/27 13:52:46 by aben-ham          #+#    #+#             */
+/*   Updated: 2022/05/27 14:17:34 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	*init_mlx(t_prog *prog)
+int	on_mouse_down(int button, int x, int y, t_prog *prog)
 {
-	prog->mlx = mlx_init();
-	prog->win = mlx_new_window(prog->mlx, WIDTH, HEIGHT, WIN_TITLE);
-	if (!prog->mlx || !prog->win)
-		return (NULL);
-	return (prog);
+	if (button == 1)
+		prog->pressed_key[3] = button;
+	return (0);
+}
+
+int	on_mouse_up(int button, int x, int y, t_prog *prog)
+{
+	if (button == 1)
+		prog->pressed_key[3] = -1;
+	return (0);
 }
