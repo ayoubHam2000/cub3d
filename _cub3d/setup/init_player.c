@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:56:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/25 21:03:18 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/27 20:10:39 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_player_pos(t_player *player)
 	y = 0;
 	while (map[y])
 	{
-		x = -1;
+		x = 0;
 		while (map[y][x])
 		{
 			if (ft_in(map[y][x], "NSEW"))
