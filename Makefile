@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/05/28 14:38:09 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/05/31 18:01:35 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,12 +63,15 @@ MainFiles = \
 	_cub3d/setup/check_map.c \
 	_cub3d/setup/init_player.c \
 	_cub3d/setup/load_map.c \
+	_cub3d/setup/load_sprites.c \
 	_cub3d/setup/load_static.c \
 	_cub3d/setup/load_texture.c \
 	_cub3d/setup/load_types.c \
 	_cub3d/setup/map_utils.c \
 	_cub3d/setup/read_file.c \
 	_cub3d/setup/setup.c \
+	_cub3d/sprite/enemies.c \
+	_cub3d/sprite/sort_sprite.c \
 	_cub3d/sprite/sprite.c \
 	_cub3d/render/ft_put_pixel.c \
 	_cub3d/render/replace_image.c \

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/27 14:52:34 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:12:15 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static void	init_player(t_player *player)
 	player->plane_x = 0.0;
 	player->plane_y = 0.66;
 	player->timer = 0.0;
-	player->health = 200.0f;
+	player->health = PLAYER_HEALTH;
 	player->map = NULL;
+	player->hit = 1;
 }
 
 t_prog	*get_prog(void)

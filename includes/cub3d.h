@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 14:37:29 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:20:09 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@
 # define WE 2
 # define EA 3
 
+# define PLAYER_HEALTH 200.0f
+# define E_HEALTH 500.0
+# define M_HEALTH 3000.0
+# define E_DAM 10
+# define M_DAM 30
+# define HEAL_ADD 50
+
 //init
 int			check_arg(int ac, char **av);
 t_prog		*get_prog(void);
@@ -63,6 +70,7 @@ int			load_static(t_prog	*prog);
 t_file_data	*read_file(char *file);
 int			load_types(t_prog *prog, t_queue *texs, t_queue *types);
 void		init_player_pos(t_player *player);
+void		init_sprites(t_prog *prog);
 int			setup(t_prog *prog, char *file);
 
 //events
@@ -91,9 +99,17 @@ int			*get_tex(int x, int y);
 void		draw_gun(t_prog *prog);
 void		health_bar(t_prog *prog);
 void		game_over(t_prog *prog);
+int			is_sprite_key(char c);
+int			ft_rand(void);
 
 //sprite
 void		sprite(t_prog *prog, double *ZBuffer);
 t_sprite	**map_sprite(t_player *p);
+void		sort_sprites(t_sprite **s, t_player *p);
+void		enemy_e(t_prog *p, t_sprite *s);
+void		enemy_m(t_prog *p, t_sprite *s);
+void		heal_sprite(t_prog *p, t_sprite *s);
+void		normal_sprite(t_prog *p, t_sprite *s);
+
 
 #endif

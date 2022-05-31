@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:09:54 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/25 20:26:35 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/29 13:13:22 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	check_char(t_prog *prog, char **map)
 		x = 0;
 		while (map[y][x])
 		{
-			if (!ft_in(map[y][x], "WSNE0") && get_type(prog, map[y][x]) == -1)
+			if (!ft_in(map[y][x], "WSNE0") && get_type(prog, map[y][x]) == -1 && !is_sprite_key(map[y][x]))
 				return (0);
 			x++;
 		}
@@ -94,10 +94,13 @@ static int	check_surrounded_by_one(t_prog *prog, char **map)
 
 int	check_map(t_prog *prog, char **map)
 {
+	printf("check_char\n");
 	if (!check_char(prog, map))
 		return (0);
+	printf("one_player\n");
 	if (!one_player(map))
 		return (0);
+	printf("check_surrounded_by_one\n");
 	if (!check_surrounded_by_one(prog, map))
 		return (0);
 	return (1);

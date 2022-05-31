@@ -6,11 +6,26 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:49:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 13:24:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:15:33 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	is_sprite_key(char c)
+{
+	return (ft_in(c, "emh"));
+}
+
+int	ft_rand(void)
+{
+	static int x;
+
+	x = (1103515245 * x + 12345) % 0x7fffffff;
+	return (x & 0x7fffffff);
+}
+
+//-------------------------------
 
 static void	gun_center(t_prog *prog)
 {
@@ -67,7 +82,7 @@ void	health_bar(t_prog *prog)
 	int	h;
 
 	y = 0;
-	w = WIDTH / 4;
+	w = (int)PLAYER_HEALTH;
 	h = HEIGHT / 50;
 	while (y < h)
 	{

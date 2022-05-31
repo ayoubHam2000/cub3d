@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:52:38 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 15:33:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:04:56 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	on_mouse_move(int x, int y, t_prog *prog)
 	//}
 	//if (y > 0 && y < HEIGHT)
 	//{
+		//printf("%d\n", y);
 		prog->old_m_y = y;
 		//prog->m_y = y;
 	//}

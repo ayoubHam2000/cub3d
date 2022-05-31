@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/27 20:11:49 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:29:53 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ static int	hit_door(t_ray *ray, t_player *player)
 
 static int	stop(t_ray *ray, t_player *player)
 {
-	if (player->map_info[ray->map_y][ray->map_x].type == 'D' && !ray->hit_door)
+	int	type;
+
+	type = player->map_info[ray->map_y][ray->map_x].type;
+	if (type == 'D' && !ray->hit_door)
 		return (hit_door(ray, player));
-	else if (player->map_info[ray->map_y][ray->map_x].type == 'S')
+	else if (type == 'S' || type == 'Q')
 		return (0);
 	if (player->map[ray->map_y][ray->map_x] == '1')
 		return (1);
@@ -103,6 +106,8 @@ static void	ray_info(t_ray *ray, t_player *player)
 
 void	raycasting(double camera_x, t_ray *ray, t_player *player)
 {
+	ray->pos_x = player->x;
+	ray->pos_y = player->y;
 	ray->x = player->dir_x + player->plane_x * camera_x;
 	ray->y = player->dir_y + player->plane_y * camera_x;
 	ray->delta_dist_x = 1e30;

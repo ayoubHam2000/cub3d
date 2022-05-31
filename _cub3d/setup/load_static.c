@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 09:46:08 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 11:51:10 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/31 18:06:30 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,8 @@ int	load_static(t_prog	*prog)
 	path = load_config();
 	path = load_tex_to(prog, prog->static_tex.gun, path, 5);
 	path = load_tex_to(prog, prog->static_tex.game_over, path, 2);
+	path = load_tex_to(prog, prog->static_tex.enemy_1, path, 12);
+	path = load_tex_to(prog, prog->static_tex.enemy_2, path, 10);
+	path = load_tex_to(prog, prog->static_tex.heal, path, 1);
 	return (path && path[0] == NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 11:35:13 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/22 14:39:51 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/29 13:20:17 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	draw_player_in_map(t_prog *prog)
 	draw_square(TILE_SIZE_MAP * p->x - 1, TILE_SIZE_MAP * p->y - 1, 4, 0xffff00);
 	//draw_line(atan2(p->dir_y, p->dir_x), 30, p->x * TILE_SIZE_MAP, p->y * TILE_SIZE_MAP, 0xffffff);
 
-	ray.pos_x = p->x;
-	ray.pos_y = p->y;
 	x = 0;
 	while (x < WIDTH)
 	{

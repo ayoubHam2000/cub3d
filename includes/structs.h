@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 14:37:39 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/31 18:49:26 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
+	double		vx;
+	double		vy;
 	double		dir_x;
 	double		dir_y;
 	double		plane_x;
@@ -97,6 +99,7 @@ typedef struct s_player
 	int			map_longest_len;
 	double		timer;
 	float		health;
+	int			hit;
 }	t_player;
 
 typedef struct m_key
@@ -110,7 +113,29 @@ typedef struct s_static
 {
 	t_tex	*gun[5];
 	t_tex	*game_over[2];
+	t_tex	*enemy_1[12];
+	t_tex	*enemy_2[10];
+	t_tex	*heal[1];
+	t_data	img;
 }	t_static;
+
+typedef struct s_sprite
+{
+	char	k;
+	double	x;
+	double	y;
+	double	vx;
+	double	vy;
+	int		height;
+	int		state;
+	int		save;
+	float	health;
+	int		count;
+	double	dist;
+	int		hit;
+	int		is_die;
+	t_tex	*tex;
+}	t_sprite;
 
 typedef struct s_prog
 {
@@ -121,6 +146,7 @@ typedef struct s_prog
 	t_static	static_tex;
 	t_m_key		*map_keys[KEYS_MAX];
 	t_player	player;
+	t_sprite	**sprites;
 	int			time;
 	int			old_time;
 	t_data		img;
@@ -203,12 +229,6 @@ typedef struct s_ray
 	int		door_side;
 }	t_ray;
 
-typedef struct s_sprite
-{
-	double	x;
-	double	y;
-	double	dist;
-	t_tex	*tex;
-}	t_sprite;
+
 
 #endif

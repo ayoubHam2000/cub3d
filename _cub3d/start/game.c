@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 14:36:58 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/30 10:31:01 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,34 @@ void	events(t_prog *prog)
 	}
 }
 
+void	w(t_prog *prog)
+{
+	t_data	img;
+	int		x;
+	int		y;
+	char	*dst;
+
+	img.img_w = WIDTH;
+	img.img_h = HEIGHT;
+	img.img = mlx_new_image(prog->mlx, WIDTH, HEIGHT);
+	img.addr = mlx_get_data_addr(img.img, \
+		&(img.bits_per_pixel), &(img.line_length), &(img.endian));
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
+			*(unsigned int *)dst = 0xddffffff;
+			x++;
+		}
+		y++;
+	}
+	prog->static_tex.img = img;
+}
+
 void	game(t_prog *prog)
 {
 	t_ray		ray;
@@ -116,8 +144,8 @@ void	game(t_prog *prog)
 	//draw_sky_floor(prog->map);
 	//draw_sky_floor(prog);
 	draw_floor(prog);
-	ray.pos_x = prog->player.x;
-	ray.pos_y = prog->player.y;
+	//ray.pos_x = prog->player.x;
+	//ray.pos_y = prog->player.y;
 	x = 0;
 	events(prog);
 	while (x < WIDTH)
@@ -134,7 +162,12 @@ void	game(t_prog *prog)
 	draw_minimap(prog);
 	perform_events(prog);
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
-	
+	if (prog->player.hit > 2)
+	{
+		mlx_put_image_to_window(prog->mlx, prog->win, prog->static_tex.img.img, 0, 0);
+		prog->player.hit--;
+		//prog->player.health = 200;
+	}
 }
 
 void	change_mouse_location(t_prog *prog)
@@ -160,7 +193,7 @@ int	the_game(t_prog *prog)
 {
 	size_t		time;
 	
-	//change_mouse_location(prog);
+	change_mouse_location(prog);
 	if (prog->player.health > 0)
 	{
 		game(prog);
@@ -184,5 +217,6 @@ int	the_game(t_prog *prog)
 
 void	start_game(t_prog *prog)
 {
+	w(prog);
 	mlx_loop_hook(prog->mlx, the_game, prog);
 }
