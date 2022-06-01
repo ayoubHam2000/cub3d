@@ -3,76 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 11:02:22 by mbel-bas          #+#    #+#             */
-/*   Updated: 2022/05/28 14:04:22 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:04:34 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-void insertion_sort(t_sprite **sprites) 
+void	set_tex_to_sprite(t_prog *p)
 {
-	int			size;
-	int			step;
-	t_sprite	*key;
-	int			j;
+	t_sprite	**s;
 
-	size = 0;
-	while (sprites[size])
-		size++;
-	step = 1;
-	while (step < size)
+	s = p->sprites;
+	while (*s)
 	{
-		key = sprites[step];
-		j = step - 1;
-
-		while (j >= 0 && key->dist >= sprites[j]->dist)
-		{
-			sprites[j + 1] = sprites[j];
-			j--;
-		}
-		sprites[j + 1] = key;
-		step++;
+		if ((*s)->k == 'e')
+			enemy_e(p, *s);
+		else if ((*s)->k == 'm')
+			enemy_m(p, *s);
+		else if ((*s)->k == 'h')
+			heal_sprite(p, *s);
+		else if ((*s)->k == 'b')
+			bullet_sprite(p, *s);
+		else
+			normal_sprite(p, *s);
+		s++;
 	}
 }
 
-t_sprite	*get_sprite(double x, double y, t_player *p)
+int	tr_c(int c, int h, int k, int f)
 {
-	t_sprite	*s;
+	int	r;
+	int	g;
+	int	b;
 
-	s = ft_malloc(sizeof(t_sprite));
-	s->x = x;
-	s->y = y;
-	s->dist = ((s->x - p->x) * (s->x - p->x) + (s->y - p->y) * (s->y - p->y));
-	return (s);
-}
-
-t_sprite	**map_sprite(t_player *p)
-{
-	t_queue		*queue;
-	t_sprite	**sprites;
-	int			i;
-	int			x;
-	int			y;
-
-	queue = q_init();
-	y = -1;
-	while (p->map[++y])
+	if (h > 0 && (k == 'e' || k == 'm') && f % 4 == 0)
 	{
-		x = -1;
-		while(p->map[y][++x])
-			if (p->map_info[y][x].type == 'S')
-				q_enqueue(queue, get_sprite(x + 0.5, y + 0.5, p));
+		r = ((c >> 16) & 255) * 0.6 + 255 * 0.4;
+		g = ((c >> 8) & 255) * 0.6 + 255 * 0.4;
+		b = (c & 255) * 0.6 + 255 * 0.4;
+		return (r << 16 | g << 8 | b);
 	}
-	sprites = ft_malloc(sizeof(t_sprite *) * (queue->len + 1));
-	i = 0;
-	while (queue->len)
-		sprites[i++] = q_dequeue(queue);
-	sprites[i] = NULL;
-	free_all(NULL);
-	return (sprites);
+	return (c);
 }
 
 void sprite(t_prog *prog, double *ZBuffer)
@@ -95,28 +69,34 @@ void sprite(t_prog *prog, double *ZBuffer)
 	int			stripe;
 	int			texX;
 	int			texY;
-	int			texwidth;
 	int			y;
 	int			d;
 	int			color;
+	float		health_bar;
 
 	p = &prog->player;
-	sprites = map_sprite(p);
-	insertion_sort(sprites);
+	sort_sprites(prog->sprites, &prog->player);
+	set_tex_to_sprite(prog);
+	sprites = prog->sprites;
+	
 	i = -1;
 	while (sprites[++i])
 	{
+		if (sprites[i]->k == 'h' && sprites[i]->health <= 0)
+			continue ;
 		spriteX = sprites[i]->x - p->x;
 		spriteY = sprites[i]->y - p->y;
 		invDet = 1.0 / (p->plane_x * p->dir_y - p->dir_x * p->plane_y);
 		transformX = invDet * (p->dir_y * spriteX - p->dir_x * spriteY);
 		transformY = invDet * (-p->plane_y * spriteX + p->plane_x * spriteY);
+		int vMoveScreen = (int)((0) / transformY);
+
 		spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
-		spriteHeight = abs((int)(HEIGHT / transformY));
-		drawStartY = -spriteHeight / 2   + HEIGHT / 2;
+		spriteHeight = abs((int)((HEIGHT) / transformY));
+		drawStartY = -spriteHeight / 2  + HEIGHT / 2 + vMoveScreen;
 		if (drawStartY < 0)
 			drawStartY = 0;
-		drawEndY = spriteHeight / 2  + HEIGHT / 2;
+		drawEndY = spriteHeight / 2 + HEIGHT / 2 + vMoveScreen;
 		if(drawEndY >= HEIGHT)
 			drawEndY = HEIGHT -1;
 		spriteWidth = abs((int)(HEIGHT / (transformY)));
@@ -127,24 +107,46 @@ void sprite(t_prog *prog, double *ZBuffer)
 		if(drawEndX >= WIDTH)
 			drawEndX = WIDTH - 1;
 		stripe = drawStartX;
-		texwidth = get_prog()->texs[0]->width;
+
+		if ((sprites[i]->k == 'e' || sprites[i]->k == 'm') && sprites[i]->health > 0)
+		{
+			if (sprites[i]->k == 'e')
+				health_bar = sprites[i]->health / E_HEALTH;
+			if (sprites[i]->k == 'm')
+				health_bar = sprites[i]->health / M_HEALTH;
+			while (stripe < drawEndX)
+			{
+				if (transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < ZBuffer[stripe])
+				{
+					ft_put_pixel(stripe, drawStartY + HEIGHT / 2 - prog->m_y + 2, 0xff0000);
+					ft_put_pixel(stripe, drawStartY + HEIGHT / 2 - prog->m_y + 1, 0xff0000);
+					if ((1.0 * stripe - drawStartX) / (drawEndX - drawStartX) > health_bar)
+						break ;
+				}
+				stripe++;
+			}
+		}
+
+		stripe = drawStartX;
+		
 		while (stripe < drawEndX)
 		{
-			texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * get_prog()->texs[0]->width / spriteWidth) / 256;
-			if((transformY > 0 && stripe > 0 && stripe < WIDTH) && transformY < ZBuffer[stripe])
+			texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * sprites[i]->tex->width / spriteWidth) / 256;
+			if(transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < ZBuffer[stripe])
 			{
 				y = drawStartY;
 				while (y < drawEndY)
 				{
-					d = (y) * 256 - HEIGHT * 128 + spriteHeight * 128;
-					texY = ((d * get_prog()->texs[0]->height) / spriteHeight) / 256;
-					color = get_tex_color(prog->texs[8], texX, texY);
+					d = (y) * 256 - (HEIGHT) * 128 + spriteHeight * 128;
+					texY = ((d * sprites[i]->tex->height) / spriteHeight) / 256;
+					color = get_tex_color(sprites[i]->tex, texX, texY);
 					if((color & 0x00FFFFFF) != 0)
-						ft_put_pixel(stripe,y + HEIGHT / 2 - prog->m_y,color);
+						ft_put_pixel(stripe, y + HEIGHT / 2 - prog->m_y, tr_c(color, sprites[i]->hit, sprites[i]->k, prog->frame));
 					y++;
 				}
 			}
 			stripe++;	
 		}
+		sprites[i]->hit--;
 	}
 }

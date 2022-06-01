@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 13:48:42 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:19:34 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
+	double		vx;
+	double		vy;
 	double		dir_x;
 	double		dir_y;
 	double		plane_x;
@@ -96,6 +98,9 @@ typedef struct s_player
 	int			map_len;
 	int			map_longest_len;
 	double		timer;
+	float		health;
+	int			hit;
+	int			gun_counter;
 }	t_player;
 
 typedef struct m_key
@@ -105,14 +110,59 @@ typedef struct m_key
 	int		*tex_index;
 }	t_m_key;
 
+typedef struct s_static
+{
+	t_tex	*gun[5];
+	t_tex	*game_over[2];
+	t_tex	*enemy_1[12];
+	t_tex	*enemy_2[10];
+	t_tex	*heal[1];
+	t_tex	*bullet[3];
+	t_data	img;
+}	t_static;
+
+typedef struct t_enemy
+{
+	int		f;
+	double	dist;
+	double	dir_x;
+	double	dir_y;
+	int		is_die;
+	int		attack;
+	int		to_dist;
+}	t_enemy;
+
+typedef struct s_sprite
+{
+	char	k;
+	double	x;
+	double	y;
+	double	vx;
+	double	vy;
+	int		state;
+	int		save;
+	float	health;
+	int		count;
+	double	dist;
+	int		hit;
+	int		is_die;
+	t_enemy	*e;
+	t_tex	*tex;
+
+}	t_sprite;
+
 typedef struct s_prog
 {
 	void		*mlx;
 	void		*win;
 	int			floor[2];
 	t_tex		*texs[TEX_BUFFER_SIZE];
+	t_static	static_tex;
 	t_m_key		*map_keys[KEYS_MAX];
 	t_player	player;
+	t_sprite	**sprites;
+	int			s_len;
+	int			s_max;
 	int			time;
 	int			old_time;
 	t_data		img;
@@ -121,6 +171,7 @@ typedef struct s_prog
 	int			m_y;
 	int			old_m_x;
 	int			old_m_y;
+	int			frame;
 }	t_prog;
 
 typedef struct t_file_data
@@ -194,12 +245,6 @@ typedef struct s_ray
 	int		door_side;
 }	t_ray;
 
-typedef struct s_sprite
-{
-	double	x;
-	double	y;
-	double	dist;
-	t_tex	*tex;
-}	t_sprite;
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:35:59 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/26 15:13:14 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:17:19 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	switch_door(t_prog *prog)
 	t_ray		ray;
 
 	p = &prog->player;
-	ray.pos_x = prog->player.x;
-	ray.pos_y = prog->player.y;
 	raycasting(0.0, &ray, p);
 	if (ray.hit_door && ray.door_dist <= 1.4 && ray.door_dist >= 0.2
 		&& !prog->player.map_info[ray.door_y][ray.door_x].on)
@@ -48,6 +46,10 @@ int	on_key_up(int keycode, t_prog *prog)
 			prog->player.timer += 1;
 			switch_door(prog);
 		}
+	}
+	if (prog->player.health <= 0)
+	{
+		prog->player.health = PLAYER_HEALTH;
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 11:49:11 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:36:23 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include "../_cub3d/debug/debug.h"
 
 # define WIN_TITLE "cub3d"
-# define WIDTH (700)
-# define HEIGHT (500)
+# define WIDTH ((int)(800))
+# define HEIGHT ((int)(500))
 # define MINIMAP_W (170)
 # define MINIMAP_H (120)
 
@@ -35,6 +35,19 @@
 # define SO 1
 # define WE 2
 # define EA 3
+
+# define PLAYER_HEALTH 200.0f
+# define E_HEALTH 500.0
+# define M_HEALTH 1200.0
+# define E_DAM 10
+# define M_DAM 15
+# define HEAL_ADD 50
+
+# define ATTACKING 0
+# define STANDING 1
+# define WALKING 2
+# define DIEING 3
+# define DIE 4
 
 //init
 int			check_arg(int ac, char **av);
@@ -57,10 +70,13 @@ void		start_game(t_prog *prog);
 //parsing -> setup
 int			check_map(t_prog *prog, char **map);
 int			load_map(t_prog *prog, t_queue *map);
+t_tex		*get_texture(t_prog *prog, void *path);
 int			load_textures(t_prog *prog, t_queue *texs);
+int			load_static(t_prog	*prog);
 t_file_data	*read_file(char *file);
 int			load_types(t_prog *prog, t_queue *texs, t_queue *types);
 void		init_player_pos(t_player *player);
+void		init_sprites(t_prog *prog);
 int			setup(t_prog *prog, char *file);
 
 //events
@@ -69,6 +85,8 @@ int			on_key_down(int keycode, t_prog *prog);
 int			on_key_up(int keycode, t_prog *prog);
 int			exit_cube3d(t_prog *prog);
 void		perform_events(t_prog *prog);
+//int			on_mouse_down(int button, int x, int y, t_prog *prog);
+int			on_mouse_up(int button, int x, int y, t_prog *prog);
 
 //ray_casting
 void		raycasting(double camera_x, t_ray *ray, t_player *player);
@@ -83,8 +101,26 @@ int			is_comment(char *line);
 size_t		get_time(void);
 int			*get_tex(int x, int y);
 
+//other
+void		draw_gun(t_prog *prog);
+void		health_bar(t_prog *prog);
+void		game_over(t_prog *prog);
+int			is_sprite_key(char c);
+int			ft_rand(void);
+
 //sprite
 void		sprite(t_prog *prog, double *ZBuffer);
 t_sprite	**map_sprite(t_player *p);
+void		sort_sprites(t_sprite **s, t_player *p);
+void		enemy_e(t_prog *p, t_sprite *s);
+void		enemy_m(t_prog *p, t_sprite *s);
+void		heal_sprite(t_prog *p, t_sprite *s);
+void		normal_sprite(t_prog *p, t_sprite *s);
+void		bullet_sprite(t_prog *p, t_sprite *s);
+t_sprite	*create_bullet(t_prog *prog, double x, double y, int type);
+void	add_bullet(t_sprite *s, double dir_x, double dir_y);
+void		sprite_move(t_sprite *s, char **map);
+void		remove_bullet(t_sprite **sprites, t_sprite *s);
+void		bullet_sprite(t_prog *p, t_sprite *s);
 
 #endif

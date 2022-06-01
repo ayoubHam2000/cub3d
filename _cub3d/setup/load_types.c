@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:02:37 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/25 20:27:50 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:20:30 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ static t_m_key	*load_key(t_m_key *key, char *str, t_queue *texs)
 	key->key = split[1][0] - 33;
 	split = ft_split(split[2], ' ');
 	i = ft_arrlen(split);
-	if (ft_in(key->key + 33, "NSWE0") || key->key < 0 || key->key >= KEYS_MAX
-		|| (key->type == 'W' && i != 4) || (key->type == 'D' && i != 2))
+	if (ft_in(key->key + 33, "NSWE0") || is_sprite_key(key->key + 33) || key->key < 0 || key->key >= KEYS_MAX
+		|| (key->type == 'W' && i != 4) || (key->type == 'D' && i != 2) || (key->type == 'S' && i != 1) || (key->type == 'Q' && i != 1))
 		return (0);
 	key->tex_index = ft_malloc(sizeof(int) * (ft_arrlen(split) + 1));
 	i = 0;
@@ -98,20 +98,25 @@ int	load_types(t_prog *prog, t_queue *texs, t_queue *types)
 	char	*str;
 	t_m_key	*key;
 
-	str = types->first->p;
-	if (*str != 'F' || !load_floor_ceil(prog, ++str, texs))
-		return (0);
-	node = types->first->next;
+	node = types->first;
 	while (node)
 	{
 		str = node->p;
-		if (!ft_in(*str, "WSD"))
-			return (0);
-		key = ft_malloc(sizeof(t_m_key));
-		if (load_key(key, str, texs) && !prog->map_keys[key->key])
-			prog->map_keys[key->key] = key;
+		if (*str == 'F')
+		{
+			if (!load_floor_ceil(prog, ++str, texs))
+				return (0);
+		}
 		else
-			return (0);
+		{
+			if (!ft_in(*str, "WDSQ"))
+				return (0);
+			key = ft_malloc(sizeof(t_m_key));
+			if (load_key(key, str, texs) && !prog->map_keys[key->key])
+				prog->map_keys[key->key] = key;
+			else
+				return (0);
+		}
 		node = node->next;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:35:58 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/26 18:11:53 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:22:30 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,20 @@ static void	draw_dir(float angle, float length, t_mini_map *m, float color)
 	}
 }
 
+int		is_sprite(t_prog *p, int x, int y)
+{
+	int	i;
+
+	i = 0;
+	while (p->sprites[i])
+	{
+		if (p->sprites[i]->health > 0 && x == (int)(p->sprites[i]->x) && y == (int)(p->sprites[i]->y))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	draw_minimap(t_prog *prog)
 {
 	t_mini_map	m;
@@ -86,14 +100,12 @@ void	draw_minimap(t_prog *prog)
 				continue ;
 			if (m.map[m.map_y][m.map_x] == '1')
 				ft_put_pixel(x + m.shift_x, y + m.shift_y, 0xffffff);
-			else if (ft_in(m.map[m.map_y][m.map_x], "WSEN0"))
-			{
+			else if (ft_in(m.map[m.map_y][m.map_x], "WSEN0emh"))
 				ft_put_pixel_in(x + m.shift_x, y + m.shift_y, 100 << 24);
-			}
 			if (m.map_x == m.player_map_x && m.map_y == m.player_map_y)
 				ft_put_pixel(x + m.shift_x, y + m.shift_y, 0xffd700);
-			if (prog->player.map_info[m.map_y][m.map_x].type == 'S')
-				ft_put_pixel(x + m.shift_x, y + m.shift_y, 0x0000ff);
+			if (m.map[m.map_y][m.map_x] == 'h')
+				ft_put_pixel(x + m.shift_x, y + m.shift_y, 0xff00ff);
 		}
 	}
 	draw_dir(atan2(prog->player.dir_y, prog->player.dir_x), 20, &m, 0xffd700);
