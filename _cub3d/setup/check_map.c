@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:09:54 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/29 13:13:22 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:35:18 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static int	check_char(t_prog *prog, char **map)
 {
 	int	y;
 	int	x;
+	int	p;
 
 	y = 0;
+	p = 0;
 	while (map[y])
 	{
 		x = 0;
@@ -37,71 +39,66 @@ static int	check_char(t_prog *prog, char **map)
 		{
 			if (!ft_in(map[y][x], "WSNE0") && get_type(prog, map[y][x]) == -1 && !is_sprite_key(map[y][x]))
 				return (0);
-			x++;
-		}
-		y++;
-	}
-	return (1);
-}
-
-static int	one_player(char **map)
-{
-	int	y;
-	int	x;
-	int	p;
-
-	p = 0;
-	y = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
 			if (ft_in(map[y][x], "WSEN"))
 				p++;
 			x++;
 		}
 		y++;
 	}
-	return (p == 1);
+	if (p != 1)
+		printf("One player\n");
+	return (1 && p == 1);
 }
 
-static int	check_surrounded_by_one(t_prog *prog, char **map)
+static int	one_rec(char **map, char **copy, int x, int y)
 {
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 0;
-	while (get_type(prog, map[0][j]) == 'W')
-		j++;
-	if (map[0][j])
+	if (copy[y][x] == 1 || get_type(get_prog(), map[y][x]) == 'W')
+		return (1);
+	if (x == 0 || y == 0 || !map[y + 1] || !map[y][x + 1] || map[y][x] == ' ')
 		return (0);
-	while (map[i + 1])
-	{
-		if (!(get_type(prog, map[i][0]) == 'W'
-			&& get_type(prog, map[i][ft_strlen(map[i]) - 1]) == 'W'))
-			return (0);
-		i++;
-	}
-	j = 0;
-	while (get_type(prog, map[i][j]) == 'W')
-		j++;
-	if (map[i][j])
+	copy[y][x] = 1;
+	if (!one_rec(map, copy, x - 1, y) || !one_rec(map, copy, x + 1, y)
+		|| !one_rec(map, copy, x, y + 1) || !one_rec(map, copy, x, y - 1))
 		return (0);
 	return (1);
 }
 
+static int	check_surrounded_by_one(char **map)
+{
+	char	**copy;
+	int		i;
+	int		j;
+
+	copy = s_malloc(sizeof(char *) * (ft_arrlen(map)));
+	j = -1;
+	while (map[++j])
+	{
+		copy[j] = ft_malloc(ft_strlen(map[j]));
+		ft_memset(copy[j], 0, ft_strlen(map[j]));
+	}
+	j = -1;
+	while (map[++j])
+	{
+		i = -1;
+		while (map[j][++i])
+			if (ft_in(map[j][i], "NSWE"))
+				return (one_rec(map, copy, i, j));
+	}
+	return (0);
+}
+
 int	check_map(t_prog *prog, char **map)
 {
+	int	i;
+
+	printf("check_surrounded_by_one\n");
+	if (!check_surrounded_by_one(map))
+		return (0);
+	i = -1;
+	while (map[++i])
+		ft_str_replace(map[i], ' ', '0');
 	printf("check_char\n");
 	if (!check_char(prog, map))
-		return (0);
-	printf("one_player\n");
-	if (!one_player(map))
-		return (0);
-	printf("check_surrounded_by_one\n");
-	if (!check_surrounded_by_one(prog, map))
 		return (0);
 	return (1);
 }

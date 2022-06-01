@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/31 20:20:09 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:36:23 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,16 @@
 
 # define PLAYER_HEALTH 200.0f
 # define E_HEALTH 500.0
-# define M_HEALTH 3000.0
+# define M_HEALTH 1200.0
 # define E_DAM 10
-# define M_DAM 30
+# define M_DAM 15
 # define HEAL_ADD 50
+
+# define ATTACKING 0
+# define STANDING 1
+# define WALKING 2
+# define DIEING 3
+# define DIE 4
 
 //init
 int			check_arg(int ac, char **av);
@@ -79,7 +85,7 @@ int			on_key_down(int keycode, t_prog *prog);
 int			on_key_up(int keycode, t_prog *prog);
 int			exit_cube3d(t_prog *prog);
 void		perform_events(t_prog *prog);
-int			on_mouse_down(int button, int x, int y, t_prog *prog);
+//int			on_mouse_down(int button, int x, int y, t_prog *prog);
 int			on_mouse_up(int button, int x, int y, t_prog *prog);
 
 //ray_casting
@@ -110,6 +116,11 @@ void		enemy_e(t_prog *p, t_sprite *s);
 void		enemy_m(t_prog *p, t_sprite *s);
 void		heal_sprite(t_prog *p, t_sprite *s);
 void		normal_sprite(t_prog *p, t_sprite *s);
-
+void		bullet_sprite(t_prog *p, t_sprite *s);
+t_sprite	*create_bullet(t_prog *prog, double x, double y, int type);
+void	add_bullet(t_sprite *s, double dir_x, double dir_y);
+void		sprite_move(t_sprite *s, char **map);
+void		remove_bullet(t_sprite **sprites, t_sprite *s);
+void		bullet_sprite(t_prog *p, t_sprite *s);
 
 #endif

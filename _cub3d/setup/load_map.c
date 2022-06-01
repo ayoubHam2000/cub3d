@@ -6,33 +6,11 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:08:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/30 17:30:43 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:07:39 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	remove_spaces(char **str)
-{
-	int	count;
-	int	i;
-	int	j;
-
-	i = 0;
-	while (str[i])
-	{
-		j = 0;
-		count = 0;
-		while (str[i][j])
-		{
-			if (str[i][j] != ' ')
-				str[i][count++] = str[i][j];
-			j++;
-		}
-		str[i][count] = '\0';
-		i++;
-	}
-}
 
 static char	**get_map_matrix(t_queue *map)
 {
@@ -50,7 +28,6 @@ static char	**get_map_matrix(t_queue *map)
 			break ;
 		i++;
 	}
-	remove_spaces(data);
 	return (data);
 }
 
@@ -88,6 +65,7 @@ static void	construct_map_data(t_prog *prog, char **map)
 				map[y][x] = '1';
 		}
 		ft_addrs_exclude(map[y]);
+		printf("%s\n", map[y]);
 	}
 	ft_addrs_exclude(map);
 	map_info[y] = NULL;

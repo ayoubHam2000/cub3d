@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:41:51 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/25 20:28:46 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:01:24 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static t_file_data	*get_file_data_fd(t_file_data *data, int fd)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		line = ft_strtrim(line, " \n");
+		if (state != 3)
+			line = ft_strtrim(line, " \n");
+		else
+			line = ft_strtrim(line, "\n");
 		if (is_empty_line(line) || (is_comment(line) && state != 3))
 			continue ;
 		if (ft_strcmp(line, "---start---"))

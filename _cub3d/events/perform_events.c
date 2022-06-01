@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:10:39 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/29 17:16:15 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/31 22:01:52 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ void	perform_events(t_prog *prog)
 		move(p, prog->player.map, prog->pressed_key[1]);
 	if (prog->pressed_key[2] != -1)
 		move(p, prog->player.map, prog->pressed_key[2]);
-	if (prog->pressed_key[3] == 1)
-		hit_sprite(prog);
 	rotate_mouse(prog);
 	prog->m_y = prog->old_m_y;
 }

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/31 20:12:15 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/01 10:17:51 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	init_player(t_player *player)
 	player->health = PLAYER_HEALTH;
 	player->map = NULL;
 	player->hit = 1;
+	player->gun_counter = 5;
 }
 
 t_prog	*get_prog(void)
@@ -40,7 +41,6 @@ t_prog	*get_prog(void)
 		prog->pressed_key[0] = -1;
 		prog->pressed_key[1] = -1;
 		prog->pressed_key[2] = -1;
-		prog->pressed_key[3] = -1;
 		prog->m_x = WIDTH / 2;
 		prog->m_y = HEIGHT / 2;
 		prog->old_m_y = HEIGHT / 2;

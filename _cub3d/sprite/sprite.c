@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 11:02:22 by mbel-bas          #+#    #+#             */
-/*   Updated: 2022/05/31 21:02:07 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:04:34 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,21 @@ void	set_tex_to_sprite(t_prog *p)
 			enemy_m(p, *s);
 		else if ((*s)->k == 'h')
 			heal_sprite(p, *s);
+		else if ((*s)->k == 'b')
+			bullet_sprite(p, *s);
 		else
 			normal_sprite(p, *s);
 		s++;
 	}
 }
 
-int	tr_c(int c, int *h, int f)
+int	tr_c(int c, int h, int k, int f)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	if (f % 4 == 0 && *h)
+	if (h > 0 && (k == 'e' || k == 'm') && f % 4 == 0)
 	{
 		r = ((c >> 16) & 255) * 0.6 + 255 * 0.4;
 		g = ((c >> 8) & 255) * 0.6 + 255 * 0.4;
@@ -80,7 +82,7 @@ void sprite(t_prog *prog, double *ZBuffer)
 	i = -1;
 	while (sprites[++i])
 	{
-		if (sprites[i]->health <= 0 && sprites[i]->k == 'h')
+		if (sprites[i]->k == 'h' && sprites[i]->health <= 0)
 			continue ;
 		spriteX = sprites[i]->x - p->x;
 		spriteY = sprites[i]->y - p->y;
@@ -139,12 +141,12 @@ void sprite(t_prog *prog, double *ZBuffer)
 					texY = ((d * sprites[i]->tex->height) / spriteHeight) / 256;
 					color = get_tex_color(sprites[i]->tex, texX, texY);
 					if((color & 0x00FFFFFF) != 0)
-						ft_put_pixel(stripe, y + HEIGHT / 2 - prog->m_y, tr_c(color, &sprites[i]->hit, prog->frame));
+						ft_put_pixel(stripe, y + HEIGHT / 2 - prog->m_y, tr_c(color, sprites[i]->hit, sprites[i]->k, prog->frame));
 					y++;
 				}
 			}
 			stripe++;	
 		}
-		sprites[i]->height = drawEndY - drawStartY;
+		sprites[i]->hit--;
 	}
 }

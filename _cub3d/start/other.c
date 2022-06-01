@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:49:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/31 20:15:33 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:27:30 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_sprite_key(char c)
 {
-	return (ft_in(c, "emh"));
+	return (ft_in(c, "emhb"));
 }
 
 int	ft_rand(void)
@@ -52,11 +52,16 @@ void	draw_gun(t_prog *prog)
 	int			c;
 	t_tex		*tex;
 
-	if (prog->pressed_key[3] == 1)
-		tex = prog->static_tex.gun[prog->frame % 5];
+
+	if (prog->player.gun_counter < 5)
+	{
+		tex = prog->static_tex.gun[prog->player.gun_counter];
+		if (prog->player.gun_counter == 4)
+			add_bullet(create_bullet(prog, prog->player.x, prog->player.y, 1), prog->player.dir_x, prog->player.dir_y);
+		prog->player.gun_counter++;
+	}
 	else
 		tex = prog->static_tex.gun[0];
-
 	y = 0;
 	while (y < HEIGHT)
 	{

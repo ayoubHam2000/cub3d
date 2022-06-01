@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/05/31 18:01:35 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/06/01 20:17:37 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ UTIL_FILES = \
 	utils/ft_strrchr.c \
 	utils/ft_error.c \
 	utils/ft_strtrim.c \
+	utils/ft_str_replace.c \
 	utils/ft_error_exit.c \
 	utils/ft_strcmp.c \
 	utils/ft_in.c \
@@ -49,10 +50,10 @@ MainFiles = \
 	_cub3d/debug/draw_square.c \
 	_cub3d/debug/game_util.c \
 	_cub3d/events/exit_cube3d.c \
+	_cub3d/events/mouse_event.c \
 	_cub3d/events/on_key_up.c \
 	_cub3d/events/mouse_move.c \
 	_cub3d/events/on_key_down.c \
-	_cub3d/events/on_mouse_down.c \
 	_cub3d/events/perform_events.c \
 	_cub3d/utils/color.c \
 	_cub3d/init/check_args.c \
@@ -70,8 +71,12 @@ MainFiles = \
 	_cub3d/setup/map_utils.c \
 	_cub3d/setup/read_file.c \
 	_cub3d/setup/setup.c \
-	_cub3d/sprite/enemies.c \
+	_cub3d/sprite/bullet.c \
+	_cub3d/sprite/enemy_e.c \
+	_cub3d/sprite/enemy_m.c \
 	_cub3d/sprite/sort_sprite.c \
+	_cub3d/sprite/sprite_move.c \
+	_cub3d/sprite/sprite_tex.c \
 	_cub3d/sprite/sprite.c \
 	_cub3d/render/ft_put_pixel.c \
 	_cub3d/render/replace_image.c \

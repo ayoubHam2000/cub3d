@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/31 18:49:26 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:19:34 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_player
 	double		timer;
 	float		health;
 	int			hit;
+	int			gun_counter;
 }	t_player;
 
 typedef struct m_key
@@ -116,8 +117,20 @@ typedef struct s_static
 	t_tex	*enemy_1[12];
 	t_tex	*enemy_2[10];
 	t_tex	*heal[1];
+	t_tex	*bullet[3];
 	t_data	img;
 }	t_static;
+
+typedef struct t_enemy
+{
+	int		f;
+	double	dist;
+	double	dir_x;
+	double	dir_y;
+	int		is_die;
+	int		attack;
+	int		to_dist;
+}	t_enemy;
 
 typedef struct s_sprite
 {
@@ -126,7 +139,6 @@ typedef struct s_sprite
 	double	y;
 	double	vx;
 	double	vy;
-	int		height;
 	int		state;
 	int		save;
 	float	health;
@@ -134,7 +146,9 @@ typedef struct s_sprite
 	double	dist;
 	int		hit;
 	int		is_die;
+	t_enemy	*e;
 	t_tex	*tex;
+
 }	t_sprite;
 
 typedef struct s_prog
@@ -147,10 +161,12 @@ typedef struct s_prog
 	t_m_key		*map_keys[KEYS_MAX];
 	t_player	player;
 	t_sprite	**sprites;
+	int			s_len;
+	int			s_max;
 	int			time;
 	int			old_time;
 	t_data		img;
-	int			pressed_key[4];
+	int			pressed_key[3];
 	int			m_x;
 	int			m_y;
 	int			old_m_x;
