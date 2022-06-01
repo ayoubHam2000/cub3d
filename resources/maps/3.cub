@@ -8,7 +8,7 @@ sky resources/assets/wall_1.xpm
 flr resources/assets/wall_2.xpm
 d_1 resources/assets/door01.xpm
 d_s resources/assets/door_side_01.xpm
-s_1 resources/assets/sprite_2.xpm
+s_1 resources/assets/sprite_1.xpm
 
 ---start---
 #floor and ceil.

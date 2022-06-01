@@ -6,7 +6,7 @@
 /*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/28 11:49:11 by mbel-bas         ###   ########.fr       */
+/*   Updated: 2022/05/28 16:15:31 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ size_t		get_time(void);
 int			*get_tex(int x, int y);
 
 //sprite
-void		sprite(t_prog *prog, double *ZBuffer);
+void		cusprite(t_prog *prog, double *ZBuffer);
 t_sprite	**map_sprite(t_player *p);
 
 #endif

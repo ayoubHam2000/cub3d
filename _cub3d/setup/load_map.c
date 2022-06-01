@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:08:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/25 20:26:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:52:04 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+/*
+static void	remove_spaces(char **str)
+{
+	int	count;
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		count = 0;
+		while (str[i][j])
+		{
+			if (str[i][j] != ' ')
+				str[i][count++] = str[i][j];
+			j++;
+		}
+		str[i][count] = '\0';
+		i++;
+	}
+}*/
 
 static void	remove_spaces(char **str)
 {
@@ -27,6 +49,8 @@ static void	remove_spaces(char **str)
 		{
 			if (str[i][j] != ' ')
 				str[i][count++] = str[i][j];
+			else
+				str[i][j] = '0';
 			j++;
 		}
 		str[i][count] = '\0';
