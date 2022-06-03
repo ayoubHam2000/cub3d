@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 13:08:09 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:32:32 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ static void	change_mouse_location(t_prog *prog)
 	int	y;
 	int	to_x;
 
+	if (prog->m_y < 0 || prog->m_y > HEIGHT)
+		mlx_mouse_show();
+	else
+		mlx_mouse_hide();
 	to_x = -1;
 	if (prog->m_x > WIDTH)
 		to_x = 0;
@@ -33,7 +37,7 @@ static void	change_mouse_location(t_prog *prog)
 
 static void	write_text(t_prog *prog)
 {
-	static int	nb[2];
+	static int	nb[2] = {-1};
 	t_sprite	**s;
 	char		*str;
 	int			c;

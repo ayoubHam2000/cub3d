@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/06/03 11:23:29 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/06/03 13:56:40 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ FILES = \
 
 # -I /Users/aben-ham/goinfre/brew/opt/glfw/include/GLFW -L /Users/aben-ham/goinfre/brew/opt/glfw/lib
 #-Wall -Wextra -Werror
-CFLAGS = -oFast -g -I includes/
+CFLAGS = -Wall -Wextra -Werror -g -I includes/
 FLAGS = -framework opengl -framework Appkit -fsanitize=address
 
 #CFLAGS = -g -I includes/ -I/usr/include -Imlx_linux

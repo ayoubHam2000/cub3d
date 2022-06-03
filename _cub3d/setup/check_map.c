@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:09:54 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 10:28:40 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:03:14 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ static int	check_surrounded_by_one(char **map)
 	{
 		i = -1;
 		while (map[j][++i])
-			if (ft_in(map[j][i], "NSWE"))
-				return (one_rec(map, copy, i, j));
+			if (get_type(get_prog(), map[j][i]) != 'W' && map[j][i] != ' '
+				&& !copy[j][i] && !one_rec(map, copy, i, j))
+				return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int	check_map(t_prog *prog, char **map)

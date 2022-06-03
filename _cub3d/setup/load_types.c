@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:02:37 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 10:20:17 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:59:37 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ int	load_types(t_prog *prog, t_queue *texs, t_queue *types)
 			if (!ft_in(*str, "WDSQ"))
 				return (0);
 			key = ft_malloc(sizeof(t_m_key));
-			if (load_key(key, str, texs) && !prog->map_keys[key->key])
-				prog->map_keys[key->key] = key;
+			if (load_key(key, str, texs) && !prog->map_keys[(int)key->key])
+				prog->map_keys[(int)key->key] = key;
 			else
 				return (0);
 		}

@@ -6,13 +6,13 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:45:54 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 11:17:44 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:01:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	gun_center(t_prog *prog)
+static void	gun_center(void)
 {
 	int	x;
 	int	y;
@@ -63,7 +63,7 @@ void	draw_gun(t_prog *prog)
 		}
 		y++;
 	}
-	gun_center(prog);
+	gun_center();
 }
 
 void	health_bar(t_prog *prog)

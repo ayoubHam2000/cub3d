@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 13:40:23 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:23:59 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,8 @@ typedef struct s_prog
 	int			m_x;
 	int			m_y;
 	int			old_m_x;
+	int			old_m_y;
 	int			frame;
-
 	int			nb_die;
 }	t_prog;
 

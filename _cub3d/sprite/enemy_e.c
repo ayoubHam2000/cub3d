@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:56:56 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 10:33:26 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:13:53 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static void	set_state_tex(t_prog *p, t_sprite *s)
 	}
 	else if (s->state == ATTACKING)
 	{
-		s->tex = p->static_tex.enemy_1[(s->e->f % 60) / 15 + 4];
-		if (s->e->f % 60 == 59)
+		s->tex = p->static_tex.enemy_1[(s->e->f % 68) / 17 + 4];
+		if (s->e->f % 68 == 67)
 			add_bullet(create_bullet(p, s->x, s->y, 2),
 				s->e->dir_x, s->e->dir_y);
 	}
