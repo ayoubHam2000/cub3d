@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:08:17 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 20:07:39 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:29:02 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static void	construct_map_data(t_prog *prog, char **map)
 		while (map[y][++x])
 		{
 			set_map_info(prog, &map_info[y][x], map[y][x]);
-			if (!ft_in(map[y][x], "WSNE0") && !is_sprite_key(map[y][x]) && map_info[y][x].type != 'Q')
+			if (!ft_in(map[y][x], "WSNE0") && !is_sprite_key(map[y][x])
+				&& map_info[y][x].type != 'Q')
 				map[y][x] = '1';
 		}
 		ft_addrs_exclude(map[y]);
-		printf("%s\n", map[y]);
 	}
 	ft_addrs_exclude(map);
 	map_info[y] = NULL;
@@ -83,7 +83,6 @@ int	load_map(t_prog *prog, t_queue *map)
 	printf("check_map\n");
 	if (!check_map(prog, data))
 		return (0);
-	printf("construct_map_data\n");
 	construct_map_data(prog, data);
 	prog->player.map_len = ft_arrlen(data);
 	prog->player.map_longest_len = get_longest_line_width(data);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemies.c                                          :+:      :+:    :+:   */
+/*   sprite_tex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:47:33 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 13:57:45 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:39:50 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	heal_sprite(t_prog *p, t_sprite *s)
 {
 	double	dist;
 
-	dist = (p->player.x - s->x)*(p->player.x - s->x) + (p->player.y - s->y)*(p->player.y - s->y);
+	dist = (p->player.x - s->x) * (p->player.x - s->x)
+		+ (p->player.y - s->y) * (p->player.y - s->y);
 	if (dist < 1 && s->health > 0 && p->player.health < PLAYER_HEALTH)
 	{
 		s->health = 0;

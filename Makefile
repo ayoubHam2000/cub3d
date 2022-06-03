@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/06/02 13:24:28 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/06/03 11:23:29 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ UTIL_FILES = \
 	utils/ft_error_exit.c \
 	utils/ft_strcmp.c \
 	utils/ft_in.c \
+	utils/min.c \
+	utils/max.c \
 	utils/ft_malloc/add_address.c \
 	utils/ft_malloc/free_all.c \
 	utils/ft_malloc/ft_addrs_exclude.c \
@@ -46,10 +48,7 @@ UTIL_FILES = \
 	utils/queue_c/q_init.c 
 
 MainFiles = \
-	_cub3d/debug/draw_line.c \
-	_cub3d/debug/draw_map.c \
-	_cub3d/debug/draw_square.c \
-	_cub3d/debug/game_util.c \
+	_cub3d/events/door_event.c \
 	_cub3d/events/exit_cube3d.c \
 	_cub3d/events/mouse_event.c \
 	_cub3d/events/on_key_up.c \
@@ -57,6 +56,7 @@ MainFiles = \
 	_cub3d/events/on_key_down.c \
 	_cub3d/events/perform_events.c \
 	_cub3d/utils/color.c \
+	_cub3d/utils/frames.c \
 	_cub3d/init/check_args.c \
 	_cub3d/init/get_prog.c \
 	_cub3d/init/init_mlx.c \
@@ -84,6 +84,8 @@ MainFiles = \
 	_cub3d/start/floor.c \
 	_cub3d/start/other.c \
 	_cub3d/start/game.c \
+	_cub3d/start/player.c \
+	_cub3d/start/start_game.c \
 
 FILES = \
 	$(UTIL_FILES) \

@@ -6,11 +6,11 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 10:26:09 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 14:27:03 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:30:52 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 t_sprite	*create_bullet(t_prog *prog, double x, double y, int type)
 {
@@ -76,8 +76,6 @@ static void	hit_enemy(t_prog *prog, t_sprite **sprites, int len, t_sprite *s)
 		if ((int)sprites[i]->x == (int)s->x && (int)sprites[i]->y == (int)s->y)
 		{
 			sprites[i]->health -= 20;
-			if (sprites[i]->health <= 0)
-				sprites[i]->save = prog->frame;
 			sprites[i]->hit = 40;
 			s->state = 0;
 			break ;
@@ -90,7 +88,8 @@ void	bullet_sprite(t_prog *p, t_sprite *s)
 	if (s->count < 0)
 		s->state = 0;
 	sprite_move(s, p->player.map);
-	if ((s->state == 2 || s->state == 3) && (int)p->player.x == (int)s->x && (int)p->player.y == (int)s->y)
+	if ((s->state == 2 || s->state == 3) && (int)p->player.x == (int)s->x
+		&& (int)p->player.y == (int)s->y)
 	{
 		p->player.hit = 15;
 		if (s->state == 2)

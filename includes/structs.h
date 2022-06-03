@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/02 13:59:24 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:40:23 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
-	double		vx;
-	double		vy;
 	double		dir_x;
 	double		dir_y;
 	double		plane_x;
@@ -124,12 +122,8 @@ typedef struct s_static
 typedef struct t_enemy
 {
 	int		f;
-	double	dist;
 	double	dir_x;
 	double	dir_y;
-	int		is_die;
-	int		attack;
-	int		to_dist;
 }	t_enemy;
 
 typedef struct s_sprite
@@ -140,7 +134,6 @@ typedef struct s_sprite
 	double	vx;
 	double	vy;
 	int		state;
-	int		save;
 	float	health;
 	int		count;
 	double	dist;
@@ -163,14 +156,11 @@ typedef struct s_prog
 	t_sprite	**sprites;
 	int			s_len;
 	int			s_max;
-	int			time;
-	int			old_time;
 	t_data		img;
 	int			pressed_key[3];
 	int			m_x;
 	int			m_y;
 	int			old_m_x;
-	int			old_m_y;
 	int			frame;
 
 	int			nb_die;
@@ -238,7 +228,6 @@ typedef struct s_ray
 	double	wall_x;
 	int		side;
 	int		line_height;
-
 	int		hit_door;
 	int		door_x;
 	int		door_y;
@@ -246,7 +235,5 @@ typedef struct s_ray
 	double	door_wall_x;
 	int		door_side;
 }	t_ray;
-
-
 
 #endif

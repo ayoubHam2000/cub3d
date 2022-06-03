@@ -6,15 +6,11 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:10:39 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/31 22:01:52 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 11:19:48 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-#define R_SPEED 0.06
-#define M_SPEED 0.11
-#define MOUSE_ROTATE_SPEED 0.17
 
 static void	rotate(double *x, double *y, double angle)
 {
@@ -77,18 +73,6 @@ static void	move(t_player *p, char **map, int d)
 		p->y = p->y + step.y;
 }
 
-void	gun_hit(t_prog *prog)
-{
-	t_ray	ray;
-
-	ray.pos_x = prog->player.x;
-	ray.pos_y = prog->player.y;
-	raycasting(0, &ray, &prog->player);
-	if (ray.dist < 8)
-		printf("%d, %d\n", ray.map_x, ray.map_y);
-}
-
-int	hit_sprite(t_prog *prog);
 void	perform_events(t_prog *prog)
 {
 	t_player	*p;
@@ -101,5 +85,5 @@ void	perform_events(t_prog *prog)
 	if (prog->pressed_key[2] != -1)
 		move(p, prog->player.map, prog->pressed_key[2]);
 	rotate_mouse(prog);
-	prog->m_y = prog->old_m_y;
+	door_events(prog);
 }

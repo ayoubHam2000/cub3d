@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:56:56 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 14:27:43 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:33:26 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static void	set_info(t_prog *p, t_sprite *s)
 	u = sqrt(x * x + y * y);
 	x /= u;
 	y /= u;
-	s->e->dir_x = - x;
-	s->e->dir_y = - y;
-	s->e->dist = u;
+	s->e->dir_x = -1.0 * x;
+	s->e->dir_y = -1.0 * y;
+	s->dist = u;
 	s->vx = 0;
 	s->vy = 0;
 }
@@ -51,7 +51,8 @@ static void	set_state_tex(t_prog *p, t_sprite *s)
 	{
 		s->tex = p->static_tex.enemy_1[(s->e->f % 60) / 15 + 4];
 		if (s->e->f % 60 == 59)
-			add_bullet(create_bullet(p, s->x, s->y, 2), s->e->dir_x, s->e->dir_y);
+			add_bullet(create_bullet(p, s->x, s->y, 2),
+				s->e->dir_x, s->e->dir_y);
 	}
 	else
 		s->tex = p->static_tex.enemy_1[0];
@@ -66,9 +67,9 @@ void	enemy_e(t_prog *p, t_sprite *s)
 		new_state = DIE;
 	else if (s->health < 0)
 		new_state = DIEING;
-	else if (s->e->dist > 12.0)
+	else if (s->dist > 12.0)
 		new_state = STANDING;
-	else if (s->e->dist > 6 && (s->state != ATTACKING || s->e->dist > 10))
+	else if (s->dist > 6 && (s->state != ATTACKING || s->dist > 10))
 		new_state = WALKING;
 	else
 		new_state = ATTACKING;

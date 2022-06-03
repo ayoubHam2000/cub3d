@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:52:09 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 13:44:04 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:29:23 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,15 @@ static t_sprite	*get_sprite(double x, double y, char k)
 	s->k = k;
 	s->x = x + 0.5;
 	s->y = y + 0.5;
-	s->count = 100;
-	s->save = 0;
 	s->state = -1;
+	s->health = 1;
+	s->count = 100;
+	s->hit = 0;
 	s->is_die = 0;
 	s->e = NULL;
-	s->health = 1;
-	s->hit = 0;
 	if (k == 'e' || k == 'm')
 	{
 		s->e = ft_malloc(sizeof(t_enemy));
-		s->e->attack = 0;
-		s->e->is_die = 0;
-		s->e->to_dist = 6;
 		s->e->f = 0;
 		if (k == 'e')
 			s->health = E_HEALTH;
@@ -56,7 +52,7 @@ void	init_sprites(t_prog *prog)
 	while (prog->player.map[++y])
 	{
 		x = -1;
-		while(prog->player.map[y][++x])
+		while (prog->player.map[y][++x])
 			if (map_info[y][x].type == 'S' || map_info[y][x].type == 'Q')
 				q_enqueue(queue, get_sprite(x, y, map_info[y][x].key));
 	}

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:41:51 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 16:01:24 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:26:00 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ static t_file_data	*init_data(void)
 	data->types = q_init();
 	data->map = q_init();
 	return (data);
+}
+
+static void	to_queue(t_file_data *data, int state, char *line)
+{
+	if (state == 1)
+		q_enqueue(data->texs, line);
+	else if (state == 2)
+		q_enqueue(data->types, line);
+	else if (state == 3)
+		q_enqueue(data->map, line);
 }
 
 static t_file_data	*get_file_data_fd(t_file_data *data, int fd)
@@ -42,12 +52,8 @@ static t_file_data	*get_file_data_fd(t_file_data *data, int fd)
 			continue ;
 		if (ft_strcmp(line, "---start---"))
 			state++;
-		else if (state == 1)
-			q_enqueue(data->texs, line);
-		else if (state == 2)
-			q_enqueue(data->types, line);
-		else if (state == 3)
-			q_enqueue(data->map, line);
+		else
+			to_queue(data, state, line);
 	}
 	if (state != 3 || data->texs->len <= 0 || data->texs->len <= 1)
 		return (NULL);

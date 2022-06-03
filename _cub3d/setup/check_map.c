@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:09:54 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/02 14:22:41 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:28:40 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static int	check_char(t_prog *prog, char **map)
 		x = 0;
 		while (map[y][x])
 		{
-			if (!ft_in(map[y][x], "WSNE0") && get_type(prog, map[y][x]) == -1 && !is_sprite_key(map[y][x]))
+			if (!ft_in(map[y][x], "WSNE0") && get_type(prog, map[y][x]) == -1
+				&& !is_sprite_key(map[y][x]))
 				return (0);
 			if (ft_in(map[y][x], "WSEN"))
 				p++;
@@ -46,7 +47,7 @@ static int	check_char(t_prog *prog, char **map)
 		y++;
 	}
 	if (p != 1)
-		printf("One player\n");
+		printf("Error: One player\n");
 	return (1 && p == 1);
 }
 
@@ -91,13 +92,13 @@ int	check_map(t_prog *prog, char **map)
 {
 	int	i;
 
-	printf("check_surrounded_by_one\n");
+	printf("check surrounded by ones\n");
 	if (!check_surrounded_by_one(map))
 		return (0);
 	i = -1;
 	while (map[++i])
 		ft_str_replace(map[i], ' ', '0');
-	printf("check_char\n");
+	printf("check chars\n");
 	if (!check_char(prog, map))
 		return (0);
 	return (1);

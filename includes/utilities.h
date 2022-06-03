@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:11 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/02 13:13:40 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 08:33:39 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ char	**msk_split(char const *s, int (*f)(char c));
 char	*ft_strtrim(char const *s1, char const *set);
 void	ft_str_replace(char *str, char c, char by);
 char	*ft_itoa(int n);
+int		max(int a, int b);
+int		min(int a, int b);
 
 #endif

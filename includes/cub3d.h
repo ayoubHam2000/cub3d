@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/02 13:55:56 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:43:01 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@
 # include <math.h>
 # include <fcntl.h>
 # include <mlx.h>
-# include "../_cub3d/debug/debug.h"
 
 # define WIN_TITLE "cub3d"
-# define WIDTH ((int)(800))
-# define HEIGHT ((int)(500))
+# define WIDTH (800)
+# define HEIGHT (500)
 # define MINIMAP_W (300)
 # define MINIMAP_H (150)
+# define TILE_SIZE_MAP 10
+# define MAX_LINE 1000
 
 # define NO 0
 # define SO 1
@@ -49,6 +50,10 @@
 # define DIEING 3
 # define DIE 4
 
+# define R_SPEED 0.06
+# define M_SPEED 0.11
+# define MOUSE_ROTATE_SPEED 0.17
+
 //init
 int			check_arg(int ac, char **av);
 t_prog		*get_prog(void);
@@ -58,13 +63,12 @@ void		*init_mlx(t_prog *prog);
 void		*replace_image(t_prog *prog, int w, int h);
 void		ft_put_pixel(int x, int y, int color);
 void		ft_put_pixel_in(int x, int y, int color);
-void		ft_put_pixel_color(int x, int y);
 int			get_tex_color(t_tex *tex, int x, int y);
 int			shade_color(int color, float divide);
 
 //start
 void		draw_floor(t_prog *prog);
-void		draw_ceil(t_prog *prog);
+void		game(t_prog *prog);
 void		start_game(t_prog *prog);
 
 //parsing -> setup
@@ -87,6 +91,7 @@ int			exit_cube3d(t_prog *prog);
 void		perform_events(t_prog *prog);
 //int			on_mouse_down(int button, int x, int y, t_prog *prog);
 int			on_mouse_up(int button, int x, int y, t_prog *prog);
+void		door_events(t_prog *prog);
 
 //ray_casting
 void		raycasting(double camera_x, t_ray *ray, t_player *player);
@@ -98,19 +103,17 @@ void		draw_minimap(t_prog *prog);
 int			is_empty_line(char *line);
 int			get_longest_line_width(char **map);
 int			is_comment(char *line);
-size_t		get_time(void);
 int			*get_tex(int x, int y);
 
 //other
 void		draw_gun(t_prog *prog);
 void		health_bar(t_prog *prog);
-void		game_over(t_prog *prog);
+
 int			is_sprite_key(char c);
 int			ft_rand(void);
 
 //sprite
 void		sprite(t_prog *prog, double *ZBuffer);
-t_sprite	**map_sprite(t_player *p);
 void		sort_sprites(t_sprite **s, t_player *p);
 void		enemy_e(t_prog *p, t_sprite *s);
 void		enemy_m(t_prog *p, t_sprite *s);
@@ -118,9 +121,14 @@ void		heal_sprite(t_prog *p, t_sprite *s);
 void		normal_sprite(t_prog *p, t_sprite *s);
 void		bullet_sprite(t_prog *p, t_sprite *s);
 t_sprite	*create_bullet(t_prog *prog, double x, double y, int type);
-void	add_bullet(t_sprite *s, double dir_x, double dir_y);
+void		add_bullet(t_sprite *s, double dir_x, double dir_y);
 void		sprite_move(t_sprite *s, char **map);
 void		remove_bullet(t_sprite **sprites, t_sprite *s);
 void		bullet_sprite(t_prog *p, t_sprite *s);
+
+//frames
+void		game_over(t_prog *prog);
+void		img_1(t_prog *prog);
+void		img_2(t_prog *prog);
 
 #endif
