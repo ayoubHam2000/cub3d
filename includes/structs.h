@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 14:19:34 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/02 13:59:24 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_static
 	t_tex	*enemy_2[10];
 	t_tex	*heal[1];
 	t_tex	*bullet[3];
-	t_data	img;
+	t_data	img[2];
 }	t_static;
 
 typedef struct t_enemy
@@ -172,6 +172,8 @@ typedef struct s_prog
 	int			old_m_x;
 	int			old_m_y;
 	int			frame;
+
+	int			nb_die;
 }	t_prog;
 
 typedef struct t_file_data

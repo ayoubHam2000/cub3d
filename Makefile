@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/06/01 20:17:37 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/06/02 13:24:28 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ UTIL_FILES = \
 	utils/ft_strrchr.c \
 	utils/ft_error.c \
 	utils/ft_strtrim.c \
+	utils/ft_itoa.c \
 	utils/ft_str_replace.c \
 	utils/ft_error_exit.c \
 	utils/ft_strcmp.c \

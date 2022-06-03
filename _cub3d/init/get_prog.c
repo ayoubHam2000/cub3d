@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 19:00:50 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 10:17:51 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/02 13:31:24 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_prog	*get_prog(void)
 		prog->m_y = HEIGHT / 2;
 		prog->old_m_y = HEIGHT / 2;
 		prog->frame = 0;
+		prog->nb_die = 0;
 		ft_memset(prog->map_keys, 0, KEYS_MAX * sizeof(t_m_key *));
 		init_player(&prog->player);
 	}

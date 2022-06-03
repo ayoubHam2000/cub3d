@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 20:36:23 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/02 13:55:56 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@
 # define WIN_TITLE "cub3d"
 # define WIDTH ((int)(800))
 # define HEIGHT ((int)(500))
-# define MINIMAP_W (170)
-# define MINIMAP_H (120)
+# define MINIMAP_W (300)
+# define MINIMAP_H (150)
 
 # define NO 0
 # define SO 1
 # define WE 2
 # define EA 3
 
-# define PLAYER_HEALTH 200.0f
+# define PLAYER_HEALTH 100.0f
 # define E_HEALTH 500.0
 # define M_HEALTH 1200.0
 # define E_DAM 10

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/30 10:31:01 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:04:50 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	events(t_prog *prog)
 	}
 }
 
-void	w(t_prog *prog)
+void	img_1(t_prog *prog)
 {
 	t_data	img;
 	int		x;
@@ -125,12 +125,25 @@ void	w(t_prog *prog)
 		while (x < WIDTH)
 		{
 			dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
-			*(unsigned int *)dst = 0xddffffff;
+			if (y < 30 && x < 200)
+				*(unsigned int *)dst = 0xff000000;
+			else
+				*(unsigned int *)dst = 0xddffffff;
 			x++;
 		}
 		y++;
 	}
-	prog->static_tex.img = img;
+	prog->static_tex.img[0] = img;
+}
+
+void	img_2(t_prog *prog)
+{
+	t_data	img;
+
+	img.img = mlx_new_image(prog->mlx, 200, 30);
+	img.addr = mlx_get_data_addr(img.img, \
+		&(img.bits_per_pixel), &(img.line_length), &(img.endian));
+	prog->static_tex.img[1] = img;
 }
 
 void	game(t_prog *prog)
@@ -164,7 +177,7 @@ void	game(t_prog *prog)
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img, 0, 0);
 	if (prog->player.hit > 2)
 	{
-		mlx_put_image_to_window(prog->mlx, prog->win, prog->static_tex.img.img, 0, 0);
+		mlx_put_image_to_window(prog->mlx, prog->win, prog->static_tex.img[0].img, 0, 0);
 		prog->player.hit--;
 		//prog->player.health = 200;
 	}
@@ -189,34 +202,53 @@ void	change_mouse_location(t_prog *prog)
 	prog->m_x = to_x;
 }
 
-int	the_game(t_prog *prog)
+void	write_text(t_prog *prog)
 {
-	size_t		time;
-	
+	static int	nb[2];
+	t_sprite	**s;
+	char		*str;
+	int			c;
+
+	c = 0;
+	s = prog->sprites;
+	while (*s)
+	{
+		if (((*s)->k == 'e' | (*s)->k == 'm') && !(*s)->is_die)
+			c++;
+		s++;
+	}
+	if (nb[0] != c || nb[1] != prog->nb_die)
+	{
+		nb[0] = c;
+		nb[1] = prog->nb_die;
+		str = ft_strjoin("Enemies: ", ft_itoa(c));
+		str = ft_strjoin(str, " Die: ");
+		str = ft_strjoin(str, ft_itoa(prog->nb_die));
+		mlx_put_image_to_window(prog->mlx, prog->win, prog->static_tex.img[1].img, 0, 0);
+		mlx_string_put(prog->mlx, prog->win, 10, 20, 0x00ff00, str);
+		free_all(NULL);
+	}
+}
+
+int	the_game(t_prog *prog)
+{	
 	change_mouse_location(prog);
 	if (prog->player.health > 0)
 	{
+		write_text(prog);
 		game(prog);
 	}
 	else
 	{
 		game_over(prog);
-		printf("%d -> Game Over\n", prog->frame);
 	}
 	prog->frame++;
-	time = get_time();
-	//system("clear");
-	//if (time)
-	//	printf("frame: %lu -- time: %lu -- fps: %lu\n", frame, time / 1000, (frame * 1000000 / time));
-	//printf("---> %d %d\n", prog->m_x, prog->m_y);
-
-	
-	//mini_map(prog);
 	return (0);
 }
 
 void	start_game(t_prog *prog)
 {
-	w(prog);
+	img_1(prog);
+	img_2(prog);
 	mlx_loop_hook(prog->mlx, the_game, prog);
 }
