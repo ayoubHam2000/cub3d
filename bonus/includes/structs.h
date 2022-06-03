@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 15:23:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 21:00:19 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,27 @@ typedef struct t_file_data
 	t_queue	*types;
 	t_queue	*map;
 }	t_file_data;
+
+typedef struct s_d_sprite
+{
+	double		x;
+	double		y;
+	double		inv_det;
+	double		tr_x;
+	double		tr_y;
+	int			screen_x;
+	int			height;
+	int			s_y;
+	int			e_y;
+	int			sprite_width;
+	int			s_x;
+	int			e_x;
+	int			sp;
+	int			tex_x;
+	int			tex_y;
+	float		health_bar;
+	int			v_move_screen;
+}	t_d_sprite;
 
 typedef struct s_mini_map
 {

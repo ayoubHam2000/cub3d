@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 09:46:08 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 18:36:30 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 20:57:50 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	*load_tex_to(t_prog *prog, t_tex *tex[], char **path, int len)
 	i = 0;
 	while (i < len)
 	{
-		printf("%s\n", path[i]);
 		tex[i] = get_texture(prog, path[i]);
 		if (!tex[i])
 		{

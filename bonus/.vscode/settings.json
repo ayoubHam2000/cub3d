@@ -36,6 +36,14 @@
 		"__errc": "c",
 		"__locale": "c",
 		"functional": "c",
-		"utility": "c"
+		"utility": "c",
+		"__debug": "c",
+		"iterator": "c",
+		"memory": "c",
+		"mutex": "c",
+		"ostream": "c",
+		"sstream": "c",
+		"tuple": "c",
+		"unordered_map": "c"
 	}
 }

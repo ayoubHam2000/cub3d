@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 18:26:41 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 21:00:29 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,7 @@ void		bullet_sprite(t_prog *p, t_sprite *s);
 void		game_over(t_prog *prog);
 void		img_1(t_prog *prog);
 void		img_2(t_prog *prog);
+
+int			tr_c(int c, int h, int k, int f);
 
 #endif
