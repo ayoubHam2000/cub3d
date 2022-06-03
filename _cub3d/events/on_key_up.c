@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:35:59 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/31 20:17:19 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 08:20:12 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	on_key_up(int keycode, t_prog *prog)
 	if (prog->player.health <= 0)
 	{
 		prog->player.health = PLAYER_HEALTH;
+		prog->nb_die++;
 	}
 	return (0);
 }

@@ -30,6 +30,12 @@
 		"vector": "c",
 		"complex": "c",
 		"__tuple": "c",
-		"array": "c"
+		"array": "c",
+		"stdio.h": "c",
+		"__config": "c",
+		"__errc": "c",
+		"__locale": "c",
+		"functional": "c",
+		"utility": "c"
 	}
 }

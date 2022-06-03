@@ -6,11 +6,11 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 10:26:09 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 14:27:03 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:15:01 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 t_sprite	*create_bullet(t_prog *prog, double x, double y, int type)
 {
@@ -24,7 +24,7 @@ t_sprite	*create_bullet(t_prog *prog, double x, double y, int type)
 	s->k = 'b';
 	s->x = x;
 	s->y = y;
-	s->count = 40;
+	s->count = 80;
 	prog->sprites[prog->s_len] = s;
 	prog->sprites[prog->s_len + 1] = NULL;
 	prog->s_len++;
@@ -41,8 +41,8 @@ void	add_bullet(t_sprite *s, double dir_x, double dir_y)
 	s->vy = dir_y * 0.2;
 	if (s->state == 3)
 	{
-		s->vx = dir_x * 0.3;
-		s->vy = dir_y * 0.3;
+		s->vx = dir_x * 0.2;
+		s->vy = dir_y * 0.2;
 	}
 }
 
@@ -62,7 +62,7 @@ void	remove_bullet(t_sprite **sprites, t_sprite *s)
 	free(s);
 }
 
-static void	hit_enemy(t_prog *prog, t_sprite **sprites, int len, t_sprite *s)
+static void	hit_enemy(t_sprite **sprites, int len, t_sprite *s)
 {
 	int	i;
 
@@ -76,8 +76,6 @@ static void	hit_enemy(t_prog *prog, t_sprite **sprites, int len, t_sprite *s)
 		if ((int)sprites[i]->x == (int)s->x && (int)sprites[i]->y == (int)s->y)
 		{
 			sprites[i]->health -= 20;
-			if (sprites[i]->health <= 0)
-				sprites[i]->save = prog->frame;
 			sprites[i]->hit = 40;
 			s->state = 0;
 			break ;
@@ -90,7 +88,8 @@ void	bullet_sprite(t_prog *p, t_sprite *s)
 	if (s->count < 0)
 		s->state = 0;
 	sprite_move(s, p->player.map);
-	if ((s->state == 2 || s->state == 3) && (int)p->player.x == (int)s->x && (int)p->player.y == (int)s->y)
+	if ((s->state == 2 || s->state == 3) && (int)p->player.x == (int)s->x
+		&& (int)p->player.y == (int)s->y)
 	{
 		p->player.hit = 15;
 		if (s->state == 2)
@@ -101,7 +100,7 @@ void	bullet_sprite(t_prog *p, t_sprite *s)
 	}
 	else if (s->state == 1)
 	{
-		hit_enemy(p, p->sprites, p->s_len, s);
+		hit_enemy(p->sprites, p->s_len, s);
 	}
 	if (!s->state)
 	{

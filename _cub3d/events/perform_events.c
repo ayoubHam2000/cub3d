@@ -6,15 +6,11 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:10:39 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/31 22:01:52 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:24:30 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-#define R_SPEED 0.06
-#define M_SPEED 0.11
-#define MOUSE_ROTATE_SPEED 0.17
 
 static void	rotate(double *x, double *y, double angle)
 {
@@ -25,14 +21,14 @@ static void	rotate(double *x, double *y, double angle)
 	*y = t * sin(angle) + *y * cos(angle);
 }
 
-static void	rotate_arrow(int keycode, t_player *p)
+static void	rotate_arrow(t_prog *prog, int keycode, t_player *p)
 {
 	double	d;
 
 	d = 1;
 	if (keycode == KEY_L)
 		d = -1;
-	if (get_prog()->pressed_key[1] != -1)
+	if (prog->pressed_key[1] != -1)
 		d *= 0.75;
 	rotate(&p->dir_x, &p->dir_y, R_SPEED * d);
 	rotate(&p->plane_x, &p->plane_y, R_SPEED * d);
@@ -53,7 +49,7 @@ static void	rotate_mouse(t_prog *prog)
 	old_x = prog->m_x;
 }
 
-static void	move(t_player *p, char **map, int d)
+static void	move(t_player *p, int d)
 {
 	t_pointf	step;
 	int			a;
@@ -77,29 +73,18 @@ static void	move(t_player *p, char **map, int d)
 		p->y = p->y + step.y;
 }
 
-void	gun_hit(t_prog *prog)
-{
-	t_ray	ray;
-
-	ray.pos_x = prog->player.x;
-	ray.pos_y = prog->player.y;
-	raycasting(0, &ray, &prog->player);
-	if (ray.dist < 8)
-		printf("%d, %d\n", ray.map_x, ray.map_y);
-}
-
-int	hit_sprite(t_prog *prog);
 void	perform_events(t_prog *prog)
 {
 	t_player	*p;
 
 	p = &prog->player;
 	if (prog->pressed_key[0] != -1)
-		rotate_arrow(prog->pressed_key[0], p);
+		rotate_arrow(prog, prog->pressed_key[0], p);
 	if (prog->pressed_key[1] != -1)
-		move(p, prog->player.map, prog->pressed_key[1]);
+		move(p, prog->pressed_key[1]);
 	if (prog->pressed_key[2] != -1)
-		move(p, prog->player.map, prog->pressed_key[2]);
+		move(p, prog->pressed_key[2]);
 	rotate_mouse(prog);
+	door_events(prog);
 	prog->m_y = prog->old_m_y;
 }

@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:02:37 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/30 17:20:30 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:59:37 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	load_floor_ceil(t_prog *prog, char *str, t_queue *texs)
 {
 	char	**split;
 
+	if (prog->floor[0] != -1)
+		return (0);
 	split = ft_split(str, ' ');
 	if (ft_arrlen(split) != 2)
 		return (0);
@@ -75,17 +77,18 @@ static t_m_key	*load_key(t_m_key *key, char *str, t_queue *texs)
 	key->key = split[1][0] - 33;
 	split = ft_split(split[2], ' ');
 	i = ft_arrlen(split);
-	if (ft_in(key->key + 33, "NSWE0") || is_sprite_key(key->key + 33) || key->key < 0 || key->key >= KEYS_MAX
-		|| (key->type == 'W' && i != 4) || (key->type == 'D' && i != 2) || (key->type == 'S' && i != 1) || (key->type == 'Q' && i != 1))
+	if (ft_in(key->key + 33, "NSWE0") || is_sprite_key(key->key + 33)
+		|| key->key < 0 || key->key >= KEYS_MAX || (key->type == 'W' && i != 4)
+		|| (key->type == 'D' && i != 2) || (key->type == 'S' && i != 1)
+		|| (key->type == 'Q' && i != 1))
 		return (0);
 	key->tex_index = ft_malloc(sizeof(int) * (ft_arrlen(split) + 1));
-	i = 0;
-	while (split[i])
+	i = -1;
+	while (split[++i])
 	{
 		key->tex_index[i] = search_tex_index(texs, split[i]);
 		if (key->tex_index[i] == -1)
 			return (0);
-		i++;
 	}
 	key->tex_index[i] = -1;
 	return (key);
@@ -102,18 +105,15 @@ int	load_types(t_prog *prog, t_queue *texs, t_queue *types)
 	while (node)
 	{
 		str = node->p;
-		if (*str == 'F')
-		{
-			if (!load_floor_ceil(prog, ++str, texs))
-				return (0);
-		}
-		else
+		if (*str == 'F' && !load_floor_ceil(prog, str + 1, texs))
+			return (0);
+		else if (*str != 'F')
 		{
 			if (!ft_in(*str, "WDSQ"))
 				return (0);
 			key = ft_malloc(sizeof(t_m_key));
-			if (load_key(key, str, texs) && !prog->map_keys[key->key])
-				prog->map_keys[key->key] = key;
+			if (load_key(key, str, texs) && !prog->map_keys[(int)key->key])
+				prog->map_keys[(int)key->key] = key;
 			else
 				return (0);
 		}

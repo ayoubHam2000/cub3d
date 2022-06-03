@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:57:20 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/01 15:09:05 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:13:01 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static void	set_info(t_prog *p, t_sprite *s)
 	u = sqrt(x * x + y * y);
 	x /= u;
 	y /= u;
-	s->e->dir_x = - x;
-	s->e->dir_y = - y;
-	s->e->dist = u;
+	s->e->dir_x = -1.0 * x;
+	s->e->dir_y = -1.0 * y;
+	s->dist = u;
 	s->vx = 0;
 	s->vy = 0;
 }
@@ -56,8 +56,8 @@ static void	m_add_bullet(t_prog *p, t_sprite *s)
 	}
 	else
 	{
-		add_bullet(create_bullet(p, s->x - 0.5, s->y + 0.5, 3), s->e->dir_x, s->e->dir_y);
-		add_bullet(create_bullet(p, s->x + 0.5, s->y + 0.5, 3), s->e->dir_x, s->e->dir_y);
+		add_bullet(create_bullet(p, s->x - 0.5, s->y, 3), x, y);
+		add_bullet(create_bullet(p, s->x + 0.5, s->y, 3), x, y);
 	}
 }
 
@@ -80,8 +80,8 @@ static void	set_state_tex(t_prog *p, t_sprite *s)
 	}
 	else if (s->state == ATTACKING)
 	{
-		s->tex = p->static_tex.enemy_2[(s->e->f % 48) / 16 + 4];
-		if (s->e->f % 48 == 47)
+		s->tex = p->static_tex.enemy_2[(s->e->f % 51) / 17 + 4];
+		if (s->e->f % 51 == 50)
 			m_add_bullet(p, s);
 	}
 	else
@@ -97,9 +97,9 @@ void	enemy_m(t_prog *p, t_sprite *s)
 		new_state = DIE;
 	else if (s->health < 0)
 		new_state = DIEING;
-	else if (s->e->dist > 13.0)
+	else if (s->dist > 13.0)
 		new_state = STANDING;
-	else if (s->e->dist > 7 && (s->state != ATTACKING || s->e->dist > 11))
+	else if (s->dist > 7 && (s->state != ATTACKING || s->dist > 11))
 		new_state = WALKING;
 	else
 		new_state = ATTACKING;
