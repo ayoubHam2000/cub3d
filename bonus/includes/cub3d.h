@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 21:00:29 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/04 08:56:24 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define HEIGHT (500)
 # define MINIMAP_W (300)
 # define MINIMAP_H (150)
-# define TILE_SIZE 5
+# define TILE_SIZE 7
 # define MAX_LINE 1000
 
 # define NO 0
@@ -37,12 +37,12 @@
 # define WE 2
 # define EA 3
 
-# define PLAYER_HEALTH 100.0f
+# define PLAYER_HEALTH 300.0f
 # define E_HEALTH 500.0
-# define M_HEALTH 1200.0
+# define M_HEALTH 1000.0
 # define E_DAM 10
 # define M_DAM 15
-# define HEAL_ADD 50
+# define HEAL_ADD 100
 
 # define ATTACKING 0
 # define STANDING 1
