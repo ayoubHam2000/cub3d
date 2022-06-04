@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/04 08:56:24 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/04 13:45:52 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <math.h>
 # include <fcntl.h>
 # include <mlx.h>
+# include <signal.h>
+
+# define SEM_GUN "SEM_GUN"
 
 # define WIN_TITLE "cub3d"
 # define WIDTH (800)
@@ -133,4 +136,10 @@ void		img_2(t_prog *prog);
 
 int			tr_c(int c, int h, int k, int f);
 
+
+void	play_sound_die(void);
+void	play_sound_door(void);
+void	play_sound_hit(void);
+void	play_sound_music(void);
+void	play_sound_gun(void);
 #endif

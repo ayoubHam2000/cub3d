@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:45:54 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 14:01:10 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/04 13:10:44 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ static t_tex	*get_gun_tex(t_prog *prog)
 	if (prog->player.gun_counter >= 5)
 		return (prog->static_tex.gun[0]);
 	if (prog->player.gun_counter == 4)
+	{
 		add_bullet(create_bullet(prog, prog->player.x,
 				prog->player.y, 1), prog->player.dir_x, prog->player.dir_y);
+	}
 	return (prog->static_tex.gun[prog->player.gun_counter++]);
 }
 

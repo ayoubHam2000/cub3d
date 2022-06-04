@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:35:59 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 08:20:12 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/04 10:51:59 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	switch_door(t_prog *prog)
 			prog->player.map_info[ray.door_y][ray.door_x].on = 1;
 		else
 			prog->player.map_info[ray.door_y][ray.door_x].on = -1;
+		play_sound_door();
 	}
 }
 

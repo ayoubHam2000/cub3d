@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:56:56 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 15:13:53 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/04 10:53:49 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	set_state_tex(t_prog *p, t_sprite *s)
 		s->tex = p->static_tex.enemy_1[11];
 	else if (s->state == DIEING)
 	{
+		if (s->e->f == 1)
+			play_sound_die();
 		s->tex = p->static_tex.enemy_1[(s->e->f % 80) / 20 + 8];
 		if (s->e->f == 79)
 			s->is_die = 1;

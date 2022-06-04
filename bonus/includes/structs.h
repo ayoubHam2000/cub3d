@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 21:00:19 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/04 13:40:12 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "queue.h"
 # include <unistd.h>
 # include <pthread.h>
+# include <pthread.h>
+# include <semaphore.h>
 
 # define TEX_BUFFER_SIZE 100
 # define KEYS_MAX 94

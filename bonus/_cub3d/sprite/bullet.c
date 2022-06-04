@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 10:26:09 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/03 15:15:01 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/04 13:45:45 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ t_sprite	*create_bullet(t_prog *prog, double x, double y, int type)
 	prog->sprites[prog->s_len] = s;
 	prog->sprites[prog->s_len + 1] = NULL;
 	prog->s_len++;
+
+	play_sound_gun();
+
+	
 	return (s);
 }
 
@@ -51,6 +55,7 @@ void	remove_bullet(t_sprite **sprites, t_sprite *s)
 	int	i;
 
 	i = 0;
+	play_sound_hit();
 	while (sprites[i] != s)
 		i++;
 	while (sprites[i + 1])
