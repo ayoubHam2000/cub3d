@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:48:49 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/04 13:45:52 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/05 10:30:47 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define HEIGHT (500)
 # define MINIMAP_W (300)
 # define MINIMAP_H (150)
-# define TILE_SIZE 7
+# define TILE_SIZE 5
 # define MAX_LINE 1000
 
 # define NO 0

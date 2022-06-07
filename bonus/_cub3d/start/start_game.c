@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/04 13:40:02 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/06/05 10:13:08 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void	change_mouse_location(t_prog *prog)
 	else
 		mlx_mouse_hide();
 	to_x = -1;
-	if (prog->m_x > WIDTH)
-		to_x = 0;
-	if (prog->m_x < 0)
-		to_x = WIDTH;
+	if (prog->m_x > WIDTH - 10)
+		to_x = 10;
+	if (prog->m_x < 10)
+		to_x = WIDTH - 10;
 	if (to_x == -1)
 		return ;
 	mlx_mouse_get_pos(prog->win, &x, &y);
