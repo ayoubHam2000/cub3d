@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:49:46 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/04 20:40:25 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/08/22 09:49:49 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void	play_sound_music(void)
 
 void	play_sound_gun(void)
 {
+	//write(1, "\a", 1);
 	system("afplay ./resources/static/music/gun_shot.mp3 &");
 }

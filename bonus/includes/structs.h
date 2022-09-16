@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/04 13:40:12 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:12:33 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,6 @@ typedef struct s_d_sprite
 	int			tex_x;
 	int			tex_y;
 	float		health_bar;
-	int			v_move_screen;
 }	t_d_sprite;
 
 typedef struct s_mini_map

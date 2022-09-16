@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 11:02:22 by mbel-bas          #+#    #+#             */
-/*   Updated: 2022/06/03 20:55:09 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:27:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,14 @@ static void	s_init(t_prog *prog, t_d_sprite	*s, t_sprite *sprite)
 	s->inv_det = 1.0 / (p->plane_x * p->dir_y - p->dir_x * p->plane_y);
 	s->tr_x = s->inv_det * (p->dir_y * s->x - p->dir_x * s->y);
 	s->tr_y = s->inv_det * (-p->plane_y * s->x + p->plane_x * s->y);
-	s->v_move_screen = (int)((0) / s->tr_y);
 	s->screen_x = (int)((WIDTH / 2) * (1 + s->tr_x / s->tr_y));
-	s->height = abs((int)((HEIGHT) / s->tr_y));
-	s->s_y = -s->height / 2 + HEIGHT / 2 + s->v_move_screen;
-	if (s->s_y < 0)
-		s->s_y = 0;
-	s->e_y = s->height / 2 + HEIGHT / 2 + s->v_move_screen;
+	s->height = abs((int)((HEIGHT) / (s->tr_y)));
+	s->s_y = -s->height / 2 + HEIGHT / 2 + HEIGHT / 2 - prog->m_y;
+	s->e_y = s->height / 2 + HEIGHT / 2 + HEIGHT / 2 - prog->m_y;
 	if (s->e_y >= HEIGHT)
-		s->e_y = HEIGHT -1;
+		s->e_y = HEIGHT - 1;
 	s->sprite_width = abs((int)(HEIGHT / (s->tr_y)));
 	s->s_x = -s->sprite_width / 2 + s->screen_x;
-	if (s->s_x < 0)
-		s->s_x = 0;
 	s->e_x = s->sprite_width / 2 + s->screen_x;
 	if (s->e_x >= WIDTH)
 		s->e_x = WIDTH - 1;
@@ -91,24 +86,21 @@ static void	s_init(t_prog *prog, t_d_sprite	*s, t_sprite *sprite)
 void	draw_sprite(t_prog *prog, double *zb, t_d_sprite *s, t_sprite *sprite)
 {
 	int	y;
-	int	d;
 	int	color;
 
-	s->sp = s->s_x;
+	s->sp = max(0, s->s_x);
 	while (s->sp < s->e_x)
 	{
-		s->tex_x = (int)(256 * (s->sp - (-s->sprite_width / 2 + s->screen_x))
-				* sprite->tex->width / s->sprite_width) / 256;
+		s->tex_x = (s->sp - s->s_x) * sprite->tex->width / s->sprite_width;
 		if (s->tr_y > 0 && s->sp > 0 && s->sp < WIDTH && s->tr_y < zb[s->sp])
 		{
-			y = s->s_y;
+			y = min(HEIGHT - 1, s->s_y);
 			while (y < s->e_y)
 			{
-				d = (y) * 256 - (HEIGHT) * 128 + s->height * 128;
-				s->tex_y = ((d * sprite->tex->height) / s->height) / 256;
+				s->tex_y = (y - s->s_y) * sprite->tex->height / s->height;
 				color = get_tex_color(sprite->tex, s->tex_x, s->tex_y);
 				if ((color & 0x00FFFFFF) != 0)
-					ft_put_pixel(s->sp, y + HEIGHT / 2 - prog->m_y,
+					ft_put_pixel(s->sp, y,
 						tr_c(color, sprite->hit, sprite->k, prog->frame));
 				y++;
 			}

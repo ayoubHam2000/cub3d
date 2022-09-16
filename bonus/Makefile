@@ -6,7 +6,7 @@
 #    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 09:30:37 by aben-ham          #+#    #+#              #
-#    Updated: 2022/06/03 18:28:16 by aben-ham         ###   ########.fr        #
+#    Updated: 2022/08/18 14:13:36 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ FILES = \
 
 # -I /Users/aben-ham/goinfre/brew/opt/glfw/include/GLFW -L /Users/aben-ham/goinfre/brew/opt/glfw/lib
 #-Wall -Wextra -Werror
-CFLAGS = -Wall -Wextra -Werror -g -I includes/
+CFLAGS = -g -I includes/
 FLAGS = -framework opengl -framework Appkit
 
 #CFLAGS = -g -I includes/ -I/usr/include -Imlx_linux
