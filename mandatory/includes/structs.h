@@ -96,7 +96,7 @@ typedef struct s_prog
 	void		*mlx;
 	void		*win;
 	int			floor[2];
-	t_tex		*tex[4];
+	t_tex		 *tex[4];
 	t_player	player;
 	t_data		img;
 	int			pressed_key[3];

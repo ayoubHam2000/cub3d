@@ -67,6 +67,9 @@ MainFiles = \
 	_cub3d/setup/setup.c \
 	_cub3d/start/game.c \
 	_cub3d/utils/color.c \
+	_cub3d/pars_map/start_parsing.c \
+	_cub3d/pars_map/parser_utils.c \
+	_cub3d/pars_map/put_texture.c \
 
 FILES = \
 	$(UTIL_FILES) \
@@ -75,7 +78,7 @@ FILES = \
 
 # -I /Users/aben-ham/goinfre/brew/opt/glfw/include/GLFW -L /Users/aben-ham/goinfre/brew/opt/glfw/lib
 #-Wall -Wextra -Werror
-CFLAGS = -Wall -Wextra -Werror -g -I includes/
+CFLAGS = -g -I includes/
 FLAGS = -framework opengl -framework Appkit
 
 #CFLAGS = -g -I includes/ -I/usr/include -Imlx_linux
@@ -101,7 +104,7 @@ $(MLX_LIB_NAME) :
 	mv $(MLX_DIR)/$(MLX_LIB_NAME) .
 
 $(NAME) : $(OBJ) $(MLX_LIB_NAME)
-	gcc $(MLX_LIB_NAME) $(OBJ) $(FLAGS) -o $(NAME)
+	gcc $(MLX_LIB_NAME) $(OBJ) $(FLAGS) -o $(NAME) -fsanitize=address 
 
 $(OBJ) : $(OBJ_DIR)%.o : %.c
 	mkdir -p $(dir $@)

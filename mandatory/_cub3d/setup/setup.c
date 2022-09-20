@@ -14,18 +14,19 @@
 
 int	setup(t_prog *prog, char *file)
 {
-	t_file_data	*data;
+	// t_file_data	*data;
 
-	data = read_file(file);
-	if (!data)
-		return (0);
-	printf("Load types\n");
-	if (!load_types(prog, data->types))
-		return (0);
-	printf("Load map\n");
-	if (!load_map(data->map))
-		return (0);
-	init_player_pos(&prog->player);
-	free_all(NULL);
+	// data = read_file(file);
+	// if (!data)
+	// 	return (0);
+	// printf("Load types\n");
+	// if (!load_types(prog, data->types))
+	// 	return (0);
+	// printf("Load map\n");
+	// if (!load_map(data->map))
+	// 	return (0);
+	// init_player_pos(&prog->player);
+	parse_file (prog, file);
+	//free_all(NULL);
 	return (1);
 }

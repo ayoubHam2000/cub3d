@@ -5,17 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "gcc - Build and debug active file",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/cub3d",
-            "args": ["./resources/maps/1.cub"],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
-            "preLaunchTask": "C/C++: gcc build active file"
+            "name": "C++ Launch",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/Users/hlahrach/Desktop/cub3d/mandatory/cub3d",
+      "args": ["./resources/maps/1.cub"],
+      "environment": [{ "name": "config", "value": "Debug" }],
+      "cwd": "${workspaceFolder}",
+      "osx": {
+        "MIMode": "lldb"
+      },
+
         }
-    ]
+    ] 
 }

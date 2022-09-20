@@ -29,7 +29,7 @@ static int	start_cub3d(char *file)
 		return (prog_error());
 	if (!setup(prog, file))
 		return (prog_error());
-	start_game(prog);
+	//start_game(prog);
 	mlx_hook(prog->win, ON_KEYDOWN, 1, on_key_down, prog);
 	mlx_hook(prog->win, ON_KEYUP, 1L << 1, on_key_up, prog);
 	mlx_hook(prog->win, ON_DESTROY, 0, exit_cube3d, prog);
@@ -39,6 +39,7 @@ static int	start_cub3d(char *file)
 
 int	main(int ac, char **av)
 {
+	(void)ac;
 	if (check_arg(ac, av))
 	{
 		if (start_cub3d(av[1]))

@@ -70,5 +70,12 @@ void		perform_events(t_prog *prog);
 
 //ray_casting
 void		raycasting(double camera_x, t_ray *ray, t_player *player);
+//  new parser  map
+void parse_file(t_prog *data, char *s);
+t_tex *put_texture (t_prog *data, char *path);
+void print_data_h(t_prog **data);
+void free_and_alloc (char **tmp);
+char *change_char_to_string (char c);
+
 
 #endif
