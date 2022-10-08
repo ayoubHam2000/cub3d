@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:35:59 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/06/04 10:51:59 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:30:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	on_key_up(int keycode, t_prog *prog)
 			prog->pressed_key[2] = -1;
 		else if (keycode == KEY_SPACE)
 		{
-			prog->player.timer += 1;
+			//prog->player.timer += 1;
 			switch_door(prog);
 		}
 	}

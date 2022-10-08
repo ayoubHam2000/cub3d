@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 15:48:02 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/08/16 16:12:33 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:30:01 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_player
 	t_m_info	**map_info;
 	int			map_len;
 	int			map_longest_len;
-	double		timer;
+	// double		timer;
 	float		health;
 	int			hit;
 	int			gun_counter;

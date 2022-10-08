@@ -6,7 +6,7 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:03:21 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/08/23 18:46:36 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/10/01 17:56:22 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ void	start_game(t_prog *prog)
 {
 	img_1(prog);
 	img_2(prog);
-	play_sound_music();
+	//play_sound_music();
 	mlx_loop_hook(prog->mlx, the_game, prog);
 }

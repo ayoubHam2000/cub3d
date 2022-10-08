@@ -6,12 +6,14 @@
 /*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:20:23 by aben-ham          #+#    #+#             */
-/*   Updated: 2022/05/30 17:29:53 by aben-ham         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:24:10 by aben-ham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+//bo is the limit of the door
+//tmp is the door_x of deapth 0.5
 static int	hit_door(t_ray *ray, t_player *player)
 {
 	double	tmp;
@@ -55,21 +57,22 @@ static int	stop(t_ray *ray, t_player *player)
 	return (0);
 }
 
+
 static void	dda(t_ray *ray, t_player *player)
 {
 	while (1)
 	{
-		if (ray->side_dist_x < ray->side_dist_y)
+		if (ray->side_dist_x < ray->side_dist_y)//side_dist are the initialized 𝛥x and 𝛥y
 		{
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
-			ray->side = 0;
+			ray->side_dist_x += ray->delta_dist_x;//delta_dist are 𝛿x and 𝛿y
+			ray->map_x += ray->step_x; //step_x will be -1 or +1 depending on ray.x
+			ray->side = 0;//E or W
 		}
 		else
 		{
 			ray->side_dist_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
-			ray->side = 1;
+			ray->map_y += ray->step_y;//step_y will be -1 or +1 depending on ray.y
+			ray->side = 1;//N or S
 		}
 		if (stop(ray, player))
 			break ;
@@ -78,6 +81,7 @@ static void	dda(t_ray *ray, t_player *player)
 
 static void	ray_info(t_ray *ray, t_player *player)
 {
+	//printf("=> %f\n", ray->side_dist_x);
 	if (ray->side == 0)
 	{
 		ray->dist = ray->side_dist_x - ray->delta_dist_x;
